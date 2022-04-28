@@ -7,6 +7,7 @@ use App\Middleware\Before\RequireLoginMiddleware;
 use App\Repository\Role\RoleRepositoryInterface;
 use App\Repository\RolePermission\RolePermissionRepositoryInterface;
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 use src\Base\BaseController;
 use src\Exception\NotFoundException;
 
@@ -50,7 +51,7 @@ class RolePermissionController extends BaseController
         $this->render('/Admin/rolePermission', ['roleList' => $data['roleList'], 'rolePermissionList' => $data['rolePermissionList']]);
     }
 
-    public function assignAction(){
+    #[NoReturn] public function assignAction(){
         //get post data with ajax and save to role_permission table
         //check for existing role_id AND permission_id records
         //if the same found do nothing else create new row
