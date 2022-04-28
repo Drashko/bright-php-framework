@@ -23,22 +23,3 @@ use src\Event\UserRegisterEvent;
  * Run the framework
  */
 (new Application(ROOT_PATH))->run()->setSession()->setRouteHandler();
-/**
- * TODO:
- * EVENTS - ON NOW
- * AUTHENTICATION ACCESS
- * CSRF - CROSS CITE REQUEST FORGERY
- * TESTS
- * REFACTORING
- */
-
-/**
-  Example of dispatchning event
-  //the order is somehow created or retrieved
-   $order = new Order();
- *
-  //creates the OrderPlacedEvent and dispatches it
-    $event = new OrderPlacedEvent($order);
- *
-  $dispatcher->dispatch($event, OrderPlacedEvent::NAME);
-*/
