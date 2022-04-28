@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        stopOnFailure="false"
+        verbose="false">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>src/Tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Functional">
+            <directory>src/Tests/Functional</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="PHPUNIT_RUNNING" value="true"/>
+    </php>
+</phpunit>

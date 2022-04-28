@@ -1,0 +1,17 @@
+{
+  "autoload" : {
+    "psr-4": {
+      "src\\" : "src",
+      "App\\" : "App"
+    },
+    "autoload-dev" : {
+      "psr-4": {
+        "src\\Test\\" : "src/Test"
+      }
+    }
+  },
+  "require": {
+    "php-di/php-di": "^6.3",
+    "phpunit/phpunit": "^9.5"
+  }
+}
