@@ -43,10 +43,10 @@ class Input
     }
 
     /**
-     * @param false $input
+     * @param bool|array|string $input
      * @return array|string
      */
-    #[Pure] public function get($input=false): array|string
+    #[Pure] public function get(bool|array|string $input=[]): array|string
     {
         if(!$input){
             // return entire request array and sanitize it

@@ -1,85 +1,233 @@
 <?php
+declare(strict_types=1);
 
 namespace src\DataMapper;
 
+use src\Database\DatabaseConnectionInterface;
 use src\Entity\Entity;
-use src\QueryBuilder\Exception\QueryBuilderException;
-use src\QueryBuilder\QueryBuilderInterface;
+use PDO;
+use PDOStatement;
 
 class DataMapper implements DataMapperInterface
 {
-    /**
-     * @var QueryBuilderInterface
-     */
-    private QueryBuilderInterface $queryBuilder;
+    private DatabaseConnectionInterface $connection;
+
+    private PDO $pdo;
 
     /**
-     * @param QueryBuilderInterface $queryBuilder
+     * @param DatabaseConnectionInterface $connection
      */
-    public function __construct(QueryBuilderInterface $queryBuilder){
-        $this->queryBuilder = $queryBuilder;
+    public function __construct(DatabaseConnectionInterface $connection){
+        $this->connection = $connection;
+        $this->pdo = $this->connection->getConnection();
     }
 
     /**
-     * @return QueryBuilderInterface
+     * @param string $table
+     * @param string $id
+     * @return mixed
      */
-    public function find(string $table, int $id): QueryBuilderInterface
-    {
-        return $this->queryBuilder->table($table)->select("*")->where(["Id => {$id}"])->executeQuery();
+    public function findById(string $table ,string  $id) : mixed {
+        $stm = $this->pdo->prepare("SELECT * FROM {$table} WHERE `id` = :id ");
+        $stm->bindValue(':id', $id ,  PDO::PARAM_INT);
+        $stm->execute();
+        return $stm;
     }
 
     /**
-     * @return QueryBuilderInterface
+     * @param string $table
+     * @param array $condition
+     * @return mixed
      */
-    public function findAll(string $table , array $condition = []): QueryBuilderInterface
-    {
-        return $this->queryBuilder->table($table)->select("*")->where($condition)->executeQuery();
+    public function findAll(string $table , array $condition = []) : mixed {
+        $where = [];
+        foreach ($condition as $key => $value) {
+            if(!empty($key)){
+                $where[] = "`{$key}`" . "="  . " :$key";
+            }
+        }
+        if (!empty($where)) {
+            $where = ' WHERE ' . implode(' AND ', $where);
+        }else{
+            $where = ' WHERE  1';
+        }
+        $stm = $this->pdo->prepare("SELECT * FROM {$table} {$where}");
+        if(!empty($condition)){
+            foreach($condition as $key => $value){
+                $stm->bindValue($key , $value ,  $this->bind($value));
+            }
+        }
+        $stm->execute();
+        return $stm;
     }
-
 
     /**
      * @param string $table
      * @param string $field
-     * @param $value
+     * @param string $value
      * @return mixed
      */
-    public function findOneBy(string $table, string $field, $value): mixed
+    public function findOneBy(string $table, string $field , string $value): mixed
     {
-        return $this->queryBuilder->table($table)->select("*")->findOneBy($field,$value)->executeQuery();
+        $fields = "`{$field}`" . "=" . " :{$field}";
+        $stm = $this->pdo->prepare("SELECT  *  FROM {$table} WHERE {$fields}");
+        $stm->bindValue($field, $value, PDO::PARAM_STR);
+        $stm->execute();
+        return $stm;
     }
-
     /**
      * @param Entity $entity
-     * @return object|null
+     * @return object
      */
-    public function create(Entity $entity) : ?object {
-        $this->queryBuilder->table($entity->getTable())->insert(array_filter($entity->mappedData()))->executeStatement();
-        return $this->queryBuilder->find($this->queryBuilder->lastInsertedId())->executeQuery();
-    }
-
-    /**
-     * @param Entity $entity
-     * @param $id
-     * @return object|null
-     */
-    public function update(Entity $entity, $id): ?object
+    public function create(Entity $entity): object
     {
-        $this->queryBuilder->table($entity->getTable())->update(array_filter($entity->mappedData()))->where(["Id => {$id}"])->executeStatement();
-        return $this->queryBuilder->find($id)->executeQuery();
+        $data           = array_filter($entity->mappedData());
+        $fields         =  '`' . implode('`,`', array_keys($data)) . '`';
+        $placeholders   = ':' . implode(', :', array_keys($data));
+        $stm = $this->pdo->prepare("INSERT INTO  {$entity->getTable()} ({$fields}) VALUES ({$placeholders})");
+        foreach($data as $key => $value){
+            $stm->bindValue($key , $value ,  $this->bind($value));
+        }
+        $stm->execute();
+        $lastId = $this->pdo->lastInsertId();
+        $stm->fetch();
+        return $this->findById($entity->getTable(), $lastId);
     }
 
     /**
      * @param Entity $entity
-     * @param $id
+     * @param string $id
+     * @return object
+     */
+    public function update(Entity $entity, string $id) : object{
+        $data   = array_filter($entity->mappedData());
+        $fields = '';
+        foreach($data as $key => $value){
+            $fields .= $key . " = :" .$key. ", ";
+        }
+        $fields = substr_replace($fields, '', -2);
+        $stm = $this->pdo->prepare("UPDATE {$entity->getTable()} SET {$fields} WHERE id = :id");
+        foreach($data as $key => $value){
+            $stm->bindValue('id', $id, PDO::PARAM_INT);
+            $stm->bindValue($key , $value ,  $this->bind($value));
+        }
+        $stm->execute();
+        return $this->findById($entity->getTable(), (string) $id);
+    }
+
+    /**
+     * @param Entity $entity
+     * @param string $id
      * @return bool
      */
-    public function delete(Entity $entity, $id): bool
+    public function delete(Entity $entity, string $id): bool
     {
-       if($this->queryBuilder->table($entity->getTable())->delete()->where(["Id => {$id}"])->executeStatement()){
-           return true;
-       }
-       return false;
+        if($this->findById($entity->getTable(), $id)){
+            $stm = $this->pdo->prepare( "DELETE FROM  {$entity->getTable()} WHERE id = :id");
+            $stm->bindValue('id', $id, PDO::PARAM_INT);
+            $stm->execute();
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * @param $table
+     * @param string $id
+     * @return bool
+     */
+    public function simpleDelete($table, string $id): bool
+    {
+        $stm = $this->pdo->prepare( "DELETE FROM  {$table} WHERE id = :id");
+        $stm->bindValue('id', $id, PDO::PARAM_INT);
+        $stm->execute();
+        return true;
+    }
+
+    /**
+     * @param string $sql
+     */
+    public function raw(string $sql): bool|PDOStatement
+    {
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute();
+        return $stm;
+    }
+
+    /**
+     * @param $statement
+     * @param string $className
+     * @return mixed
+     */
+    public function fetchInto($statement, string $className): mixed
+    {
+        $statement->setFetchMode(PDO::FETCH_CLASS, $className);
+        return $statement->fetch();
+    }
+
+    /**
+     * @param $statement
+     * @param string $className
+     * @return mixed
+     */
+    public function fetchAllInto($statement, string $className): mixed
+    {
+        $statement->setFetchMode(PDO::FETCH_CLASS, $className);
+        return $statement->fetchAll();
+    }
+
+    /**
+     * fetch one record
+     * @param $statement
+     * @return array|bool
+     */
+    public function fetchAssoc($statement) : array | bool {
+        if($statement->fetch() != false){
+            return $statement->fetch();
+        }
+        return false;
+
+    }
+
+    /**
+     * fetch all records
+     * @return mixed
+     */
+    public function fetchAllAssoc($statement) : array {
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param $value
+     * @return int
+     */
+    public function bind($value): int
+    {
+        return match ($value) {
+            is_bool($value) => PDO::PARAM_BOOL,
+            intval($value) => PDO::PARAM_INT,
+            is_null($value) => PDO::PARAM_NULL,
+            default => PDO::PARAM_STR,
+        };
+    }
+
+
+    /**
+     * Group list of items by column name
+     *
+     * @param $list
+     * @param $group
+     * @return array
+     */
+    public function group($list, $group): array {
+        $result = array();
+        foreach($list as $id => $item){
+            //$result[$item[$group]][] = $item;
+            $column = $item[$group];
+            //unset($item[$by_column]);
+            $result[$column][] = $item;
+        }
+        return $result;
+    }
 
 }

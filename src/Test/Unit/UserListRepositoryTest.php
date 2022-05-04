@@ -5,13 +5,13 @@ namespace src\Test\Unit;
 use App\Repository\UserListRepository;
 use App\Repository\UserListRepositoryInterface;
 use PHPUnit\Framework\TestCase;
-use src\DataMapper\DataMapper;
+use src\DataMapper\DataDataMapper;
 use src\Exception\DatabaseException;
 use src\Helper\DataMapperFactory;
 
 class UserListRepositoryTest extends TestCase
 {
-    private DataMapper $dataMapper;
+    private DataDataMapper $dataMapper;
     private UserListRepositoryInterface $userListRepository;
 
     /**

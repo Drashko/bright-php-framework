@@ -4,6 +4,7 @@ namespace App\Repository\Permission;
 
 use App\Entity\PermissionEntity;
 use App\Entity\RoleEntity;
+use PDO;
 use src\DataMapper\DataMapperInterface;
 
 class PermissionRepository implements PermissionRepositoryInterface
@@ -22,8 +23,9 @@ class PermissionRepository implements PermissionRepositoryInterface
      */
     public function find($id): PermissionEntity
     {
-        $user = $this->dataMapper->findOneBy('`permission`', 'Id' , $id);
-        return $user->fetchAllInto(PermissionEntity::class)[0];
+        $mapper = $this->dataMapper->findOneBy('`permission`', 'Id' , $id);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, PermissionEntity::class);
+        return  $mapper->fetch();
     }
 
     /**
@@ -32,8 +34,8 @@ class PermissionRepository implements PermissionRepositoryInterface
      */
     public function list(array $conditions): array
     {
-        $userList = $this->dataMapper->findAll('`permission`', array_filter($conditions));
-        return $userList->fetchAllInto(PermissionEntity::class);
+        $mapper = $this->dataMapper->findAll('`permission`', array_filter($conditions));
+        return $this->dataMapper->fetchAllInto($mapper, PermissionEntity::class);
     }
 
     /**
@@ -42,8 +44,9 @@ class PermissionRepository implements PermissionRepositoryInterface
      */
     public function create(PermissionEntity $permissionEntity): PermissionEntity
     {
-        $result = $this->dataMapper->create($permissionEntity);
-        return $result->fetchAllInto(PermissionEntity::class)[0];
+        $mapper = $this->dataMapper->create($permissionEntity);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, PermissionEntity::class);
+        return $mapper->fetch();
     }
 
     /**
@@ -63,7 +66,8 @@ class PermissionRepository implements PermissionRepositoryInterface
      */
     public function update(PermissionEntity $permissionEntity, int $id): PermissionEntity
     {
-        $result = $this->dataMapper->update($permissionEntity, $id);
-        return $result->fetchAllInto(PermissionEntity::class)[0];
+        $mapper = $this->dataMapper->update($permissionEntity, $id);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, PermissionEntity::class);
+        return $mapper->fetch();
     }
 }

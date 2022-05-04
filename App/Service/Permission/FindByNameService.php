@@ -4,25 +4,27 @@ namespace App\Service\Permission;
 
 use App\Entity\PermissionEntity;
 use App\Service\Contract\FindByNameServiceInterface;
-use src\DataMapper\DataMapper;
+use PDO;
+use src\DataMapper\DataMapperInterface;
 
 class FindByNameService implements FindByNameServiceInterface
 {
 
-    private DataMapper $dataMapper;
+    private DataMapperInterface $dataMapper;
 
-    public function __construct(DataMapper $dataMapper)
+    public function __construct(DataMapperInterface $dataMapper)
     {
         $this->dataMapper = $dataMapper;
     }
 
     /**
      * @param string $name
-     * @return array
+     * @return bool|PermissionEntity
      */
-    public function findByName(string $name): array
+    public function findByName(string $name): bool | PermissionEntity
     {
-        $role = $this->dataMapper->findOneBy('`permission`', 'name' , $name);
-        return $role->fetchAllInto(PermissionEntity::class);
+        $mapper = $this->dataMapper->findOneBy('`permission`', 'name' , $name);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, PermissionEntity::class);
+        return $mapper->fetch();
     }
 }

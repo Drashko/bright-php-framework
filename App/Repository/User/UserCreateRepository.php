@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Repository\User;
 
 use App\Entity\UserEntity;
+use PDO;
 use src\DataMapper\DataMapperInterface;
 
 class UserCreateRepository implements UserCreateRepositoryInterface
@@ -27,8 +28,9 @@ class UserCreateRepository implements UserCreateRepositoryInterface
      */
     public function create(UserEntity $userEntity) : UserEntity
     {
-       $result = $this->dataMapper->create($userEntity);
-       return $result->fetchAllInto(UserEntity::class)[0];
+        $mapper = $this->dataMapper->create($userEntity);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, UserEntity::class);
+        return $mapper->fetch();
 
     }
 }

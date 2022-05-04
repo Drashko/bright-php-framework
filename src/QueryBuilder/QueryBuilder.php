@@ -165,17 +165,23 @@ class QueryBuilder implements QueryBuilderInterface
 
     //TO DO - Bind WHERE id = :id ...
     public function where(array $condition): self{
+        /*if($this->queryType != 'DELETE'){
+
+        }*/
         //$this->conditions = [];
+        //pr($condition);
         foreach ($condition as $key => $value) {
              if(!empty($key)){
-                 $this->conditions = $this->parseWhere($key, " = " , $value);
+                 //$this->conditions = $this->parseWhere($key, " = " , $value);
+                 $this->conditions[] = "`{$key}`" . ' = ' .  " '$value'";
             }
        }
-        //$this->conditions = substr_replace($this->conditions, '', -2);
+       /* if(!empty($this->conditions))
+            $this->conditions = [];*/
         return $this;
     }
 
-    public function parseWhere(string $field, string $operator, string $value): array
+    public function parseWhere(string $field, string $operator, string | int $value): array
     {
         return  ["`{$field}`" . $operator .  " '$value'"];
     }
@@ -206,6 +212,7 @@ class QueryBuilder implements QueryBuilderInterface
      */
     public function insert(array $data): self
     {
+        $this->placeholders = [];
         $this->queryType = self::DML_TYPE_INSERT;
         $this->fields       = '`' . implode('`,`', array_keys($data)) . '`';
         $this->placeholders[] = ':' . implode(', :', array_keys($data));
@@ -261,6 +268,15 @@ class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
+     * @param array $condition
+     * @return $this
+     */
+    public function findBy(array $condition) : self{
+        $this->where($condition);
+        return $this;
+    }
+
+    /**
      * @param string $type
      * @return string
      */
@@ -276,11 +292,11 @@ class QueryBuilder implements QueryBuilderInterface
                 $sqlQuery  .=  ' FROM ' . $this->table;
                 //join
                 $sqlQuery  .= implode(' ', $this->joins);
+                if (!empty($this->conditions)) {
+                    $where = $this->conditions === [] ? '' : ' WHERE ' . implode(' AND ', $this->conditions);
+                }
                 if(!empty($where)) {
                     $sqlQuery  .= $where;
-                }
-                if (!empty($this->conditions)) {
-                    $sqlQuery  .= ' WHERE ' . implode(' AND ', $this->conditions);
                 }
                 //limit
                 if(!empty($limit)){
@@ -294,13 +310,14 @@ class QueryBuilder implements QueryBuilderInterface
                 $sqlQuery  .= implode(' ', $this->groupBy);
                 //order by
                 $sqlQuery  .= implode(' ', $this->orderBy);
-                //pr($sqlQuery );
+                //pr($sqlQuery);
                 return $sqlQuery ;
                 break;
             case self::DML_TYPE_INSERT :
                 return   'INSERT INTO ' . $this->table . '( ' .$this->fields. ')' . ' VALUES ' . '(' . implode(' , ', $this->placeholders) . ')';
                 break;
             case self::DML_TYPE_UPDATE :
+                pr($this->conditions);
                 $sqlQuery  = ' UPDATE ' .  $this->table;
                 $sqlQuery .=  ' SET ' . $this->values;
                 if (!empty($this->conditions)) {
@@ -309,6 +326,7 @@ class QueryBuilder implements QueryBuilderInterface
                 if(!empty($where)) {
                     $sqlQuery .= $where;
                 }
+                pr($sqlQuery);
                 return $sqlQuery;
                 break;
             case self::DML_TYPE_DELETE :
@@ -360,14 +378,31 @@ class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
+     * Used for insert ,update and delete operations
+     * @return QueryBuilder
+     * @throws QueryBuilderException
+     */
+    public function executeStatement() : self
+    {
+        //prepare
+        $this->statement = $this->pdo->prepare($this->getQuery($this->queryType));
+        //Needs refactoring - remove the if block , find another solution!!!
+        if($this->queryType != 'DELETE')
+            foreach ($this->data as $key => $value) {
+                $this->statement->bindValue(':' . $key, $value, $this->bind($value));
+            }
+        $this->statement->execute();
+        $this->lastInsertId = (int) $this->pdo->lastInsertId();
+        return $this;
+    }
+
+    /**
      * fetch all records
      * @return mixed
      */
     public function fetchAllAssoc() : array {
             return $this->statement->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 
     /**
      * @param string $className
@@ -395,35 +430,18 @@ class QueryBuilder implements QueryBuilderInterface
      * @param $
      * @return object
      */
-   /* public function fetchObject() : object {
+    /* public function fetchObject() : object {
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }*/
 
     /**
      * @return array
      */
-    /*public function fetchAllObject(string $className) : array {
+    public function fetchAllObject(string $className) : array {
         return $this->statement->fetchObject($className);
-    }*/
-
-    /**
-     * Used for insert ,update and delete operations
-     * @return QueryBuilder
-     * @throws QueryBuilderException
-     */
-    public function executeStatement() : self
-    {
-        //prepare
-        $this->statement = $this->pdo->prepare($this->getQuery($this->queryType));
-        //Needs refactoring - remove the if block , find another solution!!!
-        if($this->queryType != 'DELETE')
-            foreach ($this->data as $key => $value) {
-                $this->statement->bindValue(':' . $key, $value, $this->bind($value));
-            }
-        $this->statement->execute();
-        $this->lastInsertId = (int) $this->pdo->lastInsertId();
-        return $this;
     }
+
+
 
     /**
      * map properties to class
@@ -451,6 +469,7 @@ class QueryBuilder implements QueryBuilderInterface
      */
     public function raw(string $query): self
     {
+        $this->pdo->prepare($query);
         return $this;
     }
 
@@ -471,4 +490,5 @@ class QueryBuilder implements QueryBuilderInterface
         }
         return $result;
     }
+
 }

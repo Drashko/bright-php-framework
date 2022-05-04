@@ -81,6 +81,12 @@ return [
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
 
+/*
+    'Mapper' => function(\Psr\Container\ContainerInterface $c){
+    return new \src\DataMapper\Mapper($c->get('PDOConnection'));
+    },*/
+
+
     //resolve repositories
     'UserListRepository' => function(\Psr\Container\ContainerInterface $c){
         return new UserListRepository($c->get('DataMapper'));

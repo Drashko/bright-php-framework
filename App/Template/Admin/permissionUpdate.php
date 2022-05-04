@@ -13,7 +13,7 @@ $errors    = $data['errors']['errors'] ?? [];
             </div>
         <?php  } ?>
     <?php  } ?>
-    <h2>Update role</h2>
+    <h2>Update permission</h2>
     <form class="toggle-class" action="<?=$this->url("admin/permission/update/{$id}")?>" method="post">
         <fieldset class="uk-fieldset">
             <div class="uk-margin">

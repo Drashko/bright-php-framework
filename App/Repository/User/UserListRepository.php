@@ -25,7 +25,7 @@ class UserListRepository implements UserListRepositoryInterface
      */
     public function list(array $conditions) : array
     {
-       $userList = $this->dataMapper->findAll('`users`', array_filter($conditions));
-       return $userList->fetchAllInto(UserEntity::class);
+       $mapper = $this->dataMapper->findAll('`users`', $conditions);
+       return $this->dataMapper->fetchAllInto($mapper, UserEntity::class);
     }
 }

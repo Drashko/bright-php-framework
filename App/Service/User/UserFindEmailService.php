@@ -25,7 +25,7 @@ class UserFindEmailService
      */
     public function find(string $email): bool
     {
-        if(count($this->userEmailRepository->find($email))){
+        if(!empty($this->userEmailRepository->find($email))){
             return true;
         }
         return false;

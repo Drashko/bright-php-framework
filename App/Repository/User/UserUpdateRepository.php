@@ -4,6 +4,7 @@ namespace App\Repository\User;
 
 
 use App\Entity\UserEntity;
+use PDO;
 use src\DataMapper\DataMapperInterface;
 
 
@@ -26,7 +27,8 @@ class UserUpdateRepository implements UserUpdateRepositoryInterface
      */
     public function update(UserEntity $userEntity, $id): UserEntity
     {
-       $result = $this->dataMapper->update($userEntity, $id);
-       return $result->fetchAllInto(UserEntity::class)[0];
+        $mapper = $this->dataMapper->update($userEntity, $id);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, UserEntity::class);
+        return $mapper->fetch();
     }
 }

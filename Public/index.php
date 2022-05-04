@@ -23,3 +23,4 @@ use src\Event\UserRegisterEvent;
  * Run the framework
  */
 (new Application(ROOT_PATH))->run()->setSession()->setRouteHandler();
+

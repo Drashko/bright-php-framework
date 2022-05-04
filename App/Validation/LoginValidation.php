@@ -35,7 +35,7 @@ class LoginValidation
             $this->error[] = 'Wrong email or password!';
         }
         if($this->userEmailRepository->find($data['email'])) {
-            $userEntity = $this->userEmailRepository->find($data['email'])[0];
+            $userEntity = $this->userEmailRepository->find($data['email']);
             if (!password_verify($data['password'], $userEntity->getPassword())) {
                 $this->error[] = 'Wrong email or password!';
             }

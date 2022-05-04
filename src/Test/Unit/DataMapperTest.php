@@ -6,7 +6,7 @@ use App\Domain\Entities\BugReportEntity;
 use App\Entity\UserEntity;
 use PHPUnit\Framework\TestCase;
 use src\Database\PDOConnection;
-use src\DataMapper\DataMapper;
+use src\DataMapper\DataDataMapper;
 use src\DataMapper\DataMapperInterface;
 use src\Helper\DataMapperFactory;
 use src\QueryBuilder\QueryBuilder;
@@ -14,7 +14,7 @@ use src\QueryBuilder\QueryBuilderInterface;
 
 class DataMapperTest extends TestCase
 {
-    protected DataMapper $dataMapper;
+    protected DataDataMapper $dataMapper;
 
     /**
      * @throws \src\Exception\DatabaseException

@@ -3,6 +3,7 @@
 namespace App\Repository\User;
 
 use App\Entity\UserEntity;
+use PDO;
 use src\DataMapper\DataMapperInterface;
 
 class UserIdRepository implements UserIdRepositoryInterface
@@ -24,7 +25,8 @@ class UserIdRepository implements UserIdRepositoryInterface
      */
     public function find($id): UserEntity
     {
-        $user = $this->dataMapper->findOneBy('`users`', 'id' , $id);
-        return $user->fetchAllInto(UserEntity::class)[0];
+        $mapper = $this->dataMapper->findById('`users`', $id);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, UserEntity::class);
+        return $mapper->fetch();
     }
 }

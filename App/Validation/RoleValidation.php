@@ -20,7 +20,7 @@ class RoleValidation
         if(empty($data['name'])){
             $this->error[] = 'Please enter Role name!';
         }
-        if($this->findByNameService->findByName($data['name'])){
+        if(!empty($this->findByNameService->findByName($data['name']))){
             $this->error[] = 'The name already exist ,please choose new one!';
         }
         return $this->error;

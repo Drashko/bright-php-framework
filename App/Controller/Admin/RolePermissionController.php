@@ -42,7 +42,7 @@ class RolePermissionController extends BaseController
     public function indexAction(){
         $data = ['roleList' => '' , 'rolePermissionList' => ''];
         $data['roleList'] = $this->roleRepository->list($conditions=[]);
-        if($this->input->isPost()) {
+        if($this->input->isGet()) {
             $roleId = $this->input->get('role_id');
             if(!empty($roleId)) {
                 $data['rolePermissionList'] = $this->rolePermissionRepository->list(['role_id' => $roleId]);
@@ -57,15 +57,16 @@ class RolePermissionController extends BaseController
         //if the same found do nothing else create new row
         //return message to the user
         if($this->input->isPost()){
-            if(!empty($data['errors'])) {
-                $data = $this->rolePermissionRepository->assign();
-                $resp = ['success' => false, 'errors' => $data['errors']];
+           // $data = [];
+            $roleId = $this->input->get('role_id');
+            $data = $this->rolePermissionRepository->assign($roleId, $_POST['permission']);
+            if(!$data) {
+                $resp = ['success' => false];
             }else{
-                $resp = ['success' => true, 'userData' => $data];
+                $resp = ['success' => true];
                 //$this->logger->info('A new user has been created');
             }
         }
-
         $this->jsonResponse($resp);
 
 

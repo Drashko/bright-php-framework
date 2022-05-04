@@ -6,15 +6,15 @@ use App\Entity\RoleEntity;
 
 use App\Service\Contract\FindByNameServiceInterface;
 
-use src\DataMapper\DataMapper;
+use src\DataMapper\DataDataMapper;
 
 class FindByNameService implements FindByNameServiceInterface
 {
 
 
-    private DataMapper $dataMapper;
+    private DataDataMapper $dataMapper;
 
-    public function __construct(DataMapper $dataMapper)
+    public function __construct(DataDataMapper $dataMapper)
     {
         $this->dataMapper = $dataMapper;
     }

@@ -8,6 +8,7 @@ interface RolePermissionRepositoryInterface
 {
     public function find($id) : RolePermissionEntity;
     public function list(array $conditions) : array;
-    public function assign() : mixed;
+    public function create(RolePermissionEntity $rolePermissionEntity) : RolePermissionEntity;
+    public function assign(int $roleId , array $permission) : mixed;
 
 }

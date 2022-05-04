@@ -3,27 +3,29 @@
 namespace App\Repository\User;
 
 use App\Entity\UserEntity;
-use src\DataMapper\DataMapper;
+use PDO;
+use src\DataMapper\DataMapperInterface;
 
 class UserEmailRepository implements UserEmailRepositoryInterface
 {
-    public DataMapper $dataMapper;
+    public DataMapperInterface $dataMapper;
 
     /**
-     * @param DataMapper $dataMapper
+     * @param DataMapperInterface $dataMapper
      */
-    public function __construct( DataMapper $dataMapper){
+    public function __construct(DataMapperInterface $dataMapper){
         $this->dataMapper = $dataMapper;
     }
 
     /**
      * @param string $email
-     * @return array
+     * @return mixed
      */
-    public function find(string $email): array
+    public function find(string $email): mixed
     {
-        $user = $this->dataMapper->findOneBy('`users`', 'email' , $email);
-        return $user->fetchAllInto(UserEntity::class);
+        $mapper = $this->dataMapper->findOneBy('`users`', 'email' , $email);
+        $mapper->setFetchMode(PDO::FETCH_CLASS, UserEntity::class);
+        return $mapper->fetch();
 
 
     }
