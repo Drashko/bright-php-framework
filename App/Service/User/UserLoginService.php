@@ -5,7 +5,6 @@ namespace App\Service\User;
 use App\Entity\UserSessionEntity;
 use App\Repository\User\UserEmailRepositoryInterface;
 use App\Repository\UserSession\UserSessionRepositoryInterface;
-use App\Validation\LoginValidation;
 use Exception;
 use PDO;
 use src\Config\Config;
@@ -162,7 +161,7 @@ class UserLoginService implements UserLoginServiceInterface
                 $this->forceDetected($sanitized['email']);
                 //if($userEntity->getFailedLogins() >= $this->config->get('app', 'login_attempts')){//get it from config file as a settign
                // }
-                if (($userEntity->getFailedLogins() >= (int)$this->config->get('app', 'login_attempts')) && ($userEntity->getLastFailedLogin() > (time() - (int)$this->config->get('app', 'login_timeout')))) {
+                if (($userEntity->getFailedLogins() >= (int)Config::get('app', 'login_attempts')) && ($userEntity->getLastFailedLogin() > (time() - (int)Config::get('app', 'login_timeout')))) {
                     $this->error[] = 'You"ve reached the maximum of 3 wrong password attempts, please  wait for 3 minutes and try again!';
                     $this->bruteForce = true;
                 }
