@@ -11,9 +11,9 @@ class Cookie implements CookieInterface
      * @param string $expiry
      * @return bool
      */
-    public function set(string $name, string $value, string $expiry): bool
+    public function set(string $name, string $value, int $expiry): bool
     {
-        if(setCookie($name, $value, time().$expiry, '/')) {
+        if(setCookie($name, $value, time()+$expiry, '/')) {
             return true;
         }
         return false;

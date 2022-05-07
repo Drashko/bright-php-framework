@@ -18,17 +18,17 @@
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-width-1-1">
                         <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
-                        <input class="uk-input uk-border" required placeholder="Email" name="email" type="email">
+                        <input class="uk-input uk-border" required placeholder="Email" name="email" type="email" value="<?=$_POST['email'] ?? '' ?>">
                     </div>
                 </div>
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-width-1-1">
                         <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
-                        <input class="uk-input uk-border" required placeholder="Password" name="password" type="password">
+                        <input class="uk-input uk-border" required placeholder="Password" name="password" type="password" value="<?=$_POST['password'] ?? '' ?>">
                     </div>
                 </div>
                 <div class="uk-margin-small">
-                    <label><input class="uk-checkbox" type="checkbox"> Keep me logged in</label>
+                    <label><input class="uk-checkbox" name="remember_me" type="checkbox"> Keep me logged in</label>
                 </div>
                 <div class="uk-margin-bottom">
                     <button type="submit" class="uk-button uk-button-primary uk-border uk-width-1-1">LOG IN</button>

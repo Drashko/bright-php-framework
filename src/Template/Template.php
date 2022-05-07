@@ -97,6 +97,28 @@ class Template implements TemplateInterface
     }
 
     /**
+     * @param $param
+     * @return mixed|string|void
+     */
+    public function active($param){
+        $url = $_SERVER['QUERY_STRING'];
+        //get the params and make an array from string
+        if(strstr($url, '/')){
+            $list = explode("/", $url);
+            $list = array_reverse($list);
+            $controller = $list[2] ?? '';
+            $action = $list[2] ?? '';
+            $Id = $list[3] ?? '';
+        }else{
+            $controller = $url;
+        }
+        if($param == 'controller'){
+            return $controller;
+        }
+        //pr($param);
+    }
+
+    /**
      * Add flash messages to the template
      * @return void|null
      */

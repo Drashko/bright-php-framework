@@ -8,5 +8,5 @@ interface UserLoginServiceInterface
      * @param array $data
      * @return array|null
      */
-   public function login(array $data) : ?array;
+   public function loginValidate(array $data) : ?array;
 }

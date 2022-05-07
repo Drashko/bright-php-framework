@@ -25,18 +25,21 @@ class LoginController extends BaseController {
         $this->logger = $logger;
     }
 
-    /**
-     * before action filter
-     */
-    protected function before(){}
+    protected function callBeforeMiddlewares(): array
+    {
+        return [
+            //check if the user in not already logged in
+            //if so don show login form and redirect to home page or admin
+        ];
+    }
 
     /**
      * @throws Exception
      */
     public function indexAction(){
         $data = [];
-        if(!empty($_POST)) {
-            $data['errors'] = $this->userLoginService->login($_POST);
+        if($this->input->isPost()) {
+            $data['errors'] = $this->userLoginService->loginValidate($_POST);
             if(empty($data['errors'])) {
                 Flash::add('Welcome back. You are successfully logged in.');
                 $this->logger->info('A user just logged in.');

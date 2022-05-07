@@ -52,10 +52,6 @@ class RolePermissionController extends BaseController
     }
 
     #[NoReturn] public function assignAction(){
-        //get post data with ajax and save to role_permission table
-        //check for existing role_id AND permission_id records
-        //if the same found do nothing else create new row
-        //return message to the user
         if($this->input->isPost()){
            // $data = [];
             $roleId = $this->input->get('role_id');

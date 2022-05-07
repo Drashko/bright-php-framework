@@ -3,6 +3,7 @@
 namespace src\Utility;
 
 use Exception;
+use src\Factory\ConfigFactory;
 
 class Token
 {

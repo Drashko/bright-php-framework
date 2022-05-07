@@ -36,14 +36,11 @@ return [
 
              'list' => [
 
-                    ['name' => 'User report',
+                    ['name' => 'Report',
                      'link' => 'admin/report/index/',
                      'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
-                    ],
-                    ['name' => 'Statistic',
-                     'link' => 'admin/report/index/',
-                     'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
-                    ],
+                    ]
+
                  ]
          ],
 

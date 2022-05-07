@@ -71,7 +71,7 @@ class DataMapper implements DataMapperInterface
     {
         $fields = "`{$field}`" . "=" . " :{$field}";
         $stm = $this->pdo->prepare("SELECT  *  FROM {$table} WHERE {$fields}");
-        $stm->bindValue($field, $value, PDO::PARAM_STR);
+        $stm->bindValue($field, $value, $this->bind($value));
         $stm->execute();
         return $stm;
     }
@@ -149,9 +149,7 @@ class DataMapper implements DataMapperInterface
      */
     public function raw(string $sql): bool|PDOStatement
     {
-        $stm = $this->pdo->prepare($sql);
-        $stm->execute();
-        return $stm;
+        return $this->pdo->prepare($sql);
     }
 
     /**

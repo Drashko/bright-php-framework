@@ -3,7 +3,8 @@
 use src\Config\Config;
 $config = new Config();
 $navigationList = $config->get('adminNavigation');
-
+$session = \src\Factory\SessionFactory::make();
+//pr($session->get('menu-item-opened'));
 ?>
 <header id="top-head" class="uk-position-fixed">
     <div class="uk-container uk-container-expand uk-background-primary">
@@ -81,14 +82,14 @@ $navigationList = $config->get('adminNavigation');
             <li class="uk-nav-header"></li>
             <?php foreach($navigationList as $navigation) : ?>
                 <?php if(!isset($navigation['sub-nav'])) { ?>
-                      <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?>" ><a href="<?=$this->url($navigation['link'])?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a></li>
+                      <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?> <?=($session->get('menu-item-opened') === $navigation['name']) ? 'uk-open' : '' ?>" ><a href="<?=$this->url($navigation['link'])?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a></li>
                 <?php } else { ?>
                     <?php foreach($navigation['sub-nav'] as $item) : ?>
-                        <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?>" >
-                            <a href=""><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a>
+                        <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?> <?=($session->get('menu-item-opened') === $navigation['name']) ? 'uk-open' : '' ?>" >
+                            <a href="" aria-expanded="<?=($session->get('menu-item-opened') === $navigation['name']) ? 'true' : 'false' ?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a>
                             <ul class="uk-nav-sub">
-                                <?php foreach($item as $itm) : ?>
-                                   <li><a href="<?=$this->url($itm['link'])?>"><?=$itm['name']?></li></a>
+                                <?php foreach($item as $itm)  : ?>
+                                   <li class="<?=($this->active('controller') === lcfirst($itm['name']) )  ? 'uk-active' : ''?>"><a href="<?=$this->url($itm['link'])?>"><?=$itm['name']?></li></a>
                                 <?php endforeach;?>
                             </ul>
                         </li>
@@ -152,11 +153,10 @@ $navigationList = $config->get('adminNavigation');
     navList.forEach(function(el){
         el.addEventListener('click', function(e){
             let id = this.id;
-            //e.preventDefault();
             $.ajax({
-                url: App.baseUrl() + 'ui/AdminNavigation/setActive/',
+                url: App.baseUrl() + 'ui/AdminNavigation/setActiveMenuLink/',
                 type: 'POST',
-                data : { id : id },
+                data : { id : id},
                 success : function(resp){
                     if(resp.success){
                         console.log(resp);
@@ -165,77 +165,5 @@ $navigationList = $config->get('adminNavigation');
             });
         });
     });
-
-   /* localStorage.setItem('myCat', 'Tom');
-
-    const cat = localStorage.getItem('myCat');
-    console.log(cat);*/
-   /*window.onload = function(){
-       Menu.init();
-   }
-    //const navList = document.querySelectorAll('.nav-link');
-
-    const Menu = {
-        'items' : '',
-        'item'  : ''
-    }
-
-    Menu.init = function(){
-        this.items = document.querySelectorAll('.nav-link');
-        this.set();
-        this.getLocalStorage();
-
-    }
-    Menu.set = function (){
-       this.items.forEach(function(el){
-           this.item = el;
-           this.item.addEventListener('click', function(){
-               //this.preventDefault();
-               if(this.classList.contains("uk-open")){
-                   this.classList.remove("uk-open");
-                   window.localStorage.setItem("menu", "");
-               }else{
-                   window.localStorage.setItem("menu", 'op');
-                   this.classList.add('uk-open');
-               }
-           });
-       });
-    }*/
-
-    /*Menu.getLocalStorage = function (){
-       console.log(window.localStorage.getItem("menu"));
-       return window.localStorage.getItem("menu");
-    }*/
-
-
-    //const ariaList = document.querySelectorAll('.aria-menu');
-
-
-
-
-    /*navList.forEach(function(el) {
-        el.addEventListener('click', function () {
-            if (!this.classList.contains('uk-open')) {
-                localStorage.setItem("menu", "open");
-            } else {
-                localStorage.setItem("menu-state", " ");
-                //this.classList.add('uk-open');
-            }
-        });
-    });
-    ariaList.forEach(function(el){
-        if(localStorage.getItem("menu") === "open") {
-            el.parentElement.classList.add('uk-open');
-            el.setAttribute("aria-expanded", "true");
-            el.firstElementChild.removeAttribute('hidden');
-        }*/
-       /* if(localStorage.getItem("menu") === " "){
-            console.log('remove class');
-            el.parentElement.classList.remove('uk-open');
-            el.setAttribute("aria-expanded", "false");
-        }*/
-    //});
-
-   // console.log(localStorage.getItem("menu-state"));
 </script>
 <!-- /LEFT BAR -->

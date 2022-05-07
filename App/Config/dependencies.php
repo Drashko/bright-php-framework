@@ -21,6 +21,7 @@ use App\Repository\User\UserListRepositoryInterface;
 use App\Repository\User\UserListRepository;
 use App\Repository\User\UserUpdateRepository;
 //services
+use App\Repository\UserSession\UserSessionRepository;
 use App\Service\Permission\PermissionCreateService;
 use App\Service\Permission\PermissionUpdateService;
 use App\Service\User\UserCreateService;
@@ -28,6 +29,9 @@ use App\Service\User\UserLoginService;
 use App\Service\User\UserRegisterService;
 use App\Service\User\UserRegisterServiceInterface;
 use App\Service\User\UserUpdateService;
+//cookie
+use src\Cookie\Cookie;
+use src\Cookie\CookieInterface;
 //database
 use src\Database\DatabaseConnectionInterface;
 use src\Database\PDOConnection;
@@ -53,8 +57,9 @@ return [
     'QueryBuilder' => \DI\autowire('src\QueryBuilder\QueryBuilder'),
     'UserEntity' => \DI\autowire('App\Entity\UserEntity'),
     'Router' => \DI\create('src\Base\Router'),
-    //resolve interfaces
+    //resolve=ing interfaces
     LoggerInterface::class => \DI\create(Logger::class),
+    CookieInterface::class => \DI\create(Cookie::class),
     DatabaseConnectionInterface::class => \DI\autowire(PDOConnection::class),
     QueryBuilderInterface::class => \DI\autowire(QueryBuilder::class),
     DataMapperInterface::class => \DI\autowire(DataMapper::class),
@@ -65,12 +70,14 @@ return [
     \App\Repository\User\UserEmailRepositoryInterface::class => \DI\autowire(UserEmailRepository::class),
     \App\Repository\User\UserIdRepositoryInterface::class => \DI\autowire(UserIdRepository::class),
     \App\Repository\User\UserDeleteRepositoryInterface::class => \DI\autowire(UserDeleteRepository::class),
+    \App\Repository\UserSession\UserSessionRepositoryInterface::class => \DI\autowire(UserSessionRepository::class),
 
-
+    //resolving Services
     \App\Service\User\UserLoginServiceInterface::class => \DI\autowire(UserLoginService::class),
     \App\Service\User\UserUpdateServiceInterface::class => \DI\autowire(UserUpdateService::class),
     \App\Service\User\UserCreateServiceInterface::class => \DI\autowire(UserCreateService::class),
     \App\Service\User\UserFindIdServiceInterface::class => \DI\autowire(\App\Service\User\UserFindIdService::class),
+
     \App\Service\Contract\FindByNameServiceInterface::class => \DI\autowire(\App\Service\Role\FindByNameService::class),
     \App\Service\Contract\FindByNameServiceInterface::class => \DI\autowire(\App\Service\Permission\FindByNameService::class),
     \App\Service\Role\RoleCreateServiceInterface::class => \DI\autowire(\App\Service\Role\RoleCreateService::class),
@@ -81,13 +88,7 @@ return [
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
 
-/*
-    'Mapper' => function(\Psr\Container\ContainerInterface $c){
-    return new \src\DataMapper\Mapper($c->get('PDOConnection'));
-    },*/
-
-
-    //resolve repositories
+    //resolving repositories
     'UserListRepository' => function(\Psr\Container\ContainerInterface $c){
         return new UserListRepository($c->get('DataMapper'));
     },
@@ -104,17 +105,6 @@ return [
     'UserCreateRepositoryService' => function(\Psr\Container\ContainerInterface $c){
         return new UserRegisterService($c->get('DataMapper'),$c->get('UserEntity'), $c->get('RegisterValidation'));
     },
-
-   /* 'UserUpdateService' => function(\Psr\Container\ContainerInterface $c){
-        return new UserUpdateService($c->get('DataMapper'),$c->get('UserEntity'), $c->get('UserValidation'));
-    },*/
-
-
-
-    /*'RoleUpdateService' => function(\Psr\Container\ContainerInterface $c){
-        return new UserUpdateService($c->get('RoleEntity'), $c->get('RoleRepository'), $c->get('RoleUpdateValidation'));
-    },*/
-
     //resolve controllers
     'HomeController' => function(\Psr\Container\ContainerInterface $c){
         return new HomeController($c->get('UserListRepository'));

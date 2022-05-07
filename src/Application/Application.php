@@ -35,7 +35,6 @@ class Application
     {
         $this->appRoot = $appRoot;
         $this->session = SessionFactory::make();
-        $this->config  = ConfigFactory::make();
     }
 
     /**
@@ -115,7 +114,7 @@ class Application
     public function setRouteHandler(string $url = null, array $routes = []) : self
     {
         $url = ($url) ? $url : $_SERVER['QUERY_STRING'];
-        $routes = ($routes) ? $routes : $this->config->get('routes');
+        $routes = ($routes) ? $routes : Config::get('routes');
         $factory = new RouterFactory($url, $routes);
         $factory->create(Router::class)->buildRoutes();
         return $this;

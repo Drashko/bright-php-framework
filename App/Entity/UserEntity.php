@@ -21,7 +21,8 @@ class UserEntity extends Entity
     private ?string $email = null;
     private ?string $password = null;
     private ?string $ip = null;
-    private ?int $failedLogin = null;
+    private ?int $failed_logins = 0;
+    private ?string $last_failed_login = null;
     private ?string $status = null;
     private ?string $created_at = null;
     private ?string $updated_at = null;
@@ -274,6 +275,43 @@ class UserEntity extends Entity
         $this->address = $address;
         return $this;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getFailedLogins(): ?int
+    {
+        return $this->failed_logins;
+    }
+
+    /**
+     * @param int|null $failed_logins
+     * @return UserEntity
+     */
+    public function setFailedLogins(?int $failed_logins): UserEntity
+    {
+        $this->failed_logins = $failed_logins;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastFailedLogin(): ?string
+    {
+        return $this->last_failed_login;
+    }
+
+    /**
+     * @param string|null $last_failed_login
+     * @return UserEntity
+     */
+    public function setLastFailedLogin(?string $last_failed_login): UserEntity
+    {
+        $this->last_failed_login = $last_failed_login;
+        return $this;
+    }
+
 
 
 }

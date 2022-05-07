@@ -13,10 +13,10 @@
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav uk-visible@m">
-                        <li class="uk-active"><a href="<?=$this->url('home/index/')?>">Home</a></li>
-                        <li><a href="<?=$this->url('document/index/')?>">Document</a></li>
-                        <li><a href="<?=$this->url('profile/index/')?>">Profile</a></li>
-                        <li><a href="<?=$this->url('contact/index/')?>">Contact</a></li>
+                        <li class="<?=($this->active('controller') == 'home' || $this->active('controller') == '' )   ? 'uk-active' : ''?>"><a href="<?=$this->url('home/index/')?>">Home</a></li>
+                        <li class="<?=($this->active('controller') == "document" )  ? 'uk-active' : ''?>"><a href="<?=$this->url('document/index/')?>">Document</a></li>
+                        <li class="<?=($this->active('controller') == 'profile' )   ? 'uk-active' : ''?>"><a href="<?=$this->url('profile/index/')?>">Profile</a></li>
+                        <li class="<?=($this->active('controller') == 'contact' )   ? 'uk-active' : ''?>"><a href="<?=$this->url('contact/index/')?>">Contact</a></li>
                     </ul>
                     <div class="uk-navbar-item">
                         <a class="uk-navbar-toggle uk-hidden@m" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a>

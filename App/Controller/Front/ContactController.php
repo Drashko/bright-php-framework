@@ -13,10 +13,7 @@ class ContactController extends BaseController
 
     #[ArrayShape(['RequireLoginMiddleware' => "string", 'HasPermissionMiddleware' => "string"])] protected function callBeforeMiddlewares() : array
     {
-        return [
-            'RequireLoginMiddleware' => RequireLoginMiddleware::class,
-            'HasPermissionMiddleware' => HasPermissionMiddleware::class
-        ];
+        return [];
     }
 
     protected function callAfterMiddlewares() : array

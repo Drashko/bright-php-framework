@@ -8,12 +8,6 @@ use src\DataMapper\DataMapperInterface;
 use src\QueryBuilder\QueryBuilderInterface;
 use src\Utility\Sanitizer;
 
-// SELECT permission.Id ,permission.code,permission.description,
-// role_permission.role_id AS roleId,
-// role_permission.permission_id AS permissionId,
-// permission.name AS permissionName
-// FROM permission
-// LEFT JOIN role_permission ON permission.Id = role_permission.permission_id AND role_id = 4 ORDER BY code DESC
 
 class RolePermissionRepository implements RolePermissionRepositoryInterface
 {
@@ -49,22 +43,13 @@ class RolePermissionRepository implements RolePermissionRepositoryInterface
      */
     public function list(array $conditions): array
     {
-
         $sql = "SELECT p.id , rp.role_id, rp.permission_id AS permissionId, p.name, p.code, p.description  \n"
             . "FROM `permission` p \n"
             . "LEFT JOIN `role_permission` rp ON (p.id = rp.permission_id AND rp.role_id = ". array_values($conditions)[0] .") \n"
             . "ORDER BY p.code DESC;";
         $stm = $this->dataMapper->raw($sql);
+        $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        //pr($result);
-        /*$result = $this->queryBuilder
-            ->table('permission')
-            ->select('permission.Id ,permission.code,permission.description,  role_permission.role_id AS roleId, role_permission.permission_id AS permissionId, permission.name AS permissionName')
-            ->join(' LEFT', 'role_permission', ("permission.Id = role_permission.permission_id AND role_id = " . array_values($conditions)[0] . ""))
-            ->orderBy('code', 'DESC')
-            ->executeQuery();*/
-
-
         return $this->queryBuilder->group($result, 'code');
     }
 
@@ -112,6 +97,7 @@ class RolePermissionRepository implements RolePermissionRepositoryInterface
             $rolePermissionFromTable[] = $permission['permission_id'];
         }
         $removePermissionList = array_diff($rolePermissionFromTable, $postPermission);
+        //delete unsigned permissions for Role
         $this->deleteNotMatchingRolePermission($roleId, $removePermissionList);
     }
 
