@@ -39,7 +39,7 @@ class LoginController extends BaseController {
      */
     public function indexAction(){
         $data = [];
-        if($this->input->isPost()) {
+        if($this->request->isPost()) {
             $authService = $this->authenticateService->authenticate($_POST['email'], $_POST['password']);
             $remember_me = isset($_POST['remember_me']);
             if($authService){

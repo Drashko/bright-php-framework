@@ -37,7 +37,7 @@ class LogoutController extends BaseController {
      * @throws Exception
      */
     public function indexAction(){
-        if($this->input->isGet()) {
+        if($this->request->isGet()) {
             if ($this->authenticateService->logOut()) {
                 $resp = ['success' => true];
                 $this->logger->info('A user just logged out');
