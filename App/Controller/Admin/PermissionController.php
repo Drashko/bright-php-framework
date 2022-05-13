@@ -60,7 +60,7 @@ class PermissionController extends BaseController
 
     public function createAction()
     {
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->createPermissionService->create($_POST);
             if (!empty($data['errors'])) {
                 $resp = ['success' => false, 'errors' => $data['errors']];

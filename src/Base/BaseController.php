@@ -5,11 +5,11 @@ namespace src\Base;
 use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use src\Exception\NotFoundException;
-use src\Factory\InputFactory;
+use src\Factory\RequestFactory;
 use src\Factory\TemplateFactory;
 use src\Middleware\Middleware;
 use src\Template\Template;
-use src\Utility\Input;
+use src\Utility\Request;
 
 class BaseController
 {
@@ -18,7 +18,7 @@ class BaseController
         public ?string $layout = null;
 
         protected Template $template;
-        protected Input $input;
+        protected Request $request;
 
         /** @var array */
         protected array $callBeforeMiddlewares = [];
@@ -27,8 +27,9 @@ class BaseController
 
 
         public function __construct(){
+           //$this->template = new Template();
            $this->template = TemplateFactory::make();
-           $this->input = InputFactory::make();
+           $this->request = RequestFactory::make();
         }
 
     /**

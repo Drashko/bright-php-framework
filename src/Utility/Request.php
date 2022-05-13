@@ -4,7 +4,7 @@ namespace src\Utility;
 
 use JetBrains\PhpStorm\Pure;
 
-class Input
+class Request
 {
     /**
      * checks weather or not  is $_POST request
@@ -33,6 +33,19 @@ class Input
         return $this->getRequestMethod() === 'GET';
     }
 
+    /**
+     * @return bool
+     */
+    public function isDelete(){
+        return $this->getRequestMethod() === 'DELETE';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPatch(){
+        return $this->getRequestMethod() === 'PATCH';
+    }
     /**
      * retuns the $_SERVER['REQUEST_METHOD']
      * @return string
