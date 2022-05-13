@@ -80,7 +80,7 @@ class PermissionController extends BaseController
     {
         $data = ['errors' => '' , 'permissionData' => ''];
         $data['data'] = $this->permissionRepository->find($id);
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->permissionUpdateService->update($_POST, $id);
             if (!empty($data['errors'])) {
                 $data['errors'] = $data;
@@ -95,7 +95,7 @@ class PermissionController extends BaseController
     public function deleteAction($id)
     {
 
-        if($this->input->isPost()){
+        if($this->request->isPost()){
             if($role = $this->permissionRepository->find($id)){
                 if($this->permissionRepository->delete($role,$id)){
                     $resp = ['success' => true , 'message' => 'Permission deleted', 'userId' => $id];
