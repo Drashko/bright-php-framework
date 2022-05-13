@@ -55,7 +55,7 @@ class MessageController extends BaseController
     {
         $data = ['errors' => '' , 'messageData' => ''];
         $data['data'] = $this->messageRepository->find($id);
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->messageRepository->update($_POST, $id);
             if (!empty($data['errors'])) {
                 $data['errors'] = $data;

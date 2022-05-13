@@ -2,6 +2,7 @@
 
 namespace src\Template;
 
+use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use src\Exception\NotFoundException;
 use src\Factory\SessionFactory;
@@ -9,24 +10,27 @@ use src\Utility\Globals;
 
 class Template implements TemplateInterface
 {
-    private string $outBuffer;
+   /* private string $outBuffer;
     public ?string $head = null;
-    public ?string $body = null;
-    public string $layout = 'front';
+    public ?string $body = null;*/
 
+    private mixed $_content = [];
+    private mixed $_currentContent;
+    private mixed $_buffer;
+    private string  $layout = 'front';
+    private array $userList;
 
     /**
      * @param string $template
      * @param array $data
+     * @param string $layout
      * @throws NotFoundException
      */
     public function render(string $template, array $data = [] , $layout = ''): void
     {
-        extract($data, EXTR_SKIP);
+        extract($data);
         $template = TEMPLATE_PATH . $template . '.php';
-
         $this->layout   = !empty($layout) ? TEMPLATE_PATH . "/Layout/" . $layout .'.php' : TEMPLATE_PATH . "/Layout/" . $this->layout .'.php';
-
         if(file_exists($template)){
             include($template);
             include($this->layout);
@@ -42,7 +46,7 @@ class Template implements TemplateInterface
      * @param string $template
      * @param array $data
      */
-    #[NoReturn] public function renderAjax(string $template, array $data = []){
+    /*#[NoReturn] public function renderAjax(string $template, array $data = []){
         extract($data);
 
         $template = TEMPLATE_PATH . $template . '.php';
@@ -51,19 +55,19 @@ class Template implements TemplateInterface
             include $template;
         }
         die;
-    }
+    }*/
 
-    /**
+    /*/**
      * @param $type
      */
-    public function start($type){
+   /* public function start($type){
         $this->outBuffer = $type;
         ob_start();
-    }
+    }*/
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function end(){
+    /*public function end(){
         if($this->outBuffer == 'head'){
             $this->head = ob_get_clean();
         }elseif($this->outBuffer == 'body'){
@@ -72,13 +76,14 @@ class Template implements TemplateInterface
         else{
             throw new \RuntimeException('First you must start the function start()!');
         }
-    }
+    }*/
 
     /**
      * @param $type
      * @return string|bool|null
+     * @throws Exception
      */
-    public function content($type): string|bool|null
+   /* public function content($type): string|bool|null
     {
         if($type == 'head'){
             return $this->head;
@@ -86,6 +91,48 @@ class Template implements TemplateInterface
             return $this->body;
         }
         return false;
+    }*/
+    /**
+     * @param $layout
+     * @return bool|string|null
+     */
+    public function setLayout($layout): bool|string|null
+    {
+        $this->_layout = $layout;
+    }
+    /**
+     * @param $key
+     * @throws Exception
+     */
+    public function start($key)
+    {
+        if(empty($key)) {
+            throw new Exception("Your start method requires a valid key.");
+        }
+        $this->_buffer = $key;
+        ob_start();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function end() {
+        if(empty($this->_buffer)) {
+            throw new Exception("You must first run the start method.");
+        }
+        $this->_content[$this->_buffer] = ob_get_clean();
+        $this->_buffer = null;
+    }
+
+    /**
+     * @param $key
+     */
+    public function content($key) {
+        if(array_key_exists($key, $this->_content)) {
+            echo $this->_content[$key];
+        } else {
+            echo '';
+        }
     }
 
     /**

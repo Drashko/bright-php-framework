@@ -42,8 +42,8 @@ class RolePermissionController extends BaseController
     public function indexAction(){
         $data = ['roleList' => '' , 'rolePermissionList' => ''];
         $data['roleList'] = $this->roleRepository->list($conditions=[]);
-        if($this->input->isGet()) {
-            $roleId = $this->input->get('role_id');
+        if($this->request->isGet()) {
+            $roleId = $this->request->get('role_id');
             if(!empty($roleId)) {
                 $data['rolePermissionList'] = $this->rolePermissionRepository->list(['role_id' => $roleId]);
             }
@@ -52,9 +52,9 @@ class RolePermissionController extends BaseController
     }
 
     #[NoReturn] public function assignAction(){
-        if($this->input->isPost()){
+        if($this->request->isPost()){
            // $data = [];
-            $roleId = $this->input->get('role_id');
+            $roleId = $this->request->get('role_id');
             $data = $this->rolePermissionRepository->assign($roleId, $_POST['permission']);
             if(!$data) {
                 $resp = ['success' => false];

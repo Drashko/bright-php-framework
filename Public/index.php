@@ -28,7 +28,7 @@ $authenticate = $container->get(AuthenticateService::class);
 $getLoggedInUser  = $authenticate->getLoggedInUser();
 Globals::add('loggedInUser', $getLoggedInUser);
 
-//pr($_SESSION);
+
 /**
  * Run the framework
  */

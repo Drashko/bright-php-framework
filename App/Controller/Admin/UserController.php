@@ -16,6 +16,7 @@ use src\Base\BaseController;
 use src\Exception\NotFoundException;
 use src\Flash\Flash;
 use src\Logger\LoggerInterface;
+use src\Template\Template;
 use src\Utility\Paginator;
 use src\Utility\Route;
 
@@ -82,11 +83,10 @@ class UserController extends BaseController
      * @throws Exception
      */
     public function indexAction(){
-
         $conditions = Route::getUrlParam();
-        //pr($conditions);
         $data['userList'] = $this->userListRepository->list($conditions);
         $data['paginatorPages'] = $this->userListRepository->getPaginatorTotalPages();
+        //$this->template->render('/Admin/user');
         $this->render('/Admin/user' , ['userList' => $data['userList'] , 'paginatorPages'=> $data['paginatorPages']]);
     }
 
@@ -111,7 +111,7 @@ class UserController extends BaseController
 
 
     public function createAction(){
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->userCreateService->create($_POST);
             if(!empty($data['errors'])) {
                 $resp = ['success' => false, 'errors' => $data['errors']];
@@ -129,7 +129,7 @@ class UserController extends BaseController
      * @param $id
      */
     #[NoReturn] public function deleteAction($id){
-        if($this->input->isPost()){
+        if($this->request->isPost()){
             if($user = $this->userIdRepository->find($id)){
                 if($this->userDeleteRepository->delete($user,$id)){
                     $resp = ['success' => true , 'message' => 'User deleted', 'userId' => $id];

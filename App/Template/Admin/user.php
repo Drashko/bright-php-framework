@@ -1,8 +1,5 @@
 <?php
-$this->start('head');
-//put ANY css and js here
-$this->end();
- $this->start('body')?>
+$this->start('body')?>
 <!-- CONTENT -->
 <?php
 use src\Utility\Route;
@@ -15,6 +12,8 @@ $status  = $_GET['status'] ?? '';
 $role_id = $_GET['role_id'] ?? '';
 
 $filter  = Route::setFilterParam($_GET);
+//pr($this->paginatorPages);
+//exit();
 ?>
 <form id="user-list" method="get">
      <h2>User List</h2>
@@ -50,8 +49,8 @@ $filter  = Route::setFilterParam($_GET);
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($userList)) { ?>
-            <?php foreach ($userList as $user) : ?>
+            <?php if(!empty($data['userList']) ){ ?>
+            <?php foreach ($data['userList'] as $user) : ?>
             <tr>
                 <td><?=$user->getId()?></td><td><?=$user->getRoleId()?></td><td><?=$user->getName()?></td><td><?=$user->getEmail()?></td><td><?=$user->getPhone()?></td><td><?=$user->getAddress()?></td><td><?=$user->getIp()?></td><td><?=$user->getStatus()?></td><td><?=$user->getCreatedAt()?></td>
                 <td>

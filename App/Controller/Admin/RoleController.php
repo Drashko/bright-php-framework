@@ -59,7 +59,7 @@ class RoleController extends BaseController
      *
      */
     public function createAction(){
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->roleCreateService->create($_POST);
             if(!empty($data['errors'])) {
                 $resp = ['success' => false, 'errors' => $data['errors']];
@@ -78,7 +78,7 @@ class RoleController extends BaseController
     {
         $data = ['errors' => '' , 'roleData' => ''];
         $data['data'] = $this->roleRepository->find($id);
-        if ($this->input->isPost()) {
+        if ($this->request->isPost()) {
             $data = $this->roleUpdateService->update($_POST, $id);
             if (!empty($data['errors'])) {
                 $data['errors'] = $data;
@@ -94,7 +94,7 @@ class RoleController extends BaseController
      * @param $id
      */
     #[NoReturn] public function deleteAction($id){
-        if($this->input->isPost()){
+        if($this->request->isPost()){
             if($role = $this->roleRepository->find($id)){
                 if($this->roleRepository->delete($role,$id)){
                     $resp = ['success' => true , 'message' => 'Role deleted', 'userId' => $id];
