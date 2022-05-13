@@ -27,8 +27,8 @@ class AdminNavigationController extends BaseController
      */
     #[NoReturn] public function setActiveMenuLinkAction(){
         $resp = ['success' => true, 'data' => ''];
-        if($this->input->isPost()){
-            $link = $this->input->get('id');
+        if($this->request->isPost()){
+            $link = $this->request->get('id');
             $this->session->set('menu-item-opened' ,$link);
             $resp = ['success' => true, 'data' => $link];
         }

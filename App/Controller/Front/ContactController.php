@@ -44,7 +44,7 @@ class ContactController extends BaseController
      * @throws NotFoundException
      */
     public function indexAction(){
-        if($this->input->isPost()){
+        if($this->request->isPost()){
             $data = $this->messageCreateService->create($_POST);
         }
         $this->render('/Front/contact' , []);
