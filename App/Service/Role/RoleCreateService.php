@@ -5,6 +5,7 @@ namespace App\Service\Role;
 use App\Entity\RoleEntity;
 use App\Repository\Role\RoleRepositoryInterface;
 use App\Validation\RoleValidation;
+use Exception;
 use src\Utility\Sanitizer;
 
 class RoleCreateService implements RoleCreateServiceInterface
@@ -25,7 +26,7 @@ class RoleCreateService implements RoleCreateServiceInterface
     /**
      * @param array $data
      * @return array|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(array $data): array|null
     {

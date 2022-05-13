@@ -55,6 +55,8 @@ class UserEntity extends Entity
             'phone'      => $this->getPhone(),
             'address'      => $this->getAddress(),
             'status'       => $this->getStatus(),
+            'failed_logins'  => $this->getFailedLogin(),
+            'last_failed_login'  => $this->getLastFailedLogin(),
             'created_at'     => $this->getCreatedAt(),
             'updated_at'     => $this->getUpdatedAt(),
             'service'        => $this->getService()
@@ -173,7 +175,7 @@ class UserEntity extends Entity
      */
     public function getFailedLogin(): ?int
     {
-        return $this->failedLogin;
+        return $this->failed_logins;
     }
 
     /**
@@ -182,7 +184,7 @@ class UserEntity extends Entity
      */
     public function setFailedLogin(?int $failedLogin): UserEntity
     {
-        $this->failedLogin = $failedLogin;
+        $this->failed_logins = $failedLogin;
         return $this;
     }
 
@@ -273,24 +275,6 @@ class UserEntity extends Entity
     public function setAddress(?string $address): UserEntity
     {
         $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getFailedLogins(): ?int
-    {
-        return $this->failed_logins;
-    }
-
-    /**
-     * @param int|null $failed_logins
-     * @return UserEntity
-     */
-    public function setFailedLogins(?int $failed_logins): UserEntity
-    {
-        $this->failed_logins = $failed_logins;
         return $this;
     }
 

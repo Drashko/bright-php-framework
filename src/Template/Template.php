@@ -5,6 +5,7 @@ namespace src\Template;
 use JetBrains\PhpStorm\NoReturn;
 use src\Exception\NotFoundException;
 use src\Factory\SessionFactory;
+use src\Utility\Globals;
 
 class Template implements TemplateInterface
 {
@@ -12,6 +13,7 @@ class Template implements TemplateInterface
     public ?string $head = null;
     public ?string $body = null;
     public string $layout = 'front';
+
 
     /**
      * @param string $template
@@ -21,7 +23,6 @@ class Template implements TemplateInterface
     public function render(string $template, array $data = [] , $layout = ''): void
     {
         extract($data, EXTR_SKIP);
-
         $template = TEMPLATE_PATH . $template . '.php';
 
         $this->layout   = !empty($layout) ? TEMPLATE_PATH . "/Layout/" . $layout .'.php' : TEMPLATE_PATH . "/Layout/" . $this->layout .'.php';
@@ -145,6 +146,7 @@ class Template implements TemplateInterface
     public function partial(string $group, string $partial){
         include TEMPLATE_PATH . DIRECTORY_SEPARATOR .  $group . DIRECTORY_SEPARATOR . 'Partials' . DIRECTORY_SEPARATOR . $partial . '.php';
     }
+
 
 
 

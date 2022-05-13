@@ -19,11 +19,12 @@ class UserIdRepository implements UserIdRepositoryInterface
     {
         $this->dataMapper = $dataMapper;
     }
+
     /**
      * @param $id
-     * @return UserEntity
+     * @return UserEntity|bool
      */
-    public function find($id): UserEntity
+    public function find($id): UserEntity | bool
     {
         $mapper = $this->dataMapper->findById('`users`', $id);
         $mapper->setFetchMode(PDO::FETCH_CLASS, UserEntity::class);

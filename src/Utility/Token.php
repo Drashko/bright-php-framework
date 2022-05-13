@@ -3,7 +3,7 @@
 namespace src\Utility;
 
 use Exception;
-use src\Factory\ConfigFactory;
+use src\Config\Config;
 
 class Token
 {
@@ -42,6 +42,6 @@ class Token
      */
     public function getHash() : string
     {
-        return hash_hmac('sha256', $this->token, Yaml::file('app')['settings']['secret_key']);
+        return hash_hmac('sha256', $this->token, Config::get('app', 'secret_key'));
     }
 }

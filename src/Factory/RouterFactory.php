@@ -2,7 +2,6 @@
 
 namespace src\Factory;
 
-use DI\Container;
 use src\Base\Exception\BaseNoValueException;
 use src\Base\Exception\BaseUnexpectedValueException;
 use src\Router\RouterInterface;
@@ -42,7 +41,7 @@ class RouterFactory
      */
     public function create(string $routerString) : self
     {
-        $this->router = new $routerString(new Container());
+        $this->router = new $routerString(new \src\Container\ContainerBuilder());
         if (!$this->router instanceof RouterInterface) {
             throw new BaseUnexpectedValueException($routerString . ' is not a valid Router object');
         }

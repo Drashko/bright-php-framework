@@ -19,6 +19,8 @@ class MessageEntity extends Entity
 
     private ?string $name = null;
 
+    private ?string $message = null;
+
     private ?string $email = null;
 
     private ?string $created_at = null;
@@ -48,6 +50,7 @@ class MessageEntity extends Entity
         return [
             'name'   => $this->getName(),
             'email'  => $this->getEmail(),
+            'text'   => $this->getMessage(),
             'status'     => $this->getStatus(),
             'created_at' => $this->getCreatedAt()
         ];
@@ -124,6 +127,26 @@ class MessageEntity extends Entity
         $this->status = $status;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string|null message
+     * @return MessageEntity
+     */
+    public function setMessage(?string $message): MessageEntity
+    {
+        $this->message = $message;
+        return $this;
+    }
+
+
 
 
 }

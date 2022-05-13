@@ -20,16 +20,21 @@ class Route
            if($queryString)
                parse_str($queryString, $params);
        }
-       //pr($params);
        return $params;
    }
 
     /**
-     * @param array $params
+     * @param $data
+     * @return mixed
      */
-   public static function setUrlParam(array $params){
-       //http_query_build()
-       //
+   public static function setFilterParam($data): string
+   {
+       $queryString = '';
+       foreach($data as $key => $value){
+           if(str_contains($key,'/') OR (str_contains($key,'page'))) continue;
+             $queryString .= '&' . $key . '=' . $value;
+       }
+       return $queryString;
    }
 
     /**

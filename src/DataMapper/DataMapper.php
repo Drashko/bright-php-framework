@@ -209,7 +209,26 @@ class DataMapper implements DataMapperInterface
         };
     }
 
+    /**
+     * PDO transactions init
+     */
+     public function beginTransaction(){
+        $this->pdo->beginTransaction();
+     }
 
+    /**
+     * Pdo commit transaction
+     */
+     public function commit(){
+         $this->pdo->commit();
+     }
+
+    /**
+     * rollback incomplete transaction
+     */
+     public function rollBack(){
+         $this->pdo->rollBack();
+     }
     /**
      * Group list of items by column name
      *

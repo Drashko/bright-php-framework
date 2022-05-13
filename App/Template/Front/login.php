@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="uk-margin-small">
-                    <label><input class="uk-checkbox" name="remember_me" type="checkbox"> Keep me logged in</label>
+                    <label><input class="uk-checkbox" name="remember_me" <?=isset($_POST['remember_me']) ? "checked='checked'" : ''?> type="checkbox"> Keep me logged in</label>
                 </div>
                 <div class="uk-margin-bottom">
                     <button type="submit" class="uk-button uk-button-primary uk-border uk-width-1-1">LOG IN</button>

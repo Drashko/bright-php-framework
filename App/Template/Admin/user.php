@@ -5,11 +5,18 @@ $this->end();
  $this->start('body')?>
 <!-- CONTENT -->
 <?php
+use src\Utility\Route;
 $errors   = $data['errors'] ?? [];
-$statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
-$roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
+//TO DO move to config file or table
+$statuses = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
+$roles    = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
+$page    = $_GET['page'] ?? 1;
+$status  = $_GET['status'] ?? '';
+$role_id = $_GET['role_id'] ?? '';
+
+$filter  = Route::setFilterParam($_GET);
 ?>
-<form method="get">
+<form id="user-list" method="get">
      <h2>User List</h2>
      <div class="uk-margin">
              <a href="#modal-user-create" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add user</a>
@@ -18,16 +25,16 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <select class="uk-select uk-width-small uk-form-small" id="role-select" name="role_id">
                     <option value="">Choose Role</option>
                     <?php foreach($roles as $key => $value) :?>
-                        <option value="<?=$key?>"><?=$value?></option>
+                        <option value="<?=$key?>" <?=$role_id == $key ? 'selected' : ''?>><?=$value?></option>
                     <?php endforeach; ?>
                 </select>
                 <select class="uk-select uk-width-small uk-form-small" id="status-select" name="status">
                     <option value="">Choose Status</option>
                     <?php foreach($statuses as $key => $value) :?>
-                        <option value="<?=$key?>"><?=$value?></option>
+                        <option value="<?=$key?>" <?=$status == $key ? 'selected' : ''?>><?=$value?></option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit"  class="uk-button uk-button-primary uk-button-small">Search</button>
+                <button id="button-filter" type="button"  class="uk-button uk-button-primary uk-button-small">Search</button>
      </div>
      <div class="uk-margin uk-right">
             <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
@@ -67,16 +74,28 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
         </table>
          <!--Pagination-->
          <ul class="uk-pagination uk-flex-center" uk-margin>
-             <li><a href="#"><span uk-pagination-previous></span></a></li>
-             <li><a href="#">1</a></li>
-             <li class="uk-disabled"><span>...</span></li>
-             <li><a href="#">5</a></li>
-             <li><a href="#">6</a></li>
-             <li class="uk-active"><span>7</span></li>
-             <li><a href="#">8</a></li>
-             <li><a href="#"><span uk-pagination-next></span></a></li>
+             <!--li><a href="#"><span uk-pagination-previous></span></a></li-->
+             <?php for($i=1; $i<=$data['paginatorPages']; $i++): ?>
+                <li class="<?=($page == $i) ? 'uk-active' : ''?>" ><a  href="<?=$this->url('admin/user/index/?')?><?=$filter?>&page=<?=$i?>"><?=$i?></a></li>
+              <?php endfor; ?>
+             <!--li><a href="#"><span uk-pagination-next></span></a></li-->
          </ul>
  </form>
+<script>
+    $('#button-filter').on('click', function() {
+       let url = App.baseUrl() + 'admin/user/index/?';
+       //for search filed
+        var role_id = $('select[name=\'role_id\']').val();
+        if (role_id !== '') {
+            url += '&role_id=' + encodeURIComponent(role_id);
+        }
+        var status = $('select[name=\'status\']').val();
+        if (status !== '') {
+            url += '&status=' + encodeURIComponent(status);
+        }
+        location = url;
+    });
+</script>
 <!--user-create modal popup-->
 <?php $this->partial('Admin', 'modalUserCreate')?>
 <!--export pdf  modal popup-->

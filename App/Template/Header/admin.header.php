@@ -26,7 +26,7 @@ $session = \src\Factory\SessionFactory::make();
                                 <li class="uk-nav-divider"></li>
                                 <li><a href="#"><span data-uk-icon="icon: image"></span> Your Data</a></li>
                                 <li class="uk-nav-divider"></li>
-                                <li><a href="#"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
+                                <li><a  ><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
                             </ul>
                         </div>
                     </li>
@@ -42,7 +42,7 @@ $session = \src\Factory\SessionFactory::make();
                 <ul class="uk-navbar-nav">
                     <li><a href="<?=$this->url('admin/profile/index/')?>" data-uk-icon="icon:user" title="Your profile" data-uk-tooltip></a></li>
                     <!--li><a href="#" data-uk-icon="icon: settings" title="Settings" data-uk-tooltip></a></li-->
-                    <li><a href="#" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a></li>
+                    <li><a id="logout" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a></li>
                     <li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav" title="Offcanvas" data-uk-tooltip></a></li>
                 </ul>
             </div>

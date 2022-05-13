@@ -6,6 +6,7 @@ User.init = function(){
     this.modalList = document.querySelectorAll('[data-modal="delete"]');
     this.delete();
     this.create();
+    this.logout();
 }
 User.delete = function(){
     this.modalList.forEach(function (el){
@@ -48,6 +49,27 @@ User.create = function(){
             }
         });
     });
+}
+
+User.logout = function(){
+     const logout = jQuery('#logout');
+        logout.click(function(){
+            if(confirm('You are about to log out! Are you sure?')){
+                $.ajax({
+                    url: App.baseUrl() + 'logout/index/',
+                    type: 'GET',
+                    success : function(resp){
+                        if(resp.success){
+                            //show message logout
+                            window.location.href = App.baseUrl();
+                        }else{
+                            alert('Error loggin out');
+                        }
+                    }
+                });
+            }
+        });
+
 }
 
 

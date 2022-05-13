@@ -2,13 +2,12 @@
 
 namespace App\Service\Auth;
 
-interface AuthServiceInterface
+interface AuthorizedServiceInterface
 {
-    public function isLoggedIn() : bool;
-    public function logOut() : bool;
+    public function isLoggedInSession() : bool;
+    public function isLoggedInCookie() : bool;
     public function getRole() : bool;
     public function getPermission() : bool;
     public function hasPermission() : bool;
     public function loggedUser() : bool;
-
 }
