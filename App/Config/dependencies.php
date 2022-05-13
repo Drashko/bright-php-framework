@@ -9,6 +9,7 @@ use App\Controller\Front\RegisterController;
 //admin
 use App\Controller\Admin\UserController as UserAdminController;
 //repository
+use App\Repository\Message\MessageRepository;
 use App\Repository\Permission\PermissionRepository;
 use App\Repository\Role\RoleRepository;
 use App\Repository\RolePermission\RolePermissionRepository;
@@ -22,6 +23,7 @@ use App\Repository\User\UserListRepository;
 use App\Repository\User\UserUpdateRepository;
 //services
 use App\Repository\UserSession\UserSessionRepository;
+use App\Service\Auth\AuthenticateService;
 use App\Service\Permission\PermissionCreateService;
 use App\Service\Permission\PermissionUpdateService;
 use App\Service\User\UserCreateService;
@@ -77,6 +79,7 @@ return [
     \App\Service\User\UserUpdateServiceInterface::class => \DI\autowire(UserUpdateService::class),
     \App\Service\User\UserCreateServiceInterface::class => \DI\autowire(UserCreateService::class),
     \App\Service\User\UserFindIdServiceInterface::class => \DI\autowire(\App\Service\User\UserFindIdService::class),
+    \App\Service\Auth\AuthenticateServiceInterface::class => \DI\autowire(\App\Service\Auth\AuthenticateService::class),
 
     \App\Service\Contract\FindByNameServiceInterface::class => \DI\autowire(\App\Service\Role\FindByNameService::class),
     \App\Service\Contract\FindByNameServiceInterface::class => \DI\autowire(\App\Service\Permission\FindByNameService::class),
@@ -85,8 +88,12 @@ return [
     \App\Repository\Role\RoleRepositoryInterface::class => \DI\autowire(RoleRepository::class),
     \App\Service\Permission\PermissionCreateServiceInterface::class => \DI\autowire(PermissionCreateService::class),
     \App\Service\Permission\PermissionUpdateServiceInterface::class => \DI\autowire(PermissionUpdateService::class),
+    \App\Service\Message\MessageCreateServiceInterface::class => \DI\autowire(\App\Service\Message\MessageCreateService::class),
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
+    \App\Repository\Message\MessageRepositoryInterface::class => \DI\autowire(MessageRepository::class),
+
+    //\App\Service\Auth\Authenticated::class => \DI\autowire()->method('initAuth', AuthenticateService::class ),
 
     //resolving repositories
     'UserListRepository' => function(\Psr\Container\ContainerInterface $c){
@@ -105,6 +112,7 @@ return [
     'UserCreateRepositoryService' => function(\Psr\Container\ContainerInterface $c){
         return new UserRegisterService($c->get('DataMapper'),$c->get('UserEntity'), $c->get('RegisterValidation'));
     },
+
     //resolve controllers
     'HomeController' => function(\Psr\Container\ContainerInterface $c){
         return new HomeController($c->get('UserListRepository'));

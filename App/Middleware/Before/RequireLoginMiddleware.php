@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Middleware\Before;
 
-use App\Service\Auth\AuthService;
+use App\Service\Auth\AuthorizedService;
 use src\Flash\Flash;
 use src\Flash\FlashTypes;
 use src\Middleware\BeforeMiddleware;
@@ -14,11 +14,12 @@ use src\Utility\Route;
 
 class RequireLoginMiddleware extends BeforeMiddleware
 {
-    protected AuthService $authorized;
+    protected AuthorizedService $authorized;
 
     public function __construct()
     {
-        $this->authorized = new AuthService();
+        $this->authorized = new AuthorizedService();
+
     }
 
     /**
@@ -31,11 +32,9 @@ class RequireLoginMiddleware extends BeforeMiddleware
      */
     public function middleware(object $middleware, Closure $next)
     {
-
-        if (!$this->authorized->isLoggedIn()) {
-             Flash::add("You must be logged in to access this page!", FlashTypes::DANGER);
-             Route::redirect('login/index');
-
+        if (!$this->authorized->isLoggedInSession() AND !$this->authorized->isLoggedInCookie()) {
+            Flash::add("You must be logged in to access this page!", FlashTypes::DANGER);
+            Route::redirect('login/index');
         }
         return $next($middleware);
 

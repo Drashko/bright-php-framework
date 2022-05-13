@@ -15,6 +15,16 @@ class Paginator
     /** @var float */
     protected float $offset;
 
+
+
+
+
+
+
+    private int $totalRecords;
+
+    private int $recordsPerPage;
+
     /**
      * Class constructor
      *
@@ -23,20 +33,21 @@ class Paginator
      * @param int $page Current page
      *
      */
-    public function __construct(int $totalRecords, int $recordsPerPage, int $page)
+    public function __construct()//int $totalRecords, int $recordsPerPage, int $page
     {
         // Make sure the page number is within a valid range from 1 to the total number of pages
-        $this->totalPages = ceil($totalRecords / $recordsPerPage);
-        $data = [
-            'options' => [
-                'default' => 1,
-                'min_range' => 1,
-                'max_range' => $this->totalPages
-            ]
-        ];
-        $this->page = filter_var($page, FILTER_VALIDATE_INT, $data);
+        //$this->totalPages = ceil($this->totalRecords / $this->recordsPerPage);
+        //$data = [
+           // 'options' => [
+               /// 'default' => 1,
+               // 'min_range' => 1,
+               // 'max_range' => $this->totalPages
+            //]
+      //  ];
+        //$this->page = filter_var($page, FILTER_VALIDATE_INT, $data);
+        //$this->page = $page;
         // Calculate the starting record based on the page and number of records per page
-        $this->offset = $recordsPerPage * ($this->page - 1);
+        //$this->offset = $recordsPerPage * ($this->page - 1);
     }
 
     /**
@@ -46,7 +57,8 @@ class Paginator
      */
     public function getOffset() : int
     {
-        return (int)$this->offset;
+        $this->offset = $this->recordsPerPage * ($this->page - 1);
+        return (int) abs($this->offset);
     }
 
     /**
@@ -66,8 +78,35 @@ class Paginator
      */
     public function getTotalPages() : int
     {
-        return (int)$this->totalPages;
+        $this->totalPages = ceil($this->totalRecords / $this->recordsPerPage);
+        return (int) $this->totalPages;
     }
 
+    public function setTotalRecords(int $totalRecords){
+        $this->totalRecords = $totalRecords;
+    }
 
+    public function setRecordsPerPage(int $recordsPerPage){
+        $this->recordsPerPage = $recordsPerPage;
+    }
+
+    public function setPage(int $page){
+        $this->page = $page;
+    }
+
+    /**
+     * // Make sure the page number is within a valid range from 1 to the total number of pages
+        $this->totalPages = ceil($this->totalRecords / $this->recordsPerPage);
+        $data = [
+        'options' => [
+        'default' => 1,
+        'min_range' => 1,
+        'max_range' => $this->totalPages
+        ]
+        ];
+        //$this->page = filter_var($page, FILTER_VALIDATE_INT, $data);
+        $this->page = $page;
+        // Calculate the starting record based on the page and number of records per page
+        $this->offset = $recordsPerPage * ($this->page - 1);
+     */
 }

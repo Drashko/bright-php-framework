@@ -114,7 +114,7 @@ class UserLoginService implements UserLoginServiceInterface
                     ->setHash($newHash);
                 $this->userSessionRepository->create($sessionEntity);
                 //set cookie
-                $this->cookie->set(Config::get('app', 'login_cookie_name'), $newHash , 60 * 60 * 24 * 30);
+                //$this->cookie->set(Config::get('app', 'login_cookie_name'), $newHash , 60 * 60 * 24 * 30);
             }
             return true;
         }
@@ -126,7 +126,7 @@ class UserLoginService implements UserLoginServiceInterface
         //if
     }
 
-    public function authenticate(string $email){
+    public function authenticate(string $email, string $password){
 
         if($this->userEmailRepository->find($email)){
             return  $this->userEmailRepository->find($email);
@@ -167,8 +167,8 @@ class UserLoginService implements UserLoginServiceInterface
                 }
                 //$this->forceReset($userEntity->getId());
             }
-            session_regenerate_id(true);
-            $this->session->set('userId', $userEntity->getId());
+            //session_regenerate_id(true);
+            //$this->session->set('userId', $userEntity->getId());
         }
         //return $this->error;
     }

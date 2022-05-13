@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * project root directory defined
  */
@@ -14,13 +15,29 @@ if(is_file($autoload)){
 /**
  * include Application class
  */
+use DI\Container;
+use src\Container\ContainerBuilder;
+use App\Service\Auth\AuthenticateService;
 use src\Application\Application;
-use src\EventDispatcher\EventDispatcher;
-use src\Event\Event;
-use src\EventListener\UserRegisterListener;
-use src\Event\UserRegisterEvent;
+use src\Utility\Globals;
+
+
+//get current loggedIn user
+$container = (new ContainerBuilder())->init();
+$authenticate = $container->get(AuthenticateService::class);
+$getLoggedInUser  = $authenticate->getLoggedInUser();
+Globals::add('loggedInUser', $getLoggedInUser);
+
+//pr($_SESSION);
 /**
  * Run the framework
  */
-(new Application(ROOT_PATH))->run()->setSession()->setRouteHandler();
+(new Application(ROOT_PATH))->run()->setRouteHandler();
+//echo phpinfo();
+
+
+
+
+
+
 

@@ -57,7 +57,7 @@ class UserRegisterService implements UserRegisterServiceInterface
                    ->setCreatedAt(date('Y-m-d h:s:i'));
                if($registeredUser = $this->userRepository->create($user)){
                    session_regenerate_id(true);
-                   $this->session->set('userId', $registeredUser->getId());
+                   $this->session->set('user_id', $registeredUser->getId());
                    //return $registeredUser;
                }
 

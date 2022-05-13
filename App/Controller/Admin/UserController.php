@@ -16,6 +16,7 @@ use src\Base\BaseController;
 use src\Exception\NotFoundException;
 use src\Flash\Flash;
 use src\Logger\LoggerInterface;
+use src\Utility\Paginator;
 use src\Utility\Route;
 
 class UserController extends BaseController
@@ -81,9 +82,12 @@ class UserController extends BaseController
      * @throws Exception
      */
     public function indexAction(){
+
         $conditions = Route::getUrlParam();
-        $data = $this->userListRepository->list($conditions);
-        $this->render('/Admin/user' , ['userList' => $data]);
+        //pr($conditions);
+        $data['userList'] = $this->userListRepository->list($conditions);
+        $data['paginatorPages'] = $this->userListRepository->getPaginatorTotalPages();
+        $this->render('/Admin/user' , ['userList' => $data['userList'] , 'paginatorPages'=> $data['paginatorPages']]);
     }
 
     /**

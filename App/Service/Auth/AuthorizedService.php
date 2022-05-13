@@ -4,38 +4,27 @@ namespace App\Service\Auth;
 
 use src\Factory\SessionFactory;
 
-class AuthService implements AuthServiceInterface
+class AuthorizedService implements AuthorizedServiceInterface
 {
-
-    //get session class
-    //get user Repository ?
-    //get DataMapper if needs
-    //get another service if needed
-    //consider AuthFactory
-    //get Role and Permissions Repositories
-
-    protected $session;
-
     public function __construct()
     {
-         $this->session = SessionFactory::make();
+        $this->session = SessionFactory::make();
     }
 
     /**
      * @return bool
      */
-    public function isLoggedIn(): bool
+    public function isLoggedInSession(): bool
     {
-        return $this->session->has('userId');
+        return isset($_SESSION['user_id']);
     }
 
-    /**
-     * @return bool
-     */
-    public function logOut(): bool
+    public function isLoggedInCookie(): bool
     {
-        // TODO: Implement logOut() method.
+        return isset($_COOKIE['remember_me']);
     }
+
+
 
     /**
      * @return bool
@@ -66,6 +55,11 @@ class AuthService implements AuthServiceInterface
      */
     public function loggedUser(): bool
     {
-        // TODO: Implement loggedUser() method.
+        // if(isset(session->user->id))
+        //return findById()
+        //else{
+        //
+        //}
+
     }
 }

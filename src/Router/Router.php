@@ -6,6 +6,7 @@ namespace src\Router;
 
 use DI\Container;
 use Exception;
+use src\Container\ContainerBuilder;
 
 class Router implements RouterInterface
 {
@@ -27,12 +28,13 @@ class Router implements RouterInterface
      */
     protected string $namespace = 'App\Controller\\';
 
+    private Container $container;
+
     /**
-     * @param Container $container
-     * @throws Exception
      */
-    public function __construct(private Container $container){
-        $this->container = $this->getDependencies();
+    public function __construct( ContainerBuilder $containerBuilder){
+        //$this->container = $this->getDependencies();
+        $this->container = $containerBuilder->init();
     }
     /**
      * @param string $route
@@ -62,6 +64,7 @@ class Router implements RouterInterface
     {
         //remove query params before dispatching the  route
         $url = $this->removeQueryStringVariables($url);
+        //pr($url);
         if($this->match($url)){
             $controllerString = $this->params['controller'] . $this->controllerSuffix;
             $controllerString = $this->transformUpperCamelCase($controllerString);
@@ -170,12 +173,12 @@ class Router implements RouterInterface
      * @return Container
      * @throws Exception
      */
-    public function getDependencies(): \DI\Container
+    /*public function getDependencies(): \DI\Container
     {
         $container = new \DI\ContainerBuilder();
         $container->useAutowiring(true);
         $container->useAnnotations(false);
         $container->addDefinitions(require ROOT_PATH . '/App/Config/dependencies.php');
         return $container->build();
-    }
+    }*/
 }

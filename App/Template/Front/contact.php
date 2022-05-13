@@ -23,7 +23,13 @@
                 </div>
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-width-1-1">
-                        <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: mail"></span>
+                        <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: phone"></span>
+                        <input class="uk-input uk-border" placeholder="Phone (optional) " name="phone" type="text" value="<?= $_POST['phone'] ?? '' ?>">
+                    </div>
+                </div>
+                <div class="uk-margin-small">
+                    <div class="uk-inline uk-width-1-1">
+                        <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
                         <input class="uk-input uk-border" required placeholder="Email" name="email" type="email" value="<?= $_POST['email'] ?? '' ?>">
                     </div>
                 </div>

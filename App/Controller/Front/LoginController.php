@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Service\Auth\AuthenticateServiceInterface;
 use App\Service\User\UserLoginServiceInterface;
 use Exception;
 use src\Base\BaseController;
@@ -11,17 +12,17 @@ use src\Logger\LoggerInterface;
 class LoginController extends BaseController {
 
     /**
-     * @var UserLoginServiceInterface
+     * @var AuthenticateServiceInterface
      */
-    private UserLoginServiceInterface $userLoginService;
+    private AuthenticateServiceInterface $authenticateService;
     /**
      * @var LoggerInterface
      */
     private LoggerInterface $logger;
 
-    public function __construct(UserLoginServiceInterface $userLoginService, LoggerInterface $logger){
+    public function __construct(AuthenticateServiceInterface $authenticateService, LoggerInterface $logger){
         parent::__construct();
-        $this->userLoginService = $userLoginService;
+        $this->authenticateService = $authenticateService;
         $this->logger = $logger;
     }
 
@@ -39,11 +40,15 @@ class LoginController extends BaseController {
     public function indexAction(){
         $data = [];
         if($this->input->isPost()) {
-            $data['errors'] = $this->userLoginService->loginValidate($_POST);
-            if(empty($data['errors'])) {
+            $authService = $this->authenticateService->authenticate($_POST['email'], $_POST['password']);
+            $remember_me = isset($_POST['remember_me']);
+            if($authService){
+                $this->authenticateService->logIn($authService, $remember_me);
                 Flash::add('Welcome back. You are successfully logged in.');
                 $this->logger->info('A user just logged in.');
                 $this->redirect('/');
+            }else{
+                $data['errors'] = $this->authenticateService->getErrors();
             }
         }
         $this->render('/Front/login' , $data);

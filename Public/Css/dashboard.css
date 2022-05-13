@@ -225,3 +225,6 @@ main {
 .uk-container.admin{
 	margin-bottom:200px;
 }
+
+.uk-pagination li.uk-active { background: #39f;}
+.uk-pagination li.uk-active a {color:white;}

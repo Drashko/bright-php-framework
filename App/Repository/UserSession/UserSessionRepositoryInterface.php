@@ -9,4 +9,5 @@ interface UserSessionRepositoryInterface
      public function findByUserId($user_id) : bool | UserSessionEntity;
      public function findByHash($hash) : bool | UserSessionEntity;
      public function create(UserSessionEntity $userSessionEntity) : UserSessionEntity;
+     public function delete(UserSessionEntity $userSessionEntity, int $id) : bool;
 }

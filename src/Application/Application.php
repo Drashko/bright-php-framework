@@ -11,7 +11,7 @@ use src\Factory\RouterFactory;
 use src\Factory\SessionFactory;
 use src\Router\Router;
 use src\Session\SessionInterface;
-
+use src\Utility\Globals;
 
 
 class Application
@@ -80,6 +80,7 @@ class Application
 
         ini_set('default_charset', 'UTF-8');
         ini_set('error_reporting', 'E_ALL');
+        //date_default_timezone_set("Europe/Sofia");
         //int_set, cookie,session , and so on ...
     }
 
@@ -99,8 +100,8 @@ class Application
 
     public function setSession() : self
     {
-        $this->session->start();
-        return $this;
+        //$this->session->start();
+        //return $this;
     }
 
     /**
@@ -119,4 +120,5 @@ class Application
         $factory->create(Router::class)->buildRoutes();
         return $this;
     }
+
 }
