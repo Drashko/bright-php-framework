@@ -9,7 +9,37 @@ return [
           ]
     ],
     [
-        'name' => 'User',
+        'name' => 'Projects',
+        'link' => null ,
+        'attr' => [
+            'class' => 'uk-parent' ,
+            'data' => 'data-uk-icon="icon: list"'
+        ],
+        'sub-nav' => [
+
+            'list' => [
+                ['name' => 'List',
+                    'link' => 'admin/list/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon:  list"'],
+                ],
+                ['name' => 'Client',
+                    'link' => 'admin/client/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                ],
+                ['name' => 'Task',
+                    'link' => 'admin/task/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                ],
+                ['name' => 'Activity',
+                    'link' => 'admin/activity/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                ],
+            ]
+        ],
+
+    ],
+    [
+        'name' => 'Users',
         'link' => 'admin/user/index/',
         'attr' => [
             'class' => 'uk-margin-small-right' ,

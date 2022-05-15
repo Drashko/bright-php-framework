@@ -20,7 +20,7 @@ class Config{
         self::$default = $default;
         //$this->data = require dirname(__DIR__) . DIRECTORY_SEPARATOR .'Config/'.DIRECTORY_SEPARATOR. $file . ".php";
         self::$data = require ROOT_PATH . DIRECTORY_SEPARATOR .'App/Config/'.DIRECTORY_SEPARATOR. $file . ".php";
-        $segments = explode('.', $key);
+        $segments = explode('.', (string) $key);
         $data = self::$data;
         foreach($segments as $segment){
             if(isset($data[$segment])){

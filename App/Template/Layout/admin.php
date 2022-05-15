@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- UIkit CSS -->
-    <link rel="stylesheet" href="../../../css/uikit.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@latest/dist/css/uikit.min.css">
     <!-- Custom framework css -->
-    <link rel="stylesheet" href="../../../css/dashboard.css">
-    <link rel="stylesheet" href="../../../css/modal.css">
+    <link rel="stylesheet" href="<?= INDEX_URL ?>public/Css/dashboard.css">
+    <!--link rel="stylesheet" href="<?= INDEX_URL ?>public/Css/modal.css"-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?=$this->content('head')?>
 </head>
@@ -27,19 +29,19 @@
 </div>
 <?php include(ROOT_PATH . '/App/Template/Footer/admin.footer.php');?>
     <!-- UIkit JS -->
-    <script src="<?= INDEX_URL ?>/public/Js/uikit.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/uikit-icons.min.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/uikit.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/uikit-icons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/init.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/app.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/dom.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/ajax.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/modal.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/user.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/role.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/permission.js"></script>
-    <script src="<?= INDEX_URL ?>/public/Js/export.js"></script>
-
+    <script src="<?= INDEX_URL ?>public/Js/init.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/app.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/dom.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/ajax.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/modal.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/user.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/role.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/permission.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/export.js"></script>
+    <script src="<?= INDEX_URL ?>public/Js/chartScripts.js"></script>
     <!--script src="<?= INDEX_URL ?>/Public/js/validate.js"></script-->
 </body>
 </html>

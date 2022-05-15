@@ -54,7 +54,11 @@
         <!-- action buttons -->
         <div class="uk-margin-small>
             <p class="uk-text-center">
-                <div class="uk-margin-small"><a href="<?=$this->url('register/index/')?>" class="uk-link-reset uk-text-medium toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade">Registration</a></div>
+
+
+                <!--div class="uk-margin-small"><a href="<?=$this->url('register/index/')?>" class="uk-link-reset uk-text-medium toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade">Registration</a></div-->
+
+
                 <!--a class="uk-link-reset uk-text-small toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade">Forgot your password?</a>
                 <a class="uk-link-reset uk-text-small toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade" hidden><span data-uk-icon="arrow-left"></span> Back to Login</a-->
             </div>

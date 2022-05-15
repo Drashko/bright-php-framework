@@ -44,7 +44,7 @@ main {
   overflow-y: auto;
   background-color: #222A30;
   width: 240px;
-  z-index:2;
+  z-index:5;
   transition: height 0.3s ease-out;
 }
 /* Left bar links */
@@ -139,6 +139,7 @@ main {
 	padding: 30px 0 0 0;
 	/*background-color: #f7f7f7;*/
 	margin-left: 0;
+	z-index: 0;
 	transition: margin 0.2s cubic-bezier(.4,0,.2,1);
 }
 @media screen and (min-width: 960px){
@@ -228,3 +229,4 @@ main {
 
 .uk-pagination li.uk-active { background: #39f;}
 .uk-pagination li.uk-active a {color:white;}
+.uk-overflow-auto {overflow: auto;}

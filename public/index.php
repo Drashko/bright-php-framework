@@ -34,6 +34,8 @@ Globals::add('loggedInUser', $getLoggedInUser);
  */
 (new Application(ROOT_PATH))->run()->setRouteHandler();
 //echo phpinfo();
+//pr(BASE_URL);
+//pr(INDEX_URL);
 
 
 

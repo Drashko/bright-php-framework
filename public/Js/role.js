@@ -13,7 +13,7 @@ Role.delete = function(){
             let id = e.target.id;
             if(confirm('Do you want to delete this role?')){
                 $.ajax({
-                    url: App.baseUrl() + 'admin/role/delete/' + id,
+                    url: App.baseUrl() + '/admin/role/delete/' + id,
                     type: 'POST',
                     data : { id : id },
                     success : function(resp){
@@ -31,7 +31,7 @@ Role.create = function(){
     this.roleCreateForm.submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: App.baseUrl() + 'admin/role/create/',
+            url: App.baseUrl() + '/admin/role/create/',
             type: 'POST',
             data : $(this).serialize(),
             success : function(resp){

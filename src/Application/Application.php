@@ -66,7 +66,7 @@ class Application
         defined('TEMPLATE_PATH') or define('TEMPLATE_PATH', APP_ROOT . DS . 'App/Template');
         defined('LOG_DIR') or define('LOG_DIR', APP_ROOT . DS . 'Tmp/log');
         defined('BASE_URL') or define('BASE_URL', $_SERVER['REQUEST_SCHEME'] ."://". $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']);
-        defined('INDEX_URL') or define('INDEX_URL', str_replace('Public/index.php', "" ,BASE_URL));
+        defined('INDEX_URL') or define('INDEX_URL', str_replace('public/index.php', "" ,BASE_URL));
 
     }
 
