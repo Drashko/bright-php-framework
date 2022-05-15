@@ -11,7 +11,7 @@ class Sanitize
      */
     public static function sanitize($var, $type)
     {
-        $flags = NULL;
+        $flags = 1;
         switch($type)
         {
             case 'url':
@@ -30,7 +30,7 @@ class Sanitize
                 break;
             case 'string':
             default:
-                $filter = FILTER_SANITIZE_STRING;
+                $filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS;
                 $flags = FILTER_FLAG_NO_ENCODE_QUOTES;
                 break;
 

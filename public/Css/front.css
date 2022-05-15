@@ -12,3 +12,4 @@ main {
     display: block;
     flex: 1 0 auto;
 }
+.uk-navbar-item .uk-button {padding: 0 7px !important;}

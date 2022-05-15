@@ -13,7 +13,7 @@ Permission.delete = function(){
             let id = e.target.id;
             if(confirm('Do you want to delete this permission?')){
                 $.ajax({
-                    url: App.baseUrl() + 'admin/permission/delete/' + id,
+                    url: App.baseUrl() + '/admin/permission/delete/' + id,
                     type: 'POST',
                     data : { id : id },
                     success : function(resp){
@@ -31,7 +31,7 @@ Permission.create = function(){
     this.permissionCreateForm.submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: App.baseUrl() + 'admin/permission/create/',
+            url: App.baseUrl() + '/admin/permission/create/',
             type: 'POST',
             data : $(this).serialize(),
             success : function(resp){

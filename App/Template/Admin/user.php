@@ -15,7 +15,7 @@ $filter  = Route::setFilterParam($_GET);
 //pr($this->paginatorPages);
 //exit();
 ?>
-<form id="user-list" method="get">
+<form id="user-list" method="get" class="uk-overflow-auto">
      <h2>User List</h2>
      <div class="uk-margin">
              <a href="#modal-user-create" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add user</a>
@@ -35,14 +35,15 @@ $filter  = Route::setFilterParam($_GET);
                 </select>
                 <button id="button-filter" type="button"  class="uk-button uk-button-primary uk-button-small">Search</button>
      </div>
-     <div class="uk-margin uk-right">
+     <div class="uk-margin uk-right ">
             <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
             <a  href="#modal-pdf" uk-toggle class="uk-button uk-button-default uk-button-small">PDF</a>
             <a  href="#modal-excel" uk-toggle class="uk-button uk-button-default uk-button-small">EXCEL</a>
             <a  href="#modal-csv" uk-toggle class="uk-button uk-button-default uk-button-small">CSV</a>
         </div>
         <hr>
-        <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+    <div class="uk-overflow-container">
+        <table class="uk-table uk-table-hover uk-table-striped">
             <thead>
                 <tr>
                     <th>ID</th><th>Role</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Ip</th><th>Status</th><th>CreatedAt</th><th>Actions</th>
@@ -71,6 +72,7 @@ $filter  = Route::setFilterParam($_GET);
             <?php } ?>
             </tbody>
         </table>
+    </div>
          <!--Pagination-->
          <ul class="uk-pagination uk-flex-center" uk-margin>
              <!--li><a href="#"><span uk-pagination-previous></span></a></li-->
@@ -82,7 +84,7 @@ $filter  = Route::setFilterParam($_GET);
  </form>
 <script>
     $('#button-filter').on('click', function() {
-       let url = App.baseUrl() + 'admin/user/index/?';
+       let url = App.baseUrl() + '/admin/user/index/?';
        //for search filed
         var role_id = $('select[name=\'role_id\']').val();
         if (role_id !== '') {

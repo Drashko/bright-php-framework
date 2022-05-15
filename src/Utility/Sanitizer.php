@@ -24,7 +24,7 @@ class Sanitizer
                     throw new Exception('Invalid key');
                 }
                 if (!is_array($value)) {
-                    $value = trim(stripslashes($value));
+                    $value = trim(stripslashes((string) $value));
                 }
 
                 switch ($value) {
@@ -36,7 +36,7 @@ class Sanitizer
                         //Strip tags and HTML-encode double and single quotes,
                         // optionally strip or encode special characters.
                         // Encoding quotes can be disabled by setting!
-                        $input[$key] = isset($value) ? filter_var($value, FILTER_SANITIZE_STRING) : '';
+                        $input[$key] = isset($value) ? filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
                         break;
                     case is_array($value) :
                         if (count($value) > 0) {
@@ -45,7 +45,7 @@ class Sanitizer
                                     if (is_int($arrValue)) {
                                         $input[$arrKey] = isset($arrValue) ? filter_var($arrValue, FILTER_SANITIZE_NUMBER_INT) : '';
                                     } else {
-                                        $input[$arrKey] = isset($arrValue) ? filter_var($value, FILTER_SANITIZE_STRING) : '';
+                                        $input[$arrKey] = isset($arrValue) ? filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
                                     }
                                 }
                             }

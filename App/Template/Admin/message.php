@@ -32,7 +32,7 @@ $errors   = $data['errors'] ?? [];
                             <button class="uk-button uk-button-small">Actions</button>
                             <div data-uk-dropdown="{mode:'click'}">
                                 <a href="<?=$this->url("admin/message/update/{$message->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Update </a>
-                                <a  id="<?=$message->getId()?>" data-modal="delete-permission"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                <a  id="<?=$message->getId()?>" data-modal="delete-message"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                             </div>
                         </div>
                     </td>

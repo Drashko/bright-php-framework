@@ -62,7 +62,7 @@ $rolePermissionList = $rolePermissionList ?? [];
     form.submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: App.baseUrl() + 'admin/rolePermission/assign/',
+            url: App.baseUrl() + '/admin/rolePermission/assign/',
             type: 'POST',
             data : $(this).serialize(),
             success : function(resp){

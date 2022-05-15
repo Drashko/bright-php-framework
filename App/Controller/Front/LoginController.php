@@ -46,7 +46,7 @@ class LoginController extends BaseController {
                 $this->authenticateService->logIn($authService, $remember_me);
                 Flash::add('Welcome back. You are successfully logged in.');
                 $this->logger->info('A user just logged in.');
-                $this->redirect('/');
+                $this->redirect('admin/dashboard/index/');
             }else{
                 $data['errors'] = $this->authenticateService->getErrors();
             }

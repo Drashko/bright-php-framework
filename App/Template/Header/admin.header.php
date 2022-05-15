@@ -4,14 +4,15 @@ use src\Config\Config;
 $config = new Config();
 $navigationList = $config->get('adminNavigation');
 $session = \src\Factory\SessionFactory::make();
-//pr($session->get('menu-item-opened'));
+if(!$session->has('menu-item-opened'))
+    $session->set('menu-item-opened', 'Home');
 ?>
 <header id="top-head" class="uk-position-fixed">
     <div class="uk-container uk-container-expand uk-background-primary">
         <nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
             <div class="uk-navbar-left">
                 <div class="uk-navbar-item uk-hidden@m">
-                    <a class="uk-logo" href="<?=$this->url('admin/dashboard/index/')?>"><img class="custom-logo" src="../../../img/dashboard-logo-white.svg" alt=""></a>
+                    <a class="uk-logo" href="<?=$this->url('admin/dashboard/index/')?>"><img class="custom-logo" src="<?=INDEX_URL?>public/Img/dashboard-logo-white.svg" alt=""></a>
                 </div>
                 <ul class="uk-navbar-nav uk-visible@m">
                     <li><a href="#">Accounts</a></li>
@@ -53,7 +54,7 @@ $session = \src\Factory\SessionFactory::make();
 <!-- LEFT BAR -->
 <aside id="left-col" class="uk-light uk-visible@m">
     <div class="left-logo uk-flex uk-flex-middle">
-        <img class="custom-logo" src="../../../img/dashboard-logo.svg" alt="">
+        <img class="custom-logo" src="<?=INDEX_URL?>public/Img/dashboard-logo.svg" alt="">
     </div>
     <div class="left-content-box  content-box-dark">
         <h4 class="uk-text-center uk-margin-remove-vertical text-light">John Doe</h4>
@@ -82,7 +83,8 @@ $session = \src\Factory\SessionFactory::make();
             <li class="uk-nav-header"></li>
             <?php foreach($navigationList as $navigation) : ?>
                 <?php if(!isset($navigation['sub-nav'])) { ?>
-                      <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?> <?=($session->get('menu-item-opened') === $navigation['name']) ? 'uk-open' : '' ?>" ><a href="<?=$this->url($navigation['link'])?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a></li>
+                      <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?> <?=($session->get('menu-item-opened') === $navigation['name']) ? 'uk-open' : '' ?>" >
+                          <a href="<?=$this->url($navigation['link'])?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a></li>
                 <?php } else { ?>
                     <?php foreach($navigation['sub-nav'] as $item) : ?>
                         <li id="<?=$navigation['name']?>" class="nav-item <?=($navigation['attr']['class'] == "uk-parent") ? 'uk-parent': ''?> <?=($session->get('menu-item-opened') === $navigation['name']) ? 'uk-open' : '' ?>" >
@@ -147,23 +149,58 @@ $session = \src\Factory\SessionFactory::make();
         </ul>
     </div>
 </aside>
+<!-- OFFCANVAS -->
+<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+        <button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+        <ul class="uk-nav uk-nav-default">
+            <li class="uk-active"><a href="#">Menu</a></li>
+            <li class="uk-parent">
+                <a href="<?=$this->url('admin/dashboard/index/')?>">Home</a>
+            </li>
+            <li class="uk-parent">
+                <a href="#">Projects</a>
+                <ul class="uk-nav-sub">
+                    <li><a href="<?=$this->url('admin/list/index/')?>">List</a></li>
+                    <li><a href="<?=$this->url('admin/client/index/')?>">Client</a></li>
+                    <li><a href="<?=$this->url('admin/task/index/')?>">Task</a></li>
+                    <li><a href="<?=$this->url('admin/activity/index/')?>">Activity</a></li>
+                </ul>
+            </li>
+            <li class="uk-parent"><a href="<?=$this->url('admin/user/index/')?>">User</a></li>
+            <li class="uk-parent"><a href="<?=$this->url('admin/message/index/')?>">Message</a></li>
+            <li class="uk-parent"><a href="<?=$this->url('admin/report/index/')?>">Report</a></li>
+            <li class="uk-parent">
+                <a href="#">Settingst</a>
+                <ul class="uk-nav-sub">
+                    <li><a href="<?=$this->url('admin/role/index/')?>">Role</a></li>
+                    <li><a href="<?=$this->url('admin/permission/index/')?>">Permission</a></li>
+                    <li><a href="<?=$this->url('admin/rolePermission/index/')?>">RolePermission</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- /OFFCANVAS -->
 <script>
 
     const navList = document.querySelectorAll('.nav-item');
     navList.forEach(function(el){
         el.addEventListener('click', function(e){
             let id = this.id;
-            $.ajax({
-                url: App.baseUrl() + 'ui/AdminNavigation/setActiveMenuLink/',
-                type: 'POST',
-                data : { id : id},
-                success : function(resp){
-                    if(resp.success){
-                        console.log(resp);
-                    }
-                }
-            });
-        });
+            let targetLink = $(this).children('a').attr('href');
+            if(targetLink)
+                e.preventDefault();
+                $.ajax({
+                    url: App.baseUrl() + '/ui/AdminNavigation/setActiveMenuLink/',
+                    type: 'POST',
+                    data : { id : id},
+                }).done(function(resp){
+                    if(targetLink)
+                       window.location =  targetLink;
+                });
+        },false);
     });
 </script>
 <!-- /LEFT BAR -->

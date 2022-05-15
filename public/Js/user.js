@@ -14,7 +14,7 @@ User.delete = function(){
             let id = e.target.id;
             if(confirm('Do you want to delete this user?')){
                 $.ajax({
-                    url: App.baseUrl() + 'admin/user/delete/' + id,
+                    url: App.baseUrl() + '/admin/user/delete/' + id,
                     type: 'POST',
                     data : { id : id },
                     success : function(resp){
@@ -32,7 +32,7 @@ User.create = function(){
     this.userCreateForm.submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: App.baseUrl() + 'admin/user/create/',
+            url: App.baseUrl() + '/admin/user/create/',
             type: 'POST',
             data : $(this).serialize(),
             success : function(resp){
@@ -56,7 +56,7 @@ User.logout = function(){
         logout.click(function(){
             if(confirm('You are about to log out! Are you sure?')){
                 $.ajax({
-                    url: App.baseUrl() + 'logout/index/',
+                    url: App.baseUrl() + '/logout/index/',
                     type: 'GET',
                     success : function(resp){
                         if(resp.success){
