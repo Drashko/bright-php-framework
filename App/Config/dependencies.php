@@ -91,6 +91,8 @@ return [
     \App\Service\Permission\PermissionCreateServiceInterface::class => \DI\autowire(PermissionCreateService::class),
     \App\Service\Permission\PermissionUpdateServiceInterface::class => \DI\autowire(PermissionUpdateService::class),
     \App\Service\Message\MessageCreateServiceInterface::class => \DI\autowire(\App\Service\Message\MessageCreateService::class),
+    \App\Service\Project\ProjectCreateServiceInterface::class => \DI\autowire(\App\Service\Project\ProjectCreateService::class),
+    \App\Service\Project\ProjectUpdateServiceInterface::class => \DI\autowire(\App\Service\Project\ProjectUpdateService::class),
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
     \App\Repository\Message\MessageRepositoryInterface::class => \DI\autowire(MessageRepository::class),

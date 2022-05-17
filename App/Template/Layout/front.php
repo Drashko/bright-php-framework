@@ -6,7 +6,7 @@
     <!-- UIkit CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@latest/dist/css/uikit.min.css">
     <!-- Custom framework css -->
-    <link rel="stylesheet" href="<?= INDEX_URL ?>public/Css/front.css">
+    <link rel="stylesheet" href="../../Css/front.css">
     <style>
         .uk-container-small {
             max-width: 1020px;
@@ -36,13 +36,13 @@
 </section>
 <?php include(ROOT_PATH . '/App/Template/Footer/front.footer.php');?>
 <!-- UIkit JS -->
-<script src="<?= INDEX_URL ?>public/Js/uikit.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/uikit-icons.min.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/init.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/app.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/user.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/role.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/permission.js"></script>
-<script src="<?= INDEX_URL ?>public/Js/export.js"></script>
+<script src="../../public/Js/uikit.js"></script>
+<script src="../../public/Js/uikit-icons.min.js"></script>
+<script src="../../public/Js/init.js"></script>
+<script src="../../public/Js/app.js"></script>
+<script src="../../public/Js/user.js"></script>
+<script src="../../public/Js/role.js"></script>
+<script src="../../public/Js/permission.js"></script>
+<script src="../../public/Js/export.js"></script>
 </body>
 </html>

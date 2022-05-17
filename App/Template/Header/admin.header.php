@@ -76,7 +76,7 @@ if(!$session->has('menu-item-opened'))
             <!-- /user dropdown -->
         </div>
     </div>
-
+    <!--admin navigation -->
     <div class="left-nav-wrap">
        <!--Main navigation-->
         <ul id="menu" class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav uk-nav="multiple: true>
@@ -91,7 +91,7 @@ if(!$session->has('menu-item-opened'))
                             <a href="" aria-expanded="<?=($session->get('menu-item-opened') === $navigation['name']) ? 'true' : 'false' ?>"><span <?=$navigation['attr']['data']?> <?=$navigation['attr']['class']?>></span><?=$navigation['name']?></a>
                             <ul class="uk-nav-sub">
                                 <?php foreach($item as $itm)  : ?>
-                                   <li class="<?=($this->active('controller') === lcfirst($itm['name']) )  ? 'uk-active' : ''?>"><a href="<?=$this->url($itm['link'])?>"><?=$itm['name']?></li></a>
+                                   <li style="padding: 3px 0 2px 2px" class="<?=($this->active('controller') === lcfirst($itm['name']) )  ? 'uk-active' : ''?>"><span <?=$itm['attr']['data']?> <?=$itm['attr']['class']?>></span><a style="display:inline" href="<?=$this->url($itm['link'])?>"><?=$itm['name']?> </a></li>
                                 <?php endforeach;?>
                             </ul>
                         </li>

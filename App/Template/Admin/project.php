@@ -15,7 +15,7 @@ $filter  = Route::setFilterParam($_GET);
 //exit();
 ?>
 <form id="project-list" method="get" class="uk-overflow-auto">
-    <h2>User List</h2>
+    <h2>Project List</h2>
     <div class="uk-margin">
         <a href="<?=$this->url("admin/project/create/")?>" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add project</a>
     </div>

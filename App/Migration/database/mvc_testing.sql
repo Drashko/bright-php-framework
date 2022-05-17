@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Време на генериране: 15 май 2022 в 10:08
+-- Време на генериране: 17 май 2022 в 14:40
 -- Версия на сървъра: 10.4.22-MariaDB
 -- Версия на PHP: 8.0.15
 
@@ -111,6 +111,17 @@ CREATE TABLE `project` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Схема на данните от таблица `project`
+--
+
+INSERT INTO `project` (`Id`, `manager_id`, `client_id`, `name`, `description`, `start_date`, `end_date`, `created_at`, `updated_at`, `status`) VALUES
+(1, 0, 0, 'drp', '23412 7653754768538', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 14:31:14', ''),
+(2, 0, 0, 'user_view--------------', 'fddsgf iiiiiiiiiiiiiiiiiiiiiii', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:43:47', ''),
+(3, 0, 0, 'Guest', 'ertw', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:44:21', ''),
+(4, 0, 0, 'dr', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:58:57', ''),
+(5, 0, 0, 'Guest', 'etewrt', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
+
 -- --------------------------------------------------------
 
 --
@@ -197,12 +208,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Id`, `role_id`, `name`, `email`, `password`, `phone`, `address`, `status`, `failed_logins`, `last_failed_login`, `created_at`, `updated_at`, `service`) VALUES
-(1, 1, 'dr', 'drashko1979@gmail.com', '$2y$10$XXGb10fzWQ9d1QimpJGKuu93hRTT/A4eyabQQ9DNUlsrxrnb.S85u', '', '', 'active', 0, NULL, '2022-05-13 08:46:12', '0000-00-00 00:00:00', 0),
+(1, 1, 'dr', 'drashko1979@gmail.com', '$2y$10$XXGb10fzWQ9d1QimpJGKuu93hRTT/A4eyabQQ9DNUlsrxrnb.S85u', '', '', 'active', 0, NULL, '2022-05-17 11:50:26', '2022-05-17 01:26:50', 0),
 (2, 2, 'Worthington', 'whanlon0@sina.com.cn', '', '', '311 Sullivan Parkway', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
 (3, 2, 'Pepito', 'pwabersich1@umich.edu', '', '', '11351 Graceland Park', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
 (4, 2, 'Lily', 'lmclevie2@yellowpages.com', '', '', '14 Stone Corner Street', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
 (5, 2, 'Jayme', 'jmcmeekin3@mediafire.com', '', '', '1604 Hansons Hill', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
-(7, 2, 'Heindrick', 'horsay5@cbslocal.com', '', '', '8792 Memorial Court', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
+(7, 2, 'Heindrick', 'horsay5@cbslocal.com', '', '', '8792 Memorial Court', 'pending', 0, NULL, '2022-05-17 07:18:08', '2022-05-17 09:08:18', 0),
 (8, 2, 'Robin', 'rmole6@trellian.com', '', '', '974 Monterey Way', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
 (9, 2, 'Elinor', 'emcalinden7@whitehouse.gov', '', '', '3 Mosinee Pass', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
 (10, 2, 'Judith', 'jbelsham8@google.ca', '', '', '69 Dapin Drive', 'pending', 0, NULL, '2022-05-13 08:48:40', '0000-00-00 00:00:00', 0),
@@ -518,7 +529,7 @@ INSERT INTO `user_session` (`Id`, `user_id`, `hash`, `expires_at`, `created_at`)
 (11, 1, '201fdc4e6940463e70fbe8e5ed77de10d564411eba203a0e00b03b5c3e4bb863', '2022-06-12 12:06:23', '0000-00-00 00:00:00'),
 (13, 1, '1410ceb1661a87850e5034d3c16e77dad702c0e5cbeb73a92611d93e05dab501', '2022-06-13 08:43:01', '0000-00-00 00:00:00'),
 (15, 1, '746c7cf0abe3b1cc18d441062af5cf10872b7987fd47c3884defed004ea2afc6', '2022-06-13 12:13:20', '0000-00-00 00:00:00'),
-(17, 1, 'd6d09cf93fcbefafda2a832a790a44961c6fd7a0fb4a4043379211fe8a9b5de4', '2022-06-13 14:09:27', '0000-00-00 00:00:00');
+(18, 1, 'e928ef5cf28b045d8d03793493a236360305a01e43400f84fc15905eac6a7a02', '2022-06-15 15:48:21', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -598,7 +609,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -622,7 +633,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_session`
 --
 ALTER TABLE `user_session`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
