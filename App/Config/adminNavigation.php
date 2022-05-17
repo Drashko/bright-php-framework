@@ -20,19 +20,19 @@ return [
             'list' => [
                 ['name' => 'Project',
                     'link' => 'admin/project/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon:  list"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon:  chevron-double-right"'],
                 ],
                 ['name' => 'Client',
                     'link' => 'admin/client/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
                 ['name' => 'Task',
                     'link' => 'admin/task/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
                 ['name' => 'Activity',
                     'link' => 'admin/activity/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
             ]
         ],
@@ -68,7 +68,7 @@ return [
 
                     ['name' => 'Report',
                      'link' => 'admin/report/index/',
-                     'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                     'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                     ]
 
                  ]
@@ -87,15 +87,15 @@ return [
            'list' => [
                 ['name' => 'Role',
                     'link' => 'admin/role/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
                 ['name' => 'Permission',
                     'link' => 'admin/permission/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
                 ['name' => 'RolePermission',
                     'link' => 'admin/rolePermission/index/',
-                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: comments"'],
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
                 ],
            ]
         ],

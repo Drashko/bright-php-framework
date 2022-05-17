@@ -1,23 +1,33 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
 use App\Middleware\Before\HasPermissionMiddleware;
 use App\Middleware\Before\RequireLoginMiddleware;
 use App\Repository\Project\ProjectRepositoryInterface;
+use App\Service\Project\ProjectCreateServiceInterface;
+use App\Service\Project\ProjectUpdateServiceInterface;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use src\Base\BaseController;
 use src\Exception\NotFoundException;
+use src\Flash\Flash;
 
 class ProjectController extends BaseController {
 
     private ProjectRepositoryInterface $projectRepository;
 
-    public function __construct(ProjectRepositoryInterface $projectRepository){
+    private ProjectCreateServiceInterface $projectCreateService;
+
+    private ProjectUpdateServiceInterface $projectUpdateService;
+
+    public function __construct(ProjectRepositoryInterface $projectRepository, ProjectCreateServiceInterface $projectCreateService, ProjectUpdateServiceInterface $projectUpdateService){
         parent::__construct();
         $this->layout = 'admin';
         $this->projectRepository = $projectRepository;
+        $this->projectCreateService = $projectCreateService;
+        $this->projectUpdateService = $projectUpdateService;
     }
 
     /**
@@ -51,18 +61,25 @@ class ProjectController extends BaseController {
      */
     public function create(){
         if($this->request->isPost()){
-
+            $data = $this->projectCreateService->create($_POST);
+            if($data)//newly created project data
+                $this->redirect("/admin/project/detail/{$data->getId()}");
+        }else{
+            $this->render('/Admin/projectCreate', []);
         }
-        $this->render('/Admin/projectCreate', []);
+
     }
 
     /**
      * @throws NotFoundException
      */
     public function detailAction($id){
-        $conditions = [];
-        //$data = $this->projectRepository->list($conditions);
-        $this->render('/Admin/projectDetail', [ 'id' => $id]);
+        if($this->request->isPost()){
+            $this->projectUpdateService->update($_POST, $id);
+            Flash::add('The project has been successfully updated!');
+        }
+        $data = $this->projectRepository->find($id);
+        $this->render('/Admin/projectDetail', [ 'projectData' => $data ,  'id' => $id]);
     }
 
 }
