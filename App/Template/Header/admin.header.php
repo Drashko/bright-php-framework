@@ -171,7 +171,7 @@ if(!$session->has('menu-item-opened'))
             <li class="uk-parent"><a href="<?=$this->url('admin/message/index/')?>">Message</a></li>
             <li class="uk-parent"><a href="<?=$this->url('admin/report/index/')?>">Report</a></li>
             <li class="uk-parent">
-                <a href="#">Settingst</a>
+                <a href="#">Settings</a>
                 <ul class="uk-nav-sub">
                     <li><a href="<?=$this->url('admin/role/index/')?>">Role</a></li>
                     <li><a href="<?=$this->url('admin/permission/index/')?>">Permission</a></li>

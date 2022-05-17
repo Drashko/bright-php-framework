@@ -30,6 +30,7 @@ class Template implements TemplateInterface
     {
         extract($data);
         $template = TEMPLATE_PATH . $template . '.php';
+        //pr($template);
         $this->layout   = !empty($layout) ? TEMPLATE_PATH . "/Layout/" . $layout .'.php' : TEMPLATE_PATH . "/Layout/" . $this->layout .'.php';
         if(file_exists($template)){
             include($template);

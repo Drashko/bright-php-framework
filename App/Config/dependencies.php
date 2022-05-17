@@ -11,6 +11,7 @@ use App\Controller\Admin\UserController as UserAdminController;
 //repository
 use App\Repository\Message\MessageRepository;
 use App\Repository\Permission\PermissionRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\Role\RoleRepository;
 use App\Repository\RolePermission\RolePermissionRepository;
 use App\Repository\User\UserCreateRepositoryInterface;
@@ -72,6 +73,7 @@ return [
     \App\Repository\User\UserEmailRepositoryInterface::class => \DI\autowire(UserEmailRepository::class),
     \App\Repository\User\UserIdRepositoryInterface::class => \DI\autowire(UserIdRepository::class),
     \App\Repository\User\UserDeleteRepositoryInterface::class => \DI\autowire(UserDeleteRepository::class),
+    \App\Repository\Project\ProjectRepositoryInterface::class => \DI\autowire(ProjectRepository::class),
     \App\Repository\UserSession\UserSessionRepositoryInterface::class => \DI\autowire(UserSessionRepository::class),
 
     //resolving Services
