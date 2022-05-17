@@ -16,6 +16,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 
             <?php  } ?>
     <h2>Add Project</h2>
+    <hr>
     <form class="toggle-class" action="<?=$this->url("admin/project/create/")?>" method="post">
         <fieldset class="uk-fieldset">
             <div class="uk-margin">

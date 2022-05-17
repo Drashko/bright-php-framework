@@ -54,11 +54,10 @@ class LoginController extends BaseController {
         $this->render('/Front/login' , $data);
     }
 
-    public function loginFromCookie(){
-
-    }
     /**
      * after action filter
      */
-    protected function after(){}
+    protected function callAfterMiddlewares() : array {
+        return [];
+    }
 }

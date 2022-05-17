@@ -49,5 +49,7 @@ class LogoutController extends BaseController {
     }
 
 
-    protected function after(){}
+    protected function callAfterMiddlewares() : array {
+        return [];
+    }
 }
