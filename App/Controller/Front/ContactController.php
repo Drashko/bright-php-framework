@@ -31,15 +31,11 @@ class ContactController extends BaseController
     /**
      * @return array
      */
-    #[ArrayShape(['RequireLoginMiddleware' => "string", 'HasPermissionMiddleware' => "string"])] protected function callBeforeMiddlewares() : array
+    protected function callBeforeMiddlewares() : array
     {
         return [];
     }
 
-    protected function callAfterMiddlewares() : array
-    {
-        return [];
-    }
     /**
      * @throws NotFoundException
      */
@@ -49,4 +45,10 @@ class ContactController extends BaseController
         }
         $this->render('/Front/contact' , []);
     }
+
+    protected function callAfterMiddlewares() : array
+    {
+        return [];
+    }
+
 }

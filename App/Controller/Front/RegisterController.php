@@ -30,7 +30,7 @@ class RegisterController extends BaseController {
     /**
      * before and after filters
      */
-    protected function before(){}
+    protected function callBeforeMiddlewares() : array { return [];}
     /**
      * @throws Exception
      */
@@ -51,6 +51,6 @@ class RegisterController extends BaseController {
     /**
      * after action filter
      */
-    protected function after(){}
+    protected function callAfterMiddlewares() : array { return [];}
 
 }

@@ -101,14 +101,4 @@ return [
         ],
 
     ]
-        /*'templates' => [
-            'article' => 'Article',
-            'album' => 'Album',
-            'cover' => 'Cover',
-            'cart' => 'Cart',
-            'newsBlog' => 'News Blog',
-            'price' => 'Price',
-        ],*/
-
-   // ]
 ];
