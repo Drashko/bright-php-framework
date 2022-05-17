@@ -49,6 +49,7 @@ $loggedInUser = Globals::get('loggedInUser');
                   <li class="uk-parent"><a href="<?=$this->url('profile/index/')?>">Profile</a></li>
                   <li class="uk-parent"><a href="<?=$this->url('document/index/')?>">Document</a></li>
                 <?php } endif;?>
+                <li class="<?=($this->active('controller') == 'contact' )   ? 'uk-active' : ''?>"><a href="<?=$this->url('contact/index/')?>">Contact</a></li>
             </ul>
         </div>
     </div>

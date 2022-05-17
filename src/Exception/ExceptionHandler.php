@@ -3,6 +3,7 @@
 namespace src\Exception;
 
 use src\Config\Config;
+use src\Template\Template;
 use Throwable;
 use src\Helper\AppHelper;
 
@@ -12,6 +13,7 @@ class ExceptionHandler
     /**
      * @param Throwable $exception
      * callback function
+     * @throws NotFoundException
      */
     public function handle(Throwable $exception){
         $appHelper = new AppHelper(new Config());
@@ -20,7 +22,9 @@ class ExceptionHandler
               var_dump($exception);
             echo '</pre>';
         }else{
-            echo "This should have not happened! Please try again!";
+            $template = new Template();
+            $template->render('/Layout/404');
+
         }
         exit;
     }

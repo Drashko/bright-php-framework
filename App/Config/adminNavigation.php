@@ -18,8 +18,8 @@ return [
         'sub-nav' => [
 
             'list' => [
-                ['name' => 'List',
-                    'link' => 'admin/list/index/',
+                ['name' => 'Project',
+                    'link' => 'admin/project/index/',
                     'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon:  list"'],
                 ],
                 ['name' => 'Client',
