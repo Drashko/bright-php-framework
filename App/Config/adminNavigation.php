@@ -8,7 +8,7 @@ return [
               'data' => 'data-uk-icon="icon: home"'
           ]
     ],
-    [
+   /* [
         'name' => 'Projects',
         'link' => null ,
         'attr' => [
@@ -37,6 +37,38 @@ return [
             ]
         ],
 
+    ],*/
+    [
+        'name' => 'Projects',
+        'link' => 'admin/project/index/',
+        'attr' => [
+            'class' => 'uk-margin-small-right' ,
+            'data' => 'data-uk-icon="icon: bag"'
+        ]
+    ],
+    [
+        'name' => 'Clients',
+        'link' => 'admin/client/index/',
+        'attr' => [
+            'class' => 'uk-margin-small-right' ,
+            'data' => 'data-uk-icon="icon:  star"'
+        ]
+    ],
+    [
+        'name' => 'Tasks',
+        'link' => 'admin/task/index/',
+        'attr' => [
+            'class' => 'uk-margin-small-right' ,
+            'data' => 'data-uk-icon="icon: bell"'
+        ]
+    ],
+    [
+        'name' => 'Activities',
+        'link' => 'admin/activity/index/',
+        'attr' => [
+            'class' => 'uk-margin-small-right' ,
+            'data' => 'data-uk-icon="icon: code"'
+        ]
     ],
     [
         'name' => 'Users',
@@ -80,7 +112,7 @@ return [
         'link' => null ,
         'attr' => [
             'class' => 'uk-parent' ,
-            'data' => 'data-uk-icon="icon: thumbnails"'
+            'data' => 'data-uk-icon="icon: settings"'
         ],
         'sub-nav' => [
 
