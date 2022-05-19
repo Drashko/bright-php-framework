@@ -161,7 +161,7 @@ if(!$session->has('menu-item-opened'))
             <li class="uk-parent">
                 <a href="#">Projects</a>
                 <ul class="uk-nav-sub">
-                    <li><a href="<?=$this->url('admin/list/index/')?>">List</a></li>
+                    <li><a href="<?=$this->url('admin/project/index/')?>">Project</a></li>
                     <li><a href="<?=$this->url('admin/client/index/')?>">Client</a></li>
                     <li><a href="<?=$this->url('admin/task/index/')?>">Task</a></li>
                     <li><a href="<?=$this->url('admin/activity/index/')?>">Activity</a></li>

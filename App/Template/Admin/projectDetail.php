@@ -15,6 +15,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
         <?php  } ?>
     <?php  } ?>
     <h2>Project detail #<?=$id?></h2>
+    <div class="uk-margin"></div>
     <hr>
     <form class="toggle-class" action="<?=$this->url("admin/project/detail/{$id}")?>" method="post">
         <fieldset class="uk-fieldset">
