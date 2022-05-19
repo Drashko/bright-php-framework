@@ -1,4 +1,4 @@
-<?php $this->start('body')?>
+<?php $this->start('body'); ?>
 <!-- CONTENT -->
 <?php
 $errors   = $data['errors'] ?? [];
@@ -9,16 +9,16 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 <br>
 <hr>
 <div class="uk-width-large uk-padding-small">
-            <?php if(isset($errors)){ ?>
-                <?php foreach($errors as $error) { ?>
-                    <div class="uk-alert-danger" uk-alert>
-                        <a class="uk-alert-close" uk-close></a>
-                        <p><?=$error?></p>
-                    </div>
-                <?php  } ?>
+    <?php if(isset($errors)){ ?>
+        <?php foreach($errors as $error) { ?>
+            <div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p><?=$error?></p>
+            </div>
+        <?php  } ?>
 
-            <?php  } ?>
-    <form class="toggle-class" action="<?=$this->url("admin/project/create/")?>" method="post">
+    <?php  } ?>
+    <form class="toggle-class" action="<?=$this->url("admin/client/create/")?>" method="post">
         <fieldset class="uk-fieldset">
             <div class="uk-margin">
                 <div class="uk-width-1-1">
@@ -55,5 +55,5 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
             </div>
         </fieldset>
     </form>
- </div>
+</div>
 <?php $this->end()?>

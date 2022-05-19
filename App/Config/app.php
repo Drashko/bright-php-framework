@@ -1,6 +1,6 @@
 <?php
 return [
-    'debug' => false,
+    'debug' => true,
     'env' => "dev",
     'app_name' => "Demo app",
     'log_path' => __DIR__ . '/../Tmp',

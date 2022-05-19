@@ -19,7 +19,7 @@ $filter  = Route::setFilterParam($_GET);
     <div class="uk-margin">
         <a href="<?=$this->url("admin/project/create/")?>" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add project</a>
     </div>
-    <div class="uk-margin uk-left">
+    <!--div class="uk-margin uk-left">
         <select class="uk-select uk-width-small uk-form-small" id="role-select" name="role_id">
             <option value="">Choose Role</option>
             <?php foreach($roles as $key => $value) :?>
@@ -33,7 +33,7 @@ $filter  = Route::setFilterParam($_GET);
             <?php endforeach; ?>
         </select>
         <button id="button-filter" type="button"  class="uk-button uk-button-primary uk-button-small">Search</button>
-    </div>
+    </div-->
     <div class="uk-margin uk-right ">
         <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
         <a  href="#modal-pdf" uk-toggle class="uk-button uk-button-default uk-button-small">PDF</a>
