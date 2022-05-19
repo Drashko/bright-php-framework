@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Време на генериране: 17 май 2022 в 14:40
+-- Време на генериране: 19 май 2022 в 17:52
 -- Версия на сървъра: 10.4.22-MariaDB
 -- Версия на PHP: 8.0.15
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура на таблица `activity`
+--
+
+DROP TABLE IF EXISTS `activity`;
+CREATE TABLE `activity` (
+  `Id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `status` smallint(3) NOT NULL,
+  `created_at` varchar(255) NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура на таблица `client`
 --
 
@@ -31,7 +50,6 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `Id` int(11) UNSIGNED NOT NULL,
   `owner_id` int(11) NOT NULL,
-  `createdBy_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -40,8 +58,15 @@ CREATE TABLE `client` (
   `status` smallint(3) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `service` smallint(3) NOT NULL
+  `service` smallint(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `client`
+--
+
+INSERT INTO `client` (`Id`, `owner_id`, `name`, `address`, `email`, `phone`, `vat`, `status`, `created_at`, `updated_at`, `service`) VALUES
+(1, 1, 'test', 'test', 'drashko1979@gmail.com', '12313432', '4353546536', 1, '2022-05-18 17:24:20', '2022-05-18 17:24:20', 0);
 
 -- --------------------------------------------------------
 
@@ -116,11 +141,13 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`Id`, `manager_id`, `client_id`, `name`, `description`, `start_date`, `end_date`, `created_at`, `updated_at`, `status`) VALUES
-(1, 0, 0, 'drp', '23412 7653754768538', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 14:31:14', ''),
+(1, 0, 0, 'drp', '23412 7653754768538', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 19:06:11', ''),
 (2, 0, 0, 'user_view--------------', 'fddsgf iiiiiiiiiiiiiiiiiiiiiii', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:43:47', ''),
 (3, 0, 0, 'Guest', 'ertw', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:44:21', ''),
 (4, 0, 0, 'dr', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 13:58:57', ''),
-(5, 0, 0, 'Guest', 'etewrt', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
+(5, 0, 0, 'Guest', 'etewrt', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', ''),
+(6, 0, 0, 'user_view', 'vvvvvvvvvvvvvv', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', ''),
+(7, 0, 0, 'dr', 'dsfs', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-05-17 16:05:52', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -179,6 +206,24 @@ INSERT INTO `role_permission` (`Id`, `role_id`, `permission_id`, `created_at`, `
 (8, 4, 1, '2022-05-13 10:51:57', '2022-05-13 10:51:57'),
 (9, 4, 2, '2022-05-13 10:51:57', '2022-05-13 10:51:57'),
 (10, 5, 1, '2022-05-13 10:52:05', '2022-05-13 10:52:05');
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `task`
+--
+
+DROP TABLE IF EXISTS `task`;
+CREATE TABLE `task` (
+  `Id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `text` varchar(1024) NOT NULL,
+  `status` smallint(3) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -536,6 +581,12 @@ INSERT INTO `user_session` (`Id`, `user_id`, `hash`, `expires_at`, `created_at`)
 --
 
 --
+-- Индекси за таблица `activity`
+--
+ALTER TABLE `activity`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Индекси за таблица `client`
 --
 ALTER TABLE `client`
@@ -572,6 +623,12 @@ ALTER TABLE `role_permission`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Индекси за таблица `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Индекси за таблица `users`
 --
 ALTER TABLE `users`
@@ -588,10 +645,16 @@ ALTER TABLE `user_session`
 --
 
 --
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -609,7 +672,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -622,6 +685,12 @@ ALTER TABLE `role`
 --
 ALTER TABLE `role_permission`
   MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `task`
+--
+ALTER TABLE `task`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
