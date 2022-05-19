@@ -51,7 +51,7 @@ return [
         'link' => 'admin/client/index/',
         'attr' => [
             'class' => 'uk-margin-small-right' ,
-            'data' => 'data-uk-icon="icon:  star"'
+            'data' => 'data-uk-icon="icon:  user"'
         ]
     ],
     [
