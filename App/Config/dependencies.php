@@ -96,6 +96,9 @@ return [
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
     \App\Repository\Message\MessageRepositoryInterface::class => \DI\autowire(MessageRepository::class),
+    \App\Repository\Client\ClientRepositoryInterface::class => \DI\autowire(\App\Repository\Client\ClientRepository::class),
+    \App\Repository\Task\TaskRepositoryInterface::class => \DI\autowire(\App\Repository\Task\TaskRepository::class),
+    \App\Repository\Activity\ActivityRepositoryInterface::class => \DI\autowire(\App\Repository\Activity\ActivityRepository::class),
 
     //\App\Service\Auth\Authenticated::class => \DI\autowire()->method('initAuth', AuthenticateService::class ),
 

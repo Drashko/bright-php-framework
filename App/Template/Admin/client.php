@@ -57,23 +57,23 @@ $filter  = Route::setFilterParam($_GET);
             </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['projectList']) ){ ?>
-                <?php foreach ($data['projectList'] as $project) : ?>
+            <?php if(!empty($data['clientList']) ){ ?>
+                <?php foreach ($data['clientList'] as $clientt) : ?>
                     <tr>
-                        <td><?=$project->getId()?></td>
-                        <td><?=$project->getOwnerId()?></td>
-                        <td><?=$project->getName()?></td>
-                        <td><?=$project->getEmail()?></td>
-                        <td><?=$project->getPhone()?></td>
-                        <td><?=$project->getVat()?></td>
-                        <td><?=$project->getStatus()?></td>
-                        <td><?=$project->getCreatedAt()?></td>
+                        <td><?=$clientt->getId()?></td>
+                        <td><?=$clientt->getOwnerId()?></td>
+                        <td><?=$clientt->getName()?></td>
+                        <td><?=$clientt->getEmail()?></td>
+                        <td><?=$clientt->getPhone()?></td>
+                        <td><?=$clientt->getVat()?></td>
+                        <td><?=$clientt->getStatus()?></td>
+                        <td><?=$clientt->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
                                 <button class="uk-button uk-button-small">Actions</button>
                                 <div data-uk-dropdown="{mode:'click'}">
-                                    <a href="<?=$this->url("admin/client/detail/{$project->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
-                                    <a  id="<?=$project->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                    <a href="<?=$this->url("admin/client/detail/{$clientt->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
+                                    <a  id="<?=$clientt->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                                 </div>
                             </div>
                         </td>
