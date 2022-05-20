@@ -1,17 +1,22 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
 use App\Middleware\Before\HasPermissionMiddleware;
 use App\Middleware\Before\RequireLoginMiddleware;
+use App\Repository\Client\ClientRepositoryInterface;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use src\Base\BaseController;
 
 class ClientController extends BaseController {
 
-    public function __construct(){
+    private ClientRepositoryInterface $clientRepository;
+
+    public function __construct(ClientRepositoryInterface $clientRepository){
         parent::__construct();
+        $this->clientRepository = $clientRepository;
         $this->layout = 'admin';
     }
 
@@ -36,7 +41,9 @@ class ClientController extends BaseController {
      * @throws Exception
      */
     public function indexAction(){
-        $this->render('/Admin/client', []);
+        $conditions = [];
+        $data = $this->clientRepository->list($conditions);
+        $this->render('/Admin/client', ['clientList' => $data]);
     }
 
 
