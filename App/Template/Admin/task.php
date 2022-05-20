@@ -56,23 +56,22 @@ $filter  = Route::setFilterParam($_GET);
             </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['projectList']) ){ ?>
-                <?php foreach ($data['projectList'] as $project) : ?>
+            <?php if(!empty($data['taskList']) ){ ?>
+                <?php foreach ($data['taskList'] as $task) : ?>
                     <tr>
-                        <td><?=$project->getId()?></td>
-                        <td><?=$project->getProjectId()?></td>
-                        <td><?=$project->getName()?></td>
-                        <td><?=$project->getEmail()?></td>
-                        <td><?=$project->getPhone()?></td>
-                        <td><?=$project->getVat()?></td>
-                        <td><?=$project->getStatus()?></td>
-                        <td><?=$project->getCreatedAt()?></td>
+                        <td><?=$task->getId()?></td>
+                        <td><?=$task->getProjectId()?></td>
+                        <td><?=$task->getUserId()?></td>
+                        <td><?=$task->getName()?></td>
+                        <td><?=$task->getText()?></td>
+                        <td><?=$task->getStatus()?></td>
+                        <td><?=$task->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
                                 <button class="uk-button uk-button-small">Actions</button>
                                 <div data-uk-dropdown="{mode:'click'}">
-                                    <a href="<?=$this->url("admin/task/detail/{$project->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
-                                    <a  id="<?=$project->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                    <a href="<?=$this->url("admin/task/detail/{$task->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
+                                    <a  id="<?=$task->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                                 </div>
                             </div>
                         </td>
