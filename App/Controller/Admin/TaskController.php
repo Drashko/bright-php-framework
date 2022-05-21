@@ -4,14 +4,18 @@ namespace App\Controller\Admin;
 
 use App\Middleware\Before\HasPermissionMiddleware;
 use App\Middleware\Before\RequireLoginMiddleware;
+use App\Repository\Task\TaskRepositoryInterface;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use src\Base\BaseController;
 
 class TaskController extends BaseController {
 
-    public function __construct(){
+    private TaskRepositoryInterface $taskRepository;
+
+    public function __construct(TaskRepositoryInterface $taskRepository){
         parent::__construct();
+        $this->taskRepository = $taskRepository;
         $this->layout = 'admin';
     }
 
@@ -36,7 +40,9 @@ class TaskController extends BaseController {
      * @throws Exception
      */
     public function indexAction(){
-        $this->render('/Admin/task', []);
+        $conditions = [];
+        $data = $this->taskRepository->list($conditions);
+        $this->render('/Admin/task', ['taskList' => $data]);
     }
 
 
