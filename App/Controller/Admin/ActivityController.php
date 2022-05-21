@@ -1,17 +1,22 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
 use App\Middleware\Before\HasPermissionMiddleware;
 use App\Middleware\Before\RequireLoginMiddleware;
+use App\Repository\Activity\ActivityRepositoryInterface;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use src\Base\BaseController;
 
 class ActivityController extends BaseController {
 
-    public function __construct(){
+    private ActivityRepositoryInterface $activityRepository;
+
+    public function __construct(ActivityRepositoryInterface $activityRepository){
         parent::__construct();
+        $this->activityRepository = $activityRepository;
         $this->layout = 'admin';
     }
 
@@ -36,7 +41,9 @@ class ActivityController extends BaseController {
      * @throws Exception
      */
     public function indexAction(){
-        $this->render('/Admin/activity', []);
+        $conditions =[];
+        $data = $this->activityRepository->list($conditions);
+        $this->render('/Admin/activity', ['activityList' => $data]);
     }
 
 

@@ -57,23 +57,23 @@ $filter  = Route::setFilterParam($_GET);
             </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['projectList']) ){ ?>
-                <?php foreach ($data['projectList'] as $project) : ?>
+            <?php if(!empty($data['activityList']) ){ ?>
+                <?php foreach ($data['activityList'] as $activity) : ?>
                     <tr>
-                        <td><?=$project->getId()?></td>
-                        <td><?=$project->getProjectId()?></td>
-                        <td><?=$project->getName()?></td>
-                        <td><?=$project->getEmail()?></td>
-                        <td><?=$project->getPhone()?></td>
-                        <td><?=$project->getVat()?></td>
-                        <td><?=$project->getStatus()?></td>
-                        <td><?=$project->getCreatedAt()?></td>
+                        <td><?=$activity->getId()?></td>
+                        <td><?=$activity->getTaskId()?></td>
+                        <td><?=$activity->getProjectId()?></td>
+                        <td><?=$activity->getUserId()?></td>
+                        <td><?=$activity->getName()?></td>
+                        <td><?=$activity->getDescription()?></td>
+                        <td><?=$activity->getStatus()?></td>
+                        <td><?=$activity->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
                                 <button class="uk-button uk-button-small">Actions</button>
                                 <div data-uk-dropdown="{mode:'click'}">
-                                    <a href="<?=$this->url("admin/activity/detail/{$project->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
-                                    <a  id="<?=$project->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                    <a href="<?=$this->url("admin/activity/detail/{$activity->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
+                                    <a  id="<?=$activity->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                                 </div>
                             </div>
                         </td>
@@ -90,7 +90,7 @@ $filter  = Route::setFilterParam($_GET);
 </form>
 <script>
     $('#button-filter').on('click', function() {
-        let url = App.baseUrl() + '/admin/task/index/?';
+        let url = App.baseUrl() + '/admin/activity/index/?';
         //for search filed
         var role_id = $('select[name=\'role_id\']').val();
         if (role_id !== '') {
