@@ -42,7 +42,7 @@ class LoginController extends BaseController {
         if($this->request->isPost()) {
             $authService = $this->authenticateService->authenticate($_POST['email'], $_POST['password']);
             $remember_me = isset($_POST['remember_me']);
-            if($authService){
+            if(!empty($authService)){
                 $this->authenticateService->logIn($authService, $remember_me);
                 Flash::add('Welcome back. You are successfully logged in.');
                 $this->logger->info('A user just logged in.');

@@ -175,8 +175,11 @@ class AuthenticateService implements AuthenticateServiceInterface
             $user_session = $this->userSessionRepository->findByHash($cookie);
             if($user_session && (!$user_session->getExpiresAt() < time())){
                 $userEntity = $this->userIdRepository->find($user_session->getUserId());
-                $this->logIn($userEntity, false);
-                return $userEntity;
+                if(!empty($userEntity)){
+                    $this->logIn($userEntity, false);
+                    return $userEntity;
+                }
+
             }
         }
         return false;

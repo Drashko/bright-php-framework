@@ -55,7 +55,7 @@ class LoginValidation
                 $this->error[] = 'Wrong email or password!';
             }
             //remove old session id and set new one
-            session_regenerate_id(true);
+            //session_regenerate_id(true);
             //set user session id
             $this->session->set('userId', $userEntity->getId());
 
