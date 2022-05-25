@@ -58,22 +58,22 @@ $filter  = Route::setFilterParam($_GET);
             </thead>
             <tbody>
             <?php if(!empty($data['clientList']) ){ ?>
-                <?php foreach ($data['clientList'] as $clientt) : ?>
+                <?php foreach ($data['clientList'] as $client) : ?>
                     <tr>
-                        <td><?=$clientt->getId()?></td>
-                        <td><?=$clientt->getOwnerId()?></td>
-                        <td><?=$clientt->getName()?></td>
-                        <td><?=$clientt->getEmail()?></td>
-                        <td><?=$clientt->getPhone()?></td>
-                        <td><?=$clientt->getVat()?></td>
-                        <td><?=$clientt->getStatus()?></td>
-                        <td><?=$clientt->getCreatedAt()?></td>
+                        <td><?=$client->getId()?></td>
+                        <td><?=$client->getOwnerId()?></td>
+                        <td><?=$client->getName()?></td>
+                        <td><?=$client->getEmail()?></td>
+                        <td><?=$client->getPhone()?></td>
+                        <td><?=$client->getVat()?></td>
+                        <td><?=$client->getStatus()?></td>
+                        <td><?=$client->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
                                 <button class="uk-button uk-button-small">Actions</button>
                                 <div data-uk-dropdown="{mode:'click'}">
-                                    <a href="<?=$this->url("admin/client/detail/{$clientt->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
-                                    <a  id="<?=$clientt->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                    <a href="<?=$this->url("admin/client/detail/{$client->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
+                                    <a  id="<?=$client->getId()?>" data-modal="delete-client"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                                 </div>
                             </div>
                         </td>
@@ -88,21 +88,7 @@ $filter  = Route::setFilterParam($_GET);
         </table>
     </div>
 </form>
-<script>
-    $('#button-filter').on('click', function() {
-        let url = App.baseUrl() + '/admin/client/index/?';
-        //for search filed
-        var role_id = $('select[name=\'role_id\']').val();
-        if (role_id !== '') {
-            url += '&role_id=' + encodeURIComponent(role_id);
-        }
-        var status = $('select[name=\'status\']').val();
-        if (status !== '') {
-            url += '&status=' + encodeURIComponent(status);
-        }
-        location = url;
-    });
-</script>
+<script src="../../../public/Js/client.js"></script>
 <!--user-create modal popup-->
 <?php $this->partial('Admin', 'modalUserCreate')?>
 <!--export pdf  modal popup-->

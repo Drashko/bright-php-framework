@@ -93,6 +93,8 @@ return [
     \App\Service\Message\MessageCreateServiceInterface::class => \DI\autowire(\App\Service\Message\MessageCreateService::class),
     \App\Service\Project\ProjectCreateServiceInterface::class => \DI\autowire(\App\Service\Project\ProjectCreateService::class),
     \App\Service\Project\ProjectUpdateServiceInterface::class => \DI\autowire(\App\Service\Project\ProjectUpdateService::class),
+    \App\Service\Client\ClientCreateServiceInterface::class => \DI\autowire(\App\Service\Client\ClientCreateService::class),
+    \App\Service\Client\ClientUpdateServiceInterface::class => \DI\autowire(\App\Service\Client\ClientUpdateService::class),
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
     \App\Repository\Message\MessageRepositoryInterface::class => \DI\autowire(MessageRepository::class),
