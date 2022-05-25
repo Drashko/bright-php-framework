@@ -20,7 +20,9 @@ class UserListRepository implements UserListRepositoryInterface
      */
     private Paginator $paginator;
 
-    private int $count;
+    private array $conditions;
+
+    private ?int $count = null;
 
     /**
      * @param DataMapperInterface $dataMapper
@@ -32,73 +34,50 @@ class UserListRepository implements UserListRepositoryInterface
     }
 
     /**
-     * @param array $conditions
+     * @param $conditions
      * @return array|null
      */
-    public function list(array $conditions): ?array
+    public function list($conditions): ?array
     {
-        //set pagination
-        $conditions['page'] = $conditions['page'] ?? 1;
-        $conditions['limit'] = 30;
-        //set pagination data
-        $this->paginator->setTotalRecords($this->findAll());
-        $this->paginator->setRecordsPerPage($conditions['limit']);
-        $this->paginator->setPage($conditions['page']);
-        $conditions['offset'] = $this->paginator->getOffset();
-        $where = [];
-        $offsetLimit = '';
-        if(!empty($conditions)){
-            foreach ($conditions as $key => $value) {
-                if(str_contains($key, 'page') OR (str_contains($key, 'limit')) OR (str_contains($key, 'offset'))) continue;
-                if(!empty($key)){
-                    $where[] = "`{$key}`" . "="  . " :$key";
-                }
-            }
-            if (!empty($where)) {
-                $where = ' WHERE ' . implode(' AND ', $where);
-            }else{
-                $where = ' WHERE  1';
-            }
-            if(isset($conditions['offset']) && isset($conditions['limit'])){
-                $offsetLimit  = 'LIMIT ' . $conditions['offset'] . ',' . $conditions['limit'];
-            }
-            $sql = "SELECT  * FROM `users` {$where} {$offsetLimit}";
-            //pr($sql);
-            $stm = $this->dataMapper->raw($sql);
-                foreach($conditions as $key => $value){
-                    if(str_contains($key, 'page') OR (str_contains($key, 'limit')) OR (str_contains($key, 'offset'))) continue;
-                    $stm->bindValue($key , $value ,  $this->dataMapper->bind($value));
-                }
-            $stm->execute();
-            $result = $stm->fetchAll(PDO::FETCH_CLASS, UserEntity::class);
-            $this->count = count($result);
-            return $result;
+            //set defaults
+            $conditions['page'] = $conditions['page'] ?? 1;
+            $conditions['limit'] = 30;
+            //set pagination
+            $this->setPaginator($conditions['page'], $conditions['limit'], $conditions);
+            unset($conditions['page']);
+            unset($conditions['limit']);
+            $stm = $this->dataMapper->findAll('users', $conditions, 30, (int) $this->paginator->getOffset());
+            return $stm->fetchAll(PDO::FETCH_CLASS, UserEntity::class);
 
-        }
-        return null;
+    }
+    /**
+     * @param int $page
+     * @param $limit
+     * @param array $conditions
+     */
+    public function setPaginator(int $page, $limit, array $conditions = []){
+            $this->paginator->setTotalRecords($this->countAll($conditions));
+            $this->paginator->setPage($page);
+            $this->paginator->setRecordsPerPage($limit);
     }
 
     /**
      * @return int
      */
-    public function findAll(): int
+    public function countAll(array $conditions): int
     {
-        $mapper = $this->dataMapper->findAll('users');
+        unset($conditions['limit']);
+        unset($conditions['page']);
+        $mapper = $this->dataMapper->findAll('users', array_filter($conditions));
         return count($mapper->fetchAll());
 
     }
-
-    public function getPaginatorTotalPages(): int
+    /**
+     * @return int|null
+     */
+    public function getPaginatorTotalPages(): int | null
     {
         return $this->paginator->getTotalPages();
     }
-
-    /**
-     * get numbure of filterd result
-     * @return int
-     */
-    public function getCount(): int
-    {
-        return $this->count;
-    }
+    
 }

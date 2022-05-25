@@ -6,11 +6,11 @@ namespace src\Utility;
 class Paginator
 {
 
-    /** @var float */
-    protected float $totalPages;
+    /** @var ?float */
+    protected ?float $totalPages =  null;
 
-    /** @var int */
-    protected int $page;
+    /** @var ?int */
+    protected ?int $page = null;
 
     /** @var float */
     protected float $offset;
@@ -21,9 +21,9 @@ class Paginator
 
 
 
-    private int $totalRecords;
+    private ?int $totalRecords = null;
 
-    private int $recordsPerPage;
+    private ?int $recordsPerPage = null;
 
     /**
      * Class constructor
@@ -74,12 +74,17 @@ class Paginator
     /**
      * Get the total number of pages
      *
-     * @return int
+     * @return float|null
      */
-    public function getTotalPages() : int
+    public function getTotalPages() : float | null
     {
-        $this->totalPages = ceil($this->totalRecords / $this->recordsPerPage);
-        return (int) $this->totalPages;
+
+        if(!empty($this->totalRecords)){
+            $this->totalPages = ceil( $this->totalRecords / $this->recordsPerPage);
+            return $this->totalPages;
+        }
+        return null;
+
     }
 
     public function setTotalRecords(int $totalRecords){
