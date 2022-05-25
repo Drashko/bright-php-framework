@@ -5,4 +5,5 @@ window.addEventListener('DOMContentLoaded', (event) => {
     Role.init();
     Permission.init();
     Export.init();
+    Client.init();
 });

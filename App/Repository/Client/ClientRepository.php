@@ -54,7 +54,7 @@ class ClientRepository implements ClientRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(ClientEntity $clientEntity, int $id): bool
+    public function delete(ClientEntity $clientEntity, string $id): bool
     {
         return $this->dataMapper->delete($clientEntity, $id);
     }
@@ -64,7 +64,7 @@ class ClientRepository implements ClientRepositoryInterface
      * @param int $id
      * @return ClientEntity
      */
-    public function update(ClientEntity $clientEntity, int $id): ClientEntity
+    public function update(ClientEntity $clientEntity, string  $id): ClientEntity
     {
         $mapper = $this->dataMapper->update($clientEntity, $id);
         $mapper->setFetchMode(PDO::FETCH_CLASS, ClientEntity::class);

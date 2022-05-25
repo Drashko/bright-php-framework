@@ -24,7 +24,7 @@ class ClientEntity extends Entity
     private ?string $email = null;
     private ?string $created_at = null;
     private ?string $updated_at = null;
-    private ?int $status = null;
+    private ?string $status = null;
 
     /**
      * @return string
@@ -205,18 +205,18 @@ class ClientEntity extends Entity
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
     /**
-     * @param int|null $status
+     * @param string|null $status
      * @return ClientEntity
      */
-    public function setStatus(?int $status): ClientEntity
+    public function setStatus(?string $status): ClientEntity
     {
         $this->status = $status;
         return $this;
