@@ -3,6 +3,8 @@ $this->start('body')?>
 <!-- CONTENT -->
 <?php
 use src\Utility\Route;
+use src\Utility\Paginator;
+
 $errors   = $data['errors'] ?? [];
 //TO DO move to config file or table
 $statuses = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
@@ -11,11 +13,12 @@ $page    = $_GET['page'] ?? 1;
 $status  = $_GET['status'] ?? '';
 $role_id = $_GET['role_id'] ?? '';
 
-$filter  = Route::setFilterParam($_GET);
-//pr($this->paginatorPages);
-//exit();
+
+
+
+//pr(count($data['userList']));
 ?>
-<form id="user-list" method="get" class="uk-overflow-auto">
+<form id="user-list" method="get" action="<?=$this->url('admin/user/index/')?>" class="uk-overflow-auto" enctype="multipart/form-data">
      <h2>User List</h2>
      <div class="uk-margin">
              <a href="#modal-user-create" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add user</a>
@@ -33,7 +36,7 @@ $filter  = Route::setFilterParam($_GET);
                         <option value="<?=$key?>" <?=$status == $key ? 'selected' : ''?>><?=$value?></option>
                     <?php endforeach; ?>
                 </select>
-                <button id="button-filter" type="button"  class="uk-button uk-button-primary uk-button-small">Search</button>
+                <button id="button-filter" type="submit"  class="uk-button uk-button-primary uk-button-small">Search</button>
      </div>
      <div class="uk-margin uk-right ">
             <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
@@ -44,6 +47,8 @@ $filter  = Route::setFilterParam($_GET);
         <hr>
     <div class="uk-overflow-container">
         <table class="uk-table uk-table-hover uk-table-striped">
+            <input id="page" type="hidden" name="page" value="<?=$page?>">
+            <!--input id="offset" type="hidden" name="offset" value=""-->
             <thead>
                 <tr>
                     <th>ID</th><th>Role</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Ip</th><th>Status</th><th>CreatedAt</th><th>Actions</th>
@@ -67,23 +72,27 @@ $filter  = Route::setFilterParam($_GET);
             <?php endforeach; ?>
             <?php } else { ?>
                 <tr>
-                    <td colspan="9" style="text-align:center">No users found</td>
+                    <td colspan="10" style="text-align:center">No users found</td>
                 </tr>
             <?php } ?>
             </tbody>
         </table>
     </div>
-         <!--Pagination-->
-         <ul class="uk-pagination uk-flex-center" uk-margin>
-             <!--li><a href="#"><span uk-pagination-previous></span></a></li-->
-             <?php for($i=1; $i<=$data['paginatorPages']; $i++): ?>
-                <li class="<?=($page == $i) ? 'uk-active' : ''?>" ><a  href="<?=$this->url('admin/user/index/?')?><?=$filter?>&page=<?=$i?>"><?=$i?></a></li>
-              <?php endfor; ?>
-             <!--li><a href="#"><span uk-pagination-next></span></a></li-->
-         </ul>
+    <!--Pagination-->
+    <ul class="uk-pagination uk-flex-center" uk-margin>
+        <!--li><a href="#"><span uk-pagination-previous></span></a></li-->
+        <?php for($i=1; $i<=$data['paginatorPages']; $i++): ?>
+            <li class="<?=($page == $i) ? 'uk-active' : ''?>" >
+                <a class="paginator-link" data-page="<?=$i?>"><?=$i?></a>
+            </li>
+        <?php endfor; ?>
+        <!--li><a href="#"><span uk-pagination-next></span></a></li-->
+    </ul>
  </form>
-<script>
+
+<!--script>
     $('#button-filter').on('click', function() {
+        let form = $('#user-list');
        let url = App.baseUrl() + '/admin/user/index/?';
        //for search filed
         var role_id = $('select[name=\'role_id\']').val();
@@ -95,6 +104,15 @@ $filter  = Route::setFilterParam($_GET);
             url += '&status=' + encodeURIComponent(status);
         }
         location = url;
+        form.submit();
+    });
+</script-->
+<script>
+    let form = $('#user-list');
+    $('.paginator-link').on('click', function(){
+        let page = $(this).data('page');
+        $('#page').val(page);
+        form.submit();
     });
 </script>
 <!--user-create modal popup-->

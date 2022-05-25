@@ -39,9 +39,10 @@ class DataMapper implements DataMapperInterface
      * @param array $condition
      * @return mixed
      */
-    public function findAll(string $table , array $condition = []) : mixed {
+    public function findAll(string $table , array $condition = [], int $limit = null, int $offset = null) : mixed {
         $where = [];
-        foreach ($condition as $key => $value) {
+        $offsetLimit = '';
+        foreach (array_filter($condition) as $key => $value) {
             if(!empty($key)){
                 $where[] = "`{$key}`" . "="  . " :$key";
             }
@@ -51,9 +52,14 @@ class DataMapper implements DataMapperInterface
         }else{
             $where = ' WHERE  1';
         }
-        $stm = $this->pdo->prepare("SELECT * FROM {$table} {$where}");
+        if(isset($offset) && isset($limit)){
+            $offsetLimit  = 'LIMIT ' . $offset . ',' . $limit;
+        }
+        $sql = "SELECT  * FROM `users` {$where} {$offsetLimit}";
+        //pr($sql);
+        $stm = $this->pdo->prepare($sql);
         if(!empty($condition)){
-            foreach($condition as $key => $value){
+            foreach(array_filter($condition) as $key => $value){
                 $stm->bindValue($key , $value ,  $this->bind($value));
             }
         }
