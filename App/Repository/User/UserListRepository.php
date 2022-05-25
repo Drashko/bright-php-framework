@@ -79,5 +79,5 @@ class UserListRepository implements UserListRepositoryInterface
     {
         return $this->paginator->getTotalPages();
     }
-    
+
 }

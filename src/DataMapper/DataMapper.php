@@ -44,7 +44,13 @@ class DataMapper implements DataMapperInterface
         $offsetLimit = '';
         foreach (array_filter($condition) as $key => $value) {
             if(!empty($key)){
-                $where[] = "`{$key}`" . "="  . " :$key";
+                if($key == 'created_at'){
+                    $keyData = "DATE($key)";
+                    $where[] = "{$keyData}" . " ="  . " :$key";
+                    unset($key);
+                }else{
+                    $where[] = "{$key}" . " ="  . " :$key";
+                }
             }
         }
         if (!empty($where)) {
@@ -55,7 +61,7 @@ class DataMapper implements DataMapperInterface
         if(isset($offset) && isset($limit)){
             $offsetLimit  = 'LIMIT ' . $offset . ',' . $limit;
         }
-        $sql = "SELECT  * FROM `users` {$where} {$offsetLimit}";
+        $sql = "SELECT  * FROM {$table} {$where} {$offsetLimit}";
         //pr($sql);
         $stm = $this->pdo->prepare($sql);
         if(!empty($condition)){
