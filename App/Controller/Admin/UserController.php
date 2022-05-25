@@ -86,7 +86,6 @@ class UserController extends BaseController
      */
     public function indexAction(){
         $conditions = Route::getUrlParam();
-        //$this->userListRepository->getConditions($conditions);
         $data['userList'] = $this->userListRepository->list($conditions);
         $data['paginatorPages'] = $this->userListRepository->getPaginatorTotalPages();
         $this->render('/Admin/user' , ['userList' => $data['userList'], 'paginatorPages'=> $data['paginatorPages']]);

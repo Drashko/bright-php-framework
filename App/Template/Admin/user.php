@@ -2,21 +2,12 @@
 $this->start('body')?>
 <!-- CONTENT -->
 <?php
-use src\Utility\Route;
-use src\Utility\Paginator;
-
-$errors   = $data['errors'] ?? [];
 //TO DO move to config file or table
 $statuses = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
 $roles    = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 $page    = $_GET['page'] ?? 1;
 $status  = $_GET['status'] ?? '';
 $role_id = $_GET['role_id'] ?? '';
-
-
-
-
-//pr(count($data['userList']));
 ?>
 <form id="user-list" method="get" action="<?=$this->url('admin/user/index/')?>" class="uk-overflow-auto" enctype="multipart/form-data">
      <h2>User List</h2>
@@ -36,6 +27,7 @@ $role_id = $_GET['role_id'] ?? '';
                         <option value="<?=$key?>" <?=$status == $key ? 'selected' : ''?>><?=$value?></option>
                     <?php endforeach; ?>
                 </select>
+                <input class="uk-select uk-width-small uk-form-small" type="date" name="created_at" value="<?=$_GET['created_at'] ?? ''?>">
                 <button id="button-filter" type="submit"  class="uk-button uk-button-primary uk-button-small">Search</button>
      </div>
      <div class="uk-margin uk-right ">
@@ -58,7 +50,7 @@ $role_id = $_GET['role_id'] ?? '';
             <?php if(!empty($data['userList']) ){ ?>
             <?php foreach ($data['userList'] as $user) : ?>
             <tr>
-                <td><?=$user->getId()?></td><td><?=$user->getRoleId()?></td><td><?=$user->getName()?></td><td><?=$user->getEmail()?></td><td><?=$user->getPhone()?></td><td><?=$user->getAddress()?></td><td><?=$user->getIp()?></td><td><?=$user->getStatus()?></td><td><?=$user->getCreatedAt()?></td>
+                <td><?=$user->getId()?></td><td><?=$user->getRoleId()?></td><td><?=$user->getName()?></td><td><?=$user->getEmail()?></td><td><?=$user->getPhone()?></td><td><?=$user->getAddress()?></td><td><?=$user->getIp()?></td><td><?=$user->getStatus()?></td><td><?=date("d.m.y" , strtotime($user->getCreatedAt()))?></td>
                 <td>
                     <div class="uk-button-group">
                         <button class="uk-button uk-button-small">Actions</button>
