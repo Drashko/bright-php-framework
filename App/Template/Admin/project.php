@@ -75,7 +75,7 @@ $filter  = Route::setFilterParam($_GET);
                                 <button class="uk-button uk-button-small">Actions</button>
                                 <div data-uk-dropdown="{mode:'click'}">
                                     <a href="<?=$this->url("admin/project/detail/{$project->getId()}")?>" class="uk-button uk-button-small"><span data-uk-icon="icon: refresh" class="uk-margin-small-right uk-icon"></span> Detail </a>
-                                    <a  id="<?=$project->getId()?>" data-modal="delete"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
+                                    <a  id="<?=$project->getId()?>" data-modal="delete-project"  class="uk-button uk-button-small "><span data-uk-icon="icon: trash" class="uk-margin-small-right uk-icon"></span> Delete </a>
                                 </div>
                             </div>
                         </td>
@@ -83,28 +83,13 @@ $filter  = Route::setFilterParam($_GET);
                 <?php endforeach; ?>
             <?php } else { ?>
                 <tr>
-                    <td colspan="9" style="text-align:center">No project found</td>
+                    <td colspan="10" style="text-align:center">No project found</td>
                 </tr>
             <?php } ?>
             </tbody>
         </table>
     </div>
 </form>
-<script>
-    $('#button-filter').on('click', function() {
-        let url = App.baseUrl() + '/admin/user/index/?';
-        //for search filed
-        var role_id = $('select[name=\'role_id\']').val();
-        if (role_id !== '') {
-            url += '&role_id=' + encodeURIComponent(role_id);
-        }
-        var status = $('select[name=\'status\']').val();
-        if (status !== '') {
-            url += '&status=' + encodeURIComponent(status);
-        }
-        location = url;
-    });
-</script>
 <!--user-create modal popup-->
 <?php $this->partial('Admin', 'modalUserCreate')?>
 <!--export pdf  modal popup-->

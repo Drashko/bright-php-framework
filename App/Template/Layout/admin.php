@@ -41,6 +41,8 @@
     <script src="../../../public/Js/role.js"></script>
     <script src="../../../public/Js/permission.js"></script>
     <script src="../../../public/Js/export.js"></script>
+    <script src="../../../public/Js/client.js"></script>
+    <script src="../../../public/Js/project.js"></script>
     <script src="../../../public/Js/chartScripts.js"></script>
     <!--script src="<?= INDEX_URL ?>/Public/js/validate.js"></script-->
 </body>

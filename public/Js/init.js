@@ -6,4 +6,5 @@ window.addEventListener('DOMContentLoaded', (event) => {
     Permission.init();
     Export.init();
     Client.init();
+    Project.init();
 });

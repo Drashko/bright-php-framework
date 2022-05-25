@@ -5,7 +5,7 @@ $errors   = $data['errors'] ?? [];
 $statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
 $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 ?>
-<div class="uk-width-large uk-padding-small">
+<div class="uk-width-large">
     <?php if(isset($errors)){ ?>
         <?php foreach($errors as $error) { ?>
             <div class="uk-alert-danger" uk-alert>

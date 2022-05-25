@@ -88,7 +88,6 @@ $filter  = Route::setFilterParam($_GET);
         </table>
     </div>
 </form>
-<script src="../../../public/Js/client.js"></script>
 <!--user-create modal popup-->
 <?php $this->partial('Admin', 'modalUserCreate')?>
 <!--export pdf  modal popup-->

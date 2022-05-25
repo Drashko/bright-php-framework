@@ -51,20 +51,20 @@ class ProjectRepository implements ProjectRepositoryInterface
 
     /**
      * @param ProjectEntity $projectEntity
-     * @param int $id
+     * @param string $id
      * @return bool
      */
-    public function delete(ProjectEntity $projectEntity, int $id): bool
+    public function delete(ProjectEntity $projectEntity, string $id): bool
     {
         return $this->dataMapper->delete($projectEntity, $id);
     }
 
     /**
      * @param ProjectEntity $projectEntity
-     * @param int $id
+     * @param string $id
      * @return ProjectEntity
      */
-    public function update(ProjectEntity $projectEntity, int $id): ProjectEntity
+    public function update(ProjectEntity $projectEntity, string $id): ProjectEntity
     {
         $mapper = $this->dataMapper->update($projectEntity, $id);
         $mapper->setFetchMode(PDO::FETCH_CLASS, ProjectEntity::class);

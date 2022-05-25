@@ -13,6 +13,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use src\Base\BaseController;
 use src\Exception\NotFoundException;
 use src\Flash\Flash;
+use src\Logger\LoggerInterface;
 
 class ProjectController extends BaseController {
 
@@ -22,12 +23,15 @@ class ProjectController extends BaseController {
 
     private ProjectUpdateServiceInterface $projectUpdateService;
 
-    public function __construct(ProjectRepositoryInterface $projectRepository, ProjectCreateServiceInterface $projectCreateService, ProjectUpdateServiceInterface $projectUpdateService){
+    private LoggerInterface $logger;
+
+    public function __construct(ProjectRepositoryInterface $projectRepository, ProjectCreateServiceInterface $projectCreateService, ProjectUpdateServiceInterface $projectUpdateService, LoggerInterface $logger){
         parent::__construct();
         $this->layout = 'admin';
         $this->projectRepository = $projectRepository;
         $this->projectCreateService = $projectCreateService;
         $this->projectUpdateService = $projectUpdateService;
+        $this->logger = $logger;
     }
 
     /**
@@ -80,6 +84,22 @@ class ProjectController extends BaseController {
         }
         $data = $this->projectRepository->find($id);
         $this->render('/Admin/projectDetail', [ 'projectData' => $data ,  'id' => $id]);
+    }
+
+    public function deleteAction($id)
+    {
+
+        if($this->request->isPost()){
+            if($role = $this->projectRepository->find($id)){
+                if($this->projectRepository->delete($role,$id)){
+                    $resp = ['success' => true , 'message' => 'Project deleted', 'userId' => $id];
+                    $this->logger->info('Project was deleted');
+                }else{
+                    $resp = ['success' => false , 'message' => 'Something went wrong..'];
+                }
+            }
+            $this->jsonResponse($resp);
+        }
     }
 
 }

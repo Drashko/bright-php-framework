@@ -5,10 +5,7 @@ $errors   = $data['errors'] ?? [];
 $statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
 $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 ?>
-<h2>Add Project</h2>
-<br>
-<hr>
-<div class="uk-width-large uk-padding-small">
+<div class="uk-width-large">
             <?php if(isset($errors)){ ?>
                 <?php foreach($errors as $error) { ?>
                     <div class="uk-alert-danger" uk-alert>
@@ -18,6 +15,9 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <?php  } ?>
 
             <?php  } ?>
+    <h2>Add project</h2>
+    <div class="uk-margin"></div>
+    <hr>
     <form class="toggle-class" action="<?=$this->url("admin/project/create/")?>" method="post">
         <fieldset class="uk-fieldset">
             <div class="uk-margin">
