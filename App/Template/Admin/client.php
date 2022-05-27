@@ -1,7 +1,8 @@
-<?php $this->start('body'); ?>
-<!-- CONTENT -->
-<?php
-use src\Utility\Route;
+<?php use src\Utility\Lookup;
+use src\Utility\Status;
+
+$this->start('body');
+$statusList   = Status::Project;
 $errors   = $data['errors'] ?? [];
 //TO DO move to config file or table
 ?>
@@ -42,7 +43,7 @@ $errors   = $data['errors'] ?? [];
                         <td><?=$client->getEmail()?></td>
                         <td><?=$client->getPhone()?></td>
                         <td><?=$client->getVat()?></td>
-                        <td><?=$client->getStatus()?></td>
+                        <td><span class="uk-label uk-label-<?=$client->getStatus()?>"> <?=Lookup::findIdName($statusList, $client->getStatus())?> </span></td>
                         <td><?=$client->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
