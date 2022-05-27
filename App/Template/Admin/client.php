@@ -1,9 +1,9 @@
-<?php $this->start('body'); ?>
-<!-- CONTENT -->
 <?php
-use src\Utility\Route;
+use src\Utility\Lookup;
+use src\Utility\Status;
+$this->start('body');
 $errors   = $data['errors'] ?? [];
-//TO DO move to config file or table
+$statusList = Status::User;
 ?>
 <form id="project-list" method="get" class="uk-overflow-auto">
     <h2>Client List</h2>
@@ -42,7 +42,7 @@ $errors   = $data['errors'] ?? [];
                         <td><?=$client->getEmail()?></td>
                         <td><?=$client->getPhone()?></td>
                         <td><?=$client->getVat()?></td>
-                        <td><?=$client->getStatus()?></td>
+                        <td><span class="uk-label uk-label-<?=$client->getStatus()?>"> <?=Lookup::findIdName($statusList, $client->getStatus())?> </span></td>
                         <td><?=$client->getCreatedAt()?></td>
                         <td>
                             <div class="uk-button-group">
