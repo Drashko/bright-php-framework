@@ -45,8 +45,7 @@ class DataMapper implements DataMapperInterface
                     $where[] = "{$keyData}" . " ="  . " :$key";
                     unset($key);
                 }else{
-                    $where[] = "{$key}" . " = " . ":".substr($key, strpos($key, '.') + 1);//remove alies from param
-                   //$where[] = "{$key}" . " = " . ":$key";
+                   $where[] = "{$key}" . " = " . ":$key";
                 }
             }
         }
@@ -72,6 +71,7 @@ class DataMapper implements DataMapperInterface
             $offsetLimit  = 'LIMIT ' . $offset . ',' . $limit;
         }
         $sql = "SELECT  * FROM {$table} {$where} {$offsetLimit}";
+        //pr($sql);
         $stm = $this->pdo->prepare($sql);
         if(!empty($condition)){
             foreach(array_filter($condition) as $key => $value){
