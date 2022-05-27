@@ -48,7 +48,7 @@ class UserCreateService implements UserCreateServiceInterface
                     ->setEmail($sanitized['email'])
                     ->setAddress($sanitized['address'])
                     ->setPhone($sanitized['phone'])
-                    ->setStatus('pending')//update to 'active' on account confirmation
+                    ->setStatus($sanitized['status'])//update to 'active' on account confirmation
                     ->setCreatedAt(date('Y-m-d h:s:i'));
                 $this->userCreateRepository->create($user);
                 //dispatch an event calling EventDispatcherInterface

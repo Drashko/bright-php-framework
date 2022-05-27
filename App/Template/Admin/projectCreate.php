@@ -1,9 +1,9 @@
-<?php $this->start('body')?>
-<!-- CONTENT -->
-<?php
-$errors   = $data['errors'] ?? [];
-$statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
-$roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
+<?php $this->start('body');
+use src\Utility\Status;
+use src\Utility\H;
+$errors       = $data['errors'] ?? [];
+$statusList   = Status::Project;;
+$data         = H::cleanOut($_POST);
 ?>
 <div class="uk-width-large">
             <?php if(isset($errors)){ ?>
@@ -24,29 +24,19 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-width-1-1">
                     <label class="uk-form-label">Name</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?= $_POST['name'] ?? '' ?>"><!--?= $userData->getName() ?? '' ?>-->
+                        <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?= $data['name'] ?? '' ?>"><!--?= $userData->getName() ?? '' ?>-->
                     </div>
                 </div>
             </div>
             <div class="uk-margin">
-                <div class="uk-inline uk-width-1-1">
                     <label class="uk-form-label">Description</label>
-                    <textarea rows="5" class="uk-input uk-border uk-textarea" required placeholder="Description" name="description" type="textarea"><?=$_POST['description'] ?? '' ?> </textarea>
-                </div>
+                    <textarea rows="5" class="uk-border uk-textarea" required placeholder="Description" name="description"><?=$data['description'] ?? '' ?> </textarea>
             </div>
             <div class="uk-margin">
-                <label class="uk-form-label">Client</label>
-                <select class="uk-select" id="form-stacked-select" name="">
-                    <?php foreach($statuses as $key => $value) :?>
-                        <option value="<?=$key?>"><?=$value?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="uk-margin">
-                <label class="uk-form-label">Manager</label>
-                <select class="uk-select" id="form-stacked-select" name="">
-                    <?php foreach($roles as $key => $value) :?>
-                        <option value="<?=$key?>"><?=$value?></option>
+                <label class="uk-form-label">Status</label>
+                <select class="uk-select" id="form-stacked-select" name="status">
+                    <?php foreach($statusList as $key => $value) :?>
+                        <option value="<?=$value['id']?>"><?=H::out($value['name'])?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

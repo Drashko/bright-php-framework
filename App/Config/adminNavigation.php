@@ -39,6 +39,14 @@ return [
 
     ],*/
     [
+        'name' => 'Tickets',
+        'link' => 'admin/ticket/index/',
+        'attr' => [
+            'class' => 'uk-margin-small-right' ,
+            'data' => 'data-uk-icon="icon: warning"'
+        ]
+    ],
+    [
         'name' => 'Projects',
         'link' => 'admin/project/index/',
         'attr' => [

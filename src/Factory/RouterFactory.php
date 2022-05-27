@@ -63,7 +63,6 @@ class RouterFactory
                     $args = ['controller' => $route['controller'], 'action' => $route['action']];
                 }
                 if (isset($key)) {
-                    //print_r($args);
                     $this->router->add($key, $route);
                 }
             }

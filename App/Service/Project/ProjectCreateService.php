@@ -40,6 +40,7 @@ class ProjectCreateService implements ProjectCreateServiceInterface
             $project = $this->projectEntity
                 ->setName($sanitized['name'])
                 ->setDescription($sanitized['description'])
+                ->setStatus($sanitized['status'])
                 ->setCreatedAt(date("Y-m-d H:i:s"));
             return $this->projectRepository->create($project);
         }

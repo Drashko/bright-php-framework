@@ -34,22 +34,19 @@ class DataMapper implements DataMapperInterface
         return $stm;
     }
 
-    /**
-     * @param string $table
-     * @param array $condition
-     * @return mixed
-     */
-    public function findAll(string $table , array $condition = [], int $limit = null, int $offset = null) : mixed {
+
+    public function parseWhere(array $conditions): string
+    {
         $where = [];
-        $offsetLimit = '';
-        foreach (array_filter($condition) as $key => $value) {
+        foreach (array_filter($conditions) as $key => $value) {
             if(!empty($key)){
                 if($key == 'created_at'){
                     $keyData = "DATE($key)";
                     $where[] = "{$keyData}" . " ="  . " :$key";
                     unset($key);
                 }else{
-                    $where[] = "{$key}" . " ="  . " :$key";
+                    $where[] = "{$key}" . " = " . ":".substr($key, strpos($key, '.') + 1);//remove alies from param
+                   //$where[] = "{$key}" . " = " . ":$key";
                 }
             }
         }
@@ -58,11 +55,23 @@ class DataMapper implements DataMapperInterface
         }else{
             $where = ' WHERE  1';
         }
+
+        return $where;
+    }
+
+    /**
+     * @param string $table
+     * @param array $condition
+     * @return mixed
+     */
+    public function findAll(string $table , array $condition = [], int $limit = null, int $offset = null) : mixed {
+        $where = '';
+        $offsetLimit = '';
+        $where = $this->parseWhere($condition);
         if(isset($offset) && isset($limit)){
             $offsetLimit  = 'LIMIT ' . $offset . ',' . $limit;
         }
         $sql = "SELECT  * FROM {$table} {$where} {$offsetLimit}";
-        //pr($sql);
         $stm = $this->pdo->prepare($sql);
         if(!empty($condition)){
             foreach(array_filter($condition) as $key => $value){
@@ -163,6 +172,8 @@ class DataMapper implements DataMapperInterface
     {
         return $this->pdo->prepare($sql);
     }
+
+
 
     /**
      * @param $statement

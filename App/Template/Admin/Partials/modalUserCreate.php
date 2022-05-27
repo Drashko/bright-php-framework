@@ -1,7 +1,8 @@
 <?php
+use src\Utility\Status;
 $errors   = $data['errors'] ?? [];
-$statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
-$roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
+$statusList   = Status::User;
+$rolesList    = Status::Role;
 ?>
 <div id="modal-user-create" uk-modal class="uk-modal">
     <div class="uk-modal-dialog uk-modal-body">
@@ -51,16 +52,16 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-margin">
                     <label class="uk-form-label">Status</label>
                     <select  class="uk-select" id="status" name="status">
-                        <?php foreach($statuses as $key => $value) :?>
-                            <option value="<?=$key?>"><?=$value?></option>
+                        <?php foreach($statusList as $key => $value) :?>
+                            <option value="<?=$value['id']?>"><?=$value['name']?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="uk-margin">
                     <label  class="uk-form-label">Role</label>
                     <select class="uk-select" id="role_id" name="role_id">
-                        <?php foreach($roles as $key => $value) :?>
-                            <option value="<?=$key?>"><?=$value?></option>
+                        <?php foreach($rolesList as $key => $value) :?>
+                            <option value="<?=$value['id']?>"><?=$value['name']?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

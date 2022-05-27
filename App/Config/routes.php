@@ -1,10 +1,12 @@
 <?php
 //default folder / namespace is 'Front' folder in App namespace;
 return [
+
     '' => [
         'controller' => 'Home',
         'action' => 'index',
         'namespace' => 'Front'],
+
     'api' => [
         'controller' => 'Index',
         'action' => 'index',

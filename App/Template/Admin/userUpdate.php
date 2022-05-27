@@ -1,10 +1,15 @@
 <?php $this->start('body')?>
     <!-- CONTENT -->
 <?php
- $userData  = $data['userData'];
- $errors   = $data['errors']['errors'] ?? [];
- $statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
- $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
+
+use src\Utility\H;
+use src\Utility\Status;
+use src\Utility\Lookup;
+$statusList   = Status::User;
+$rolesList    = Status::Role;
+$userData  = $data['userData'];
+$errors   = $data['errors']['errors'] ?? [];
+
 ?>
  <div class="uk-width-large uk-padding-small">
                 <?php if(isset($errors)){ ?>
@@ -22,41 +27,41 @@
                         <div class="uk-width-1-1">
                             <label class="uk-form-label">Name</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?=$userData->getName()?>"><!--?= $userData->getName() ?? '' ?>-->
+                                <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?=H::out($userData->getName())?>"><!--?= $userData->getName() ?? '' ?>-->
                             </div>
                         </div>
                     </div>
                     <div class="uk-margin">
                         <div class="uk-inline uk-width-1-1">
                             <label class="uk-form-label">Email</label>
-                            <input class="uk-input uk-border" required placeholder="Email" name="email" type="email" value="<?=$userData->getEmail()?>">
+                            <input class="uk-input uk-border" required placeholder="Email" name="email" type="email" value="<?=H::out($userData->getEmail())?>">
                         </div>
                     </div>
                     <div class="uk-margin">
                         <div class="uk-inline uk-width-1-1">
                             <label class="uk-form-label">Address</label>
-                            <input class="uk-input uk-border"  placeholder="Address" name="address" type="text" value="<?=$userData->getAddress()?>">
+                            <input class="uk-input uk-border"  placeholder="Address" name="address" type="text" value="<?=H::out($userData->getAddress())?>">
                         </div>
                     </div>
                     <div class="uk-margin">
                         <div class="uk-inline uk-width-1-1">
                             <label class="uk-form-label">Phone</label>
-                            <input class="uk-input uk-border"  placeholder="Phone" name="phone" type="text" value="<?=$userData->getPhone()?>">
+                            <input class="uk-input uk-border"  placeholder="Phone" name="phone" type="text" value="<?=H::out($userData->getPhone())?>">
                         </div>
                     </div>
                     <div class="uk-margin">
                         <label class="uk-form-label">Status</label>
                         <select class="uk-select" id="form-stacked-select" name="status">
-                            <?php foreach($statuses as $key => $value) :?>
-                                <option value="<?=$key?>" <?= ($key == $userData->getStatus()) ? 'selected' : ''?>><?=$value?></option>
+                            <?php foreach($statusList as $key => $value) :?>
+                                <option value="<?=$value['id']?>" <?= ($value['id'] == $userData->getStatus()) ? 'selected' : ''?>><?=H::out($value['name'])?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="uk-margin">
                         <label class="uk-form-label">Role</label>
                         <select class="uk-select" id="form-stacked-select" name="role_id">
-                         <?php foreach($roles as $key => $value) :?>
-                            <option value="<?=$key?>" <?= ($key == $userData->getRoleId()) ? 'selected' : ''?>><?=$value?></option>
+                         <?php foreach($rolesList as $key => $value) :?>
+                            <option value="<?=$value['id']?>" <?= ($value['id'] == $userData->getRoleId()) ? 'selected' : ''?>><?=H::out($value['name'])?></option>
                         <?php endforeach; ?>
                         </select>
                     </div>
