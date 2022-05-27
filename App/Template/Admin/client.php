@@ -1,10 +1,9 @@
 <?php use src\Utility\Lookup;
 use src\Utility\Status;
-
 $this->start('body');
-$statusList   = Status::Project;
+$projectList   = Status::Project;
 $errors   = $data['errors'] ?? [];
-//TO DO move to config file or table
+$statusList = Status::User;
 ?>
 <form id="project-list" method="get" class="uk-overflow-auto">
     <h2>Client List</h2>

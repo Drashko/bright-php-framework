@@ -1,10 +1,11 @@
 <?php
 use src\Utility\H;
+use src\Utility\Status;
 $this->start('body'); ?>
 <!-- CONTENT -->
 <?php
-$errors   = $data['errors'] ?? [];
-$statuses   = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
+$errors     = $data['errors'] ?? [];
+$statusList = Status::User;
 $data = H::cleanOut($_POST);
 ?>
 <div class="uk-width-large">
@@ -57,8 +58,8 @@ $data = H::cleanOut($_POST);
             <div class="uk-margin">
                 <label class="uk-form-label">Status</label>
                 <select class="uk-select" id="form-stacked-select" name="status">
-                    <?php foreach($statuses as $key => $value) :?>
-                        <option value="<?=$key?>"><?=H::out($value)?></option>
+                    <?php foreach($statusList as $key => $value) :?>
+                        <option value="<?=$value['id']?>"><?=H::out($value['name'])?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
