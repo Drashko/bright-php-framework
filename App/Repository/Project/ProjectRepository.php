@@ -44,8 +44,8 @@ class ProjectRepository implements ProjectRepositoryInterface
               . " LEFT JOIN `client` c ON (p.client_id = c.Id)"
               . " LEFT JOIN `users` u ON (p.manager_id = u.Id)";
         if(!empty($conditions['status'])){
-            $sql .= $this->dataMapper->parseWhere(['p.status' => $conditions['status']]);
-        };
+            $sql .= " WHERE p.status = :status";
+        }
         $stm = $this->dataMapper->raw($sql);
         if(!empty($conditions['status'])){
             $stm->execute(['status' => $conditions['status']]);
