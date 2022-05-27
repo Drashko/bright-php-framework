@@ -1,4 +1,6 @@
-<?php $this->start('body')?>
+<?php use src\Utility\H;
+
+$this->start('body')?>
 <!-- CONTENT -->
 <?php
 $errors   = $data['errors'] ?? [];
@@ -23,7 +25,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-width-1-1">
                     <label class="uk-form-label">Name</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?=$clientData->getName()?>"><!--?= $userData->getName() ?? '' ?>-->
+                        <input class="uk-input uk-border" required placeholder="Name" name="name" type="text" value="<?=H::out($clientData->getName())?>"><!--?= $userData->getName() ?? '' ?>-->
                     </div>
                 </div>
             </div>
@@ -31,7 +33,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-width-1-1">
                     <label class="uk-form-label">Email</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-border" required placeholder="Email" name="email" type="text" value="<?= $clientData->getEmail() ?>"><!--?= $userData->getName() ?? '' ?>-->
+                        <input class="uk-input uk-border" required placeholder="Email" name="email" type="text" value="<?= H::out($clientData->getEmail()) ?>"><!--?= $userData->getName() ?? '' ?>-->
                     </div>
                 </div>
             </div>
@@ -39,7 +41,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-width-1-1">
                     <label class="uk-form-label">Phone</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-border" required placeholder="Phone" name="phone" type="text" value="<?= $clientData->getPhone() ?>"><!--?= $userData->getName() ?? '' ?>-->
+                        <input class="uk-input uk-border" required placeholder="Phone" name="phone" type="text" value="<?= H::out($clientData->getPhone()) ?>"><!--?= $userData->getName() ?? '' ?>-->
                     </div>
                 </div>
             </div>
@@ -47,7 +49,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <div class="uk-width-1-1">
                     <label class="uk-form-label">Vat</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-border" required placeholder="Vat" name="vat" type="text" value="<?= $clientData->getVat() ?>"><!--?= $userData->getName() ?? '' ?>-->
+                        <input class="uk-input uk-border" required placeholder="Vat" name="vat" type="text" value="<?= H::out($clientData->getVat()) ?>"><!--?= $userData->getName() ?? '' ?>-->
                     </div>
                 </div>
             </div>
@@ -55,7 +57,7 @@ $roles      = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
                 <label class="uk-form-label">Client</label>
                 <select class="uk-select" id="form-stacked-select" name="status">
                     <?php foreach($statuses as $key => $value) :?>
-                        <option value="<?=$key?>"><?=$value?></option>
+                        <option value="<?=$key?>"><?=H::out($value)?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

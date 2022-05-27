@@ -33,6 +33,7 @@ class ProjectUpdateService implements ProjectUpdateServiceInterface
             $projectEntity = $this->projectEntity
                 ->setName($sanitized['name'])
                 ->setDescription($sanitized['description'])
+                ->setStatus($sanitized['status'])
                 ->setUpdatedAt(date('Y-m-d H:i:s'));
             return $this->projectRepository->update($projectEntity, (string) $id);
         }

@@ -2,8 +2,10 @@
 <?php
 use src\Config\Config;
 $config = new Config();
+use src\Utility\Globals;
 $navigationList = $config->get('adminNavigation');
 $session = \src\Factory\SessionFactory::make();
+$loggedInUser = Globals::get('loggedInUser');
 if(!$session->has('menu-item-opened'))
     $session->set('menu-item-opened', 'Home');
 ?>
@@ -57,12 +59,12 @@ if(!$session->has('menu-item-opened'))
         <img class="custom-logo" src="<?=INDEX_URL?>public/Img/dashboard-logo.svg" alt="">
     </div>
     <div class="left-content-box  content-box-dark">
-        <h4 class="uk-text-center uk-margin-remove-vertical text-light">John Doe</h4>
+        <h4 class="uk-text-center uk-margin-remove-vertical text-light"><?=$loggedInUser->getName()?></h4>
 
-        <div class="uk-position-relative uk-text-center uk-display-block">
+        <!--div class="uk-position-relative uk-text-center uk-display-block">
             <a href="#" class="uk-text-small uk-text-muted uk-display-block uk-text-center" data-uk-icon="icon: triangle-down; ratio: 0.7">Admin</a>
-            <!-- user dropdown -->
-            <div class="uk-dropdown user-drop" data-uk-dropdown="mode: click; pos: bottom-center; animation: uk-animation-slide-bottom-small; duration: 150">
+            <!- user dropdown -->
+            <!--div class="uk-dropdown user-drop" data-uk-dropdown="mode: click; pos: bottom-center; animation: uk-animation-slide-bottom-small; duration: 150">
                 <ul class="uk-nav uk-dropdown-nav uk-text-left">
                     <li><a href="#"><span data-uk-icon="icon: info"></span> Summary</a></li>
                     <li><a href="#"><span data-uk-icon="icon: refresh"></span> Edit</a></li>
@@ -73,8 +75,8 @@ if(!$session->has('menu-item-opened'))
                     <li><a href="#"><span data-uk-icon="icon: sign-out"></span> Sign Out</a></li>
                 </ul>
             </div>
-            <!-- /user dropdown -->
-        </div>
+            <! /user dropdown -->
+        <!--/div-->
     </div>
     <!--admin navigation -->
     <div class="left-nav-wrap">

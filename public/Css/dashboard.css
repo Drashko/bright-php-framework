@@ -230,3 +230,11 @@ main {
 .uk-pagination li.uk-active { background: #39f;}
 .uk-pagination li.uk-active a {color:white;}
 .uk-overflow-auto {overflow: auto;}
+.uk-label-10 {background-color: #faa05a;color: #fff;}
+.uk-label-20 {background-color: #32d296;color: #fff;}
+.uk-label-40 {background: #1e87f0}
+.uk-label-30 {background-color: #f0506e;color: #fff;}
+.uk-label-100 {background-color: #faa05a;color: #fff;}
+.uk-label-120 {background-color: #32d296;color: #fff;}
+.uk-label-140 {background: #f0506e}
+.uk-label-130 {background-color: #32d296;color: #fff;}

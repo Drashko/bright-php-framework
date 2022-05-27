@@ -4,36 +4,12 @@
 use src\Utility\Route;
 $errors   = $data['errors'] ?? [];
 //TO DO move to config file or table
-$statuses = ['pending' => 'Pending' , 'active' => 'Active' , 'blocked' => 'Blocked'];
-$roles    = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
-$page    = $_GET['page'] ?? 1;
-$status  = $_GET['status'] ?? '';
-$role_id = $_GET['role_id'] ?? '';
-
-$filter  = Route::setFilterParam($_GET);
-//pr($this->paginatorPages);
-//exit();
 ?>
 <form id="project-list" method="get" class="uk-overflow-auto">
-    <h2>Project List</h2>
+    <h2>Client List</h2>
     <div class="uk-margin">
-        <a href="<?=$this->url("admin/client/create/")?>" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add client</a>
+        <a href="<?=$this->url("admin/client/create/")?>" uk-toggle class="uk-button uk-button-primary uk-button-small" >Add client <span uk-icon="icon: plus" class="uk-margin-small-left"></span></a>
     </div>
-    <!--div class="uk-margin uk-left">
-        <select class="uk-select uk-width-small uk-form-small" id="role-select" name="role_id">
-            <option value="">Choose Role</option>
-            <?php foreach($roles as $key => $value) :?>
-                <option value="<?=$key?>" <?=$role_id == $key ? 'selected' : ''?>><?=$value?></option>
-            <?php endforeach; ?>
-        </select>
-        <select class="uk-select uk-width-small uk-form-small" id="status-select" name="status">
-            <option value="">Choose Status</option>
-            <?php foreach($statuses as $key => $value) :?>
-                <option value="<?=$key?>" <?=$status == $key ? 'selected' : ''?>><?=$value?></option>
-            <?php endforeach; ?>
-        </select>
-        <button id="button-filter" type="button"  class="uk-button uk-button-primary uk-button-small">Search</button>
-    </div-->
     <div class="uk-margin uk-right ">
         <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
         <a  href="#modal-pdf" uk-toggle class="uk-button uk-button-default uk-button-small">PDF</a>

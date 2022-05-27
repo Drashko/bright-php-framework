@@ -31,6 +31,7 @@ class Router implements RouterInterface
     private Container $container;
 
     /**
+     * @param ContainerBuilder $containerBuilder
      */
     public function __construct( ContainerBuilder $containerBuilder){
         //$this->container = $this->getDependencies();
@@ -48,7 +49,6 @@ class Router implements RouterInterface
          $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
         // Convert variables with custom regular expressions e.g. {id:\d+}
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-        //echo $route;
         // Add start and end delimiters, and case insensitive flag
         $route = '/^' . $route . '$/i';
         $this->routes[$route] = $params;
@@ -64,16 +64,17 @@ class Router implements RouterInterface
     {
         //remove query params before dispatching the  route
         $url = $this->removeQueryStringVariables($url);
-        //pr($url);
         if($this->match($url)){
             $controllerString = $this->params['controller'] . $this->controllerSuffix;
             $controllerString = $this->transformUpperCamelCase($controllerString);
             $controllerString = $this->getNamespace() . $controllerString;
+            //pr($controllerString);
             if(class_exists($controllerString)){
                 //pass params to Controller constructor
                 //$controllerObject = new $controllerString($this->params);
                 $controllerObject = $this->container->get($controllerString);
                 $action = $this->params['action'];
+                //pr($action);
                 $action = $this->transformCamelCase($action);
                 //remove unnecessary params
                 $params = [];
@@ -117,12 +118,13 @@ class Router implements RouterInterface
      * @param string $url
      * @return bool
      */
+
     public function match(string $url) : bool{
         foreach($this->routes as $route => $params){
             if(preg_match($route, $url , $matches)){
-                foreach($matches as $key => $match){
+                foreach($matches as $key => $value){
                     if(is_string($key)){
-                        $params[$key] = $match;
+                        $params[$key] = $value;
                     }
                 }
                 $this->params = $params;
@@ -168,17 +170,4 @@ class Router implements RouterInterface
     {
         return $this->routes;
     }
-
-    /**
-     * @return Container
-     * @throws Exception
-     */
-    /*public function getDependencies(): \DI\Container
-    {
-        $container = new \DI\ContainerBuilder();
-        $container->useAutowiring(true);
-        $container->useAnnotations(false);
-        $container->addDefinitions(require ROOT_PATH . '/App/Config/dependencies.php');
-        return $container->build();
-    }*/
 }

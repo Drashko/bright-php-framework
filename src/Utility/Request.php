@@ -3,6 +3,7 @@
 namespace src\Utility;
 
 use JetBrains\PhpStorm\Pure;
+use src\Router\Router;
 
 class Request
 {

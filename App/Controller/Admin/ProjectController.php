@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Middleware\Before\HasPermissionMiddleware;
 use App\Middleware\Before\RequireLoginMiddleware;
+use App\Repository\Client\ClientRepositoryInterface;
 use App\Repository\Project\ProjectRepositoryInterface;
 use App\Service\Project\ProjectCreateServiceInterface;
 use App\Service\Project\ProjectUpdateServiceInterface;
@@ -14,6 +15,7 @@ use src\Base\BaseController;
 use src\Exception\NotFoundException;
 use src\Flash\Flash;
 use src\Logger\LoggerInterface;
+use src\Utility\Route;
 
 class ProjectController extends BaseController {
 
@@ -25,12 +27,20 @@ class ProjectController extends BaseController {
 
     private LoggerInterface $logger;
 
-    public function __construct(ProjectRepositoryInterface $projectRepository, ProjectCreateServiceInterface $projectCreateService, ProjectUpdateServiceInterface $projectUpdateService, LoggerInterface $logger){
+    private ClientRepositoryInterface $clientRepository;
+
+    public function __construct(
+        ProjectRepositoryInterface $projectRepository,
+        ProjectCreateServiceInterface $projectCreateService,
+        ProjectUpdateServiceInterface $projectUpdateService,
+        ClientRepositoryInterface $clientRepository,
+        LoggerInterface $logger){
         parent::__construct();
         $this->layout = 'admin';
         $this->projectRepository = $projectRepository;
         $this->projectCreateService = $projectCreateService;
         $this->projectUpdateService = $projectUpdateService;
+        $this->clientRepository = $clientRepository;
         $this->logger = $logger;
     }
 
@@ -55,9 +65,10 @@ class ProjectController extends BaseController {
      * @throws Exception
      */
     public function indexAction(){
-        $conditions = [];
-        $data = $this->projectRepository->list($conditions);
-        $this->render('/Admin/project', ['projectList' => $data]);
+        $conditions = Route::getUrlParam();
+        $data['projectList'] = $this->projectRepository->list($conditions);
+        $data['clientList'] = $this->clientRepository->list([]);
+        $this->render('/Admin/project', ['projectList' => $data['projectList'], 'clientList' => $data['clientList']]);
     }
 
     /**

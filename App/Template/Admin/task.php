@@ -17,7 +17,7 @@ $filter  = Route::setFilterParam($_GET);
 <form id="project-list" method="get" class="uk-overflow-auto">
     <h2>Project List</h2>
     <div class="uk-margin">
-        <a href="<?=$this->url("admin/task/create/")?>" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Add task</a>
+        <a href="<?=$this->url("admin/task/create/")?>" uk-toggle class="uk-button uk-button-primary uk-button-small" >Add task <span uk-icon="icon: plus" class="uk-margin-small-left"></span></a>
     </div>
     <!--div class="uk-margin uk-left">
         <select class="uk-select uk-width-small uk-form-small" id="role-select" name="role_id">
