@@ -6,5 +6,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     Permission.init();
     Export.init();
     Client.init();
+    Task.init();
     Project.init();
+    Activity.init();
 });

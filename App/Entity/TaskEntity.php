@@ -20,6 +20,7 @@ class TaskEntity extends Entity
     private ?int $user_id = null;
     private ?string $name = null;
     private ?string $text = null;
+    private ?string $time = null;
     private ?int $status = null;
     private ?string $created_at = null;
     private ?string $updated_at = null;
@@ -52,6 +53,7 @@ class TaskEntity extends Entity
             'user_id'   => $this->getUserId(),
             'name'   => $this->getName(),
             'text'   => $this->getText(),
+            'time'   => $this->getTime(),
             'status'     => $this->getStatus(),
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt()
@@ -130,6 +132,23 @@ class TaskEntity extends Entity
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param string|null $time
+     * @return TaskEntity
+     */
+    public function setTime(?string $time): TaskEntity
+    {
+        $this->time = $time;
+        return $this;
+    }
     /**
      * @return int|null
      */

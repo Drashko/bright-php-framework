@@ -7,7 +7,7 @@ $errors   = $data['errors'] ?? [];
         <form method="get" class="uk-overflow-auto">
             <h2>Role List</h2>
             <div class="uk-margin">
-                <a href="#modal-role-create" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Create Role</a>
+                <a href="#modal-role-create" uk-toggle class="uk-button uk-button-primary uk-button-small" >Create Role <span uk-icon="icon: plus" class="uk-margin-small-left"></span></a>
             </div>
             <div class="uk-margin uk-right">
                 <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>

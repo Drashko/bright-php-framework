@@ -66,7 +66,7 @@ class ProjectController extends BaseController {
      */
     public function indexAction(){
         $conditions = Route::getUrlParam();
-        $data['projectList'] = $this->projectRepository->list($conditions);
+        $data['projectList'] = $this->projectRepository->listAll($conditions);
         $data['clientList'] = $this->clientRepository->list([]);
         $this->render('/Admin/project', ['projectList' => $data['projectList'], 'clientList' => $data['clientList']]);
     }

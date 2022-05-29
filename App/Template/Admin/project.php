@@ -1,17 +1,11 @@
 <?php $this->start('body');
 
 use src\Utility\Lookup;
-use src\Utility\Route;
 use src\Utility\Status;
-use src\Utility\H;
-$errors   = $data['errors'] ?? [];
 $statusList   = Status::Project;
-$roles    = [ 1 => 'Client' , 2 => 'Customer', 5 => 'Admin'];
 $page    = $_GET['page'] ?? 1;
 $status  = $_GET['status'] ?? '';
 $role_id = $_GET['role_id'] ?? '';
-$clientList = H::castObjectToArray($data['clientList']);
-
 ?>
 <form id="project-list" method="get" action="<?=$this->url('admin/project/index/')?>" class="uk-overflow-auto">
     <h2>Project List</h2>

@@ -5,6 +5,7 @@ namespace App\Service\Client;
 
 use App\Entity\ClientEntity;
 use App\Repository\Client\ClientRepositoryInterface;
+use Exception;
 use src\Utility\Sanitizer;
 
 class ClientCreateService implements ClientCreateServiceInterface
@@ -27,7 +28,7 @@ class ClientCreateService implements ClientCreateServiceInterface
     /**
      * @param array $data
      * @return ClientEntity|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(array $data): ClientEntity|null
     {

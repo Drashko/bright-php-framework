@@ -59,7 +59,7 @@ if(!$session->has('menu-item-opened'))
         <img class="custom-logo" src="<?=INDEX_URL?>public/Img/dashboard-logo.svg" alt="">
     </div>
     <div class="left-content-box  content-box-dark">
-        <h4 class="uk-text-center uk-margin-remove-vertical text-light"><?=$loggedInUser->getName()?></h4>
+        <h4 class="uk-text-center uk-margin-remove-vertical text-light"><?=$loggedInUser->getName()?> </h4>
 
         <!--div class="uk-position-relative uk-text-center uk-display-block">
             <a href="#" class="uk-text-small uk-text-muted uk-display-block uk-text-center" data-uk-icon="icon: triangle-down; ratio: 0.7">Admin</a>

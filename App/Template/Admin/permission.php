@@ -6,7 +6,7 @@ $errors   = $data['errors'] ?? [];
         <form method="get">
             <h2>Permission List</h2>
             <div class="uk-margin">
-                <a href="#modal-permission-create" uk-toggle class="uk-button uk-button-secondary uk-button-small" >Create Permission</a>
+                <a href="#modal-permission-create" uk-toggle class="uk-button uk-button-primary uk-button-small" >Create Permission <span uk-icon="icon: plus" class="uk-margin-small-left"></span></a>
             </div>
             <div class="uk-margin uk-right">
                 <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>

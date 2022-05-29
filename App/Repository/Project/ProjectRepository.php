@@ -29,16 +29,24 @@ class ProjectRepository implements ProjectRepositoryInterface
     }
 
     /**
+     * list all records from project table - no relations!
+     *
      * @param array $conditions
      * @return array
      */
-    /*public function list(array $conditions): array
+    public function list(array $conditions): array
     {
         $mapper = $this->dataMapper->findAll('`project`', $conditions);
         return $this->dataMapper->fetchAllInto($mapper,ProjectEntity::class);
-    }*/
+    }
 
-    public function list(array $conditions) : array {
+    /**
+     * get all projects and relational users and clients
+     *
+     * @param array $conditions
+     * @return array
+     */
+    public function listAll(array $conditions) : array {
         $sql = "SELECT p.Id ,p.manager_id, p.client_id, p.name , p.description,   p.start_date, p.end_date, p.status, p.created_at,  c.name As clientName, u.name As managerName"
               . " FROM `project` p"
               . " LEFT JOIN `client` c ON (p.client_id = c.Id)"
@@ -46,6 +54,7 @@ class ProjectRepository implements ProjectRepositoryInterface
         if(!empty($conditions['status'])){
             $sql .= " WHERE p.status = :status";
         }
+        //pr($sql);
         $stm = $this->dataMapper->raw($sql);
         if(!empty($conditions['status'])){
             $stm->execute(['status' => $conditions['status']]);

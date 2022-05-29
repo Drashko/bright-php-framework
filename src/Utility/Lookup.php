@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace src\Utility;
 
@@ -10,6 +11,7 @@ class Lookup
               if($value['id'] == $match){
                   return $value['name'];
               }
+
           }
   }
 }

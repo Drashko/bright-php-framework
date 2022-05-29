@@ -21,6 +21,7 @@ class ActivityEntity extends Entity
     private ?int $task_id = null;
     private ?int $user_id = null;
     private ?string $name = null;
+    private ?string $time = null;
     private ?string $description = null;
     private ?int $status = null;
     private ?string $created_at = null;
@@ -54,6 +55,7 @@ class ActivityEntity extends Entity
             'user_id'       => $this->getUserId(),
             'task_id'       => $this->getTaskId(),
             'name'          => $this->getName(),
+            'time'          => $this->getTime(),
             'description'   => $this->getDescription(),
             'status'     => $this->getStatus(),
             'created_at' => $this->getCreatedAt(),
@@ -132,6 +134,27 @@ class ActivityEntity extends Entity
         $this->name = $name;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param string|null $time
+     * @return ActivityEntity
+     */
+    public function setTime(?string $time): ActivityEntity
+    {
+        $this->time = $time;
+        return $this;
+    }
+
+
+
 
     /**
      * @return string|null

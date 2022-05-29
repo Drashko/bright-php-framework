@@ -4,16 +4,20 @@ namespace src\Utility;
 
 class H
 {
+
     /**
      * convert type casts array of objects to array list
-     * @param $objectList
+     * @param object $objectList
+     * @param string $namespace
      * @return array
      */
-    public static function  castObjectToArray($objectList): array{
+    public static function  castObjectToArray(array $objectList, string $namespace = ''): array{
         $out = [];
-        foreach ($objectList as $key => $array) {
-            $out[] = (array) $array;
-        }
+        array_walk_recursive($objectList , function(&$array, $k) use ($namespace, &$out) {
+          $keys  = str_replace($namespace,"", array_keys((array) $array));
+          $val   = array_values((array) $array);
+          $out[] = array_combine($keys,$val);
+        });
         return $out;
     }
 
