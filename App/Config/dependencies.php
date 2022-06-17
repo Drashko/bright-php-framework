@@ -99,12 +99,15 @@ return [
     \App\Service\Task\TaskCreateServiceInterface::class => \DI\autowire(\App\Service\Task\TaskCreateService::class),
     \App\Service\Activity\ActivityCreateServiceInterface::class => \DI\autowire(\App\Service\Activity\ActivityCreateService::class),
     \App\Service\Activity\ActivityUpdateServiceInterface::class => \DI\autowire(\App\Service\Activity\ActivityUpdateService::class),
+    \App\Service\Git\GitCreateServiceInterface::class => \DI\autowire(\App\Service\Git\GitCreateService::class),
+    \App\Service\Git\GitUpdateServiceInterface::class => \DI\autowire(\App\Service\Git\GitUpdateService::class),
     \App\Repository\Permission\PermissionRepositoryInterface::class => \DI\autowire(PermissionRepository::class),
     \App\Repository\RolePermission\RolePermissionRepositoryInterface::class => \DI\autowire(RolePermissionRepository::class),
     \App\Repository\Message\MessageRepositoryInterface::class => \DI\autowire(MessageRepository::class),
     \App\Repository\Client\ClientRepositoryInterface::class => \DI\autowire(\App\Repository\Client\ClientRepository::class),
     \App\Repository\Task\TaskRepositoryInterface::class => \DI\autowire(\App\Repository\Task\TaskRepository::class),
     \App\Repository\Activity\ActivityRepositoryInterface::class => \DI\autowire(\App\Repository\Activity\ActivityRepository::class),
+    \App\Repository\Git\GitRepositoryInterface::class => \DI\autowire(\App\Repository\Git\GitRepository::class),
 
     //\App\Service\Auth\Authenticated::class => \DI\autowire()->method('initAuth', AuthenticateService::class ),
 

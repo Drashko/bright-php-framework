@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 session_start();
 /**
  * project root directory defined
@@ -34,7 +35,6 @@ Globals::add('loggedInUser', $getLoggedInUser);
  */
 (new Application(ROOT_PATH))->run()->setRouteHandler();
 //echo phpinfo();
-
 
 
 
