@@ -140,5 +140,27 @@ return [
            ]
         ],
 
+    ],
+    [
+        'name' => 'Dev',
+        'link' => null ,
+        'attr' => [
+            'class' => 'uk-parent' ,
+            'data' => 'data-uk-icon="icon: git-branch"'
+        ],
+        'sub-nav' => [
+
+            'list' => [
+                ['name' => 'Git',
+                    'link' => 'admin/git/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
+                ],
+                ['name' => 'GitHub',
+                    'link' => 'admin/gitHub/index/',
+                    'attr' => ['class' => 'uk-parent' , 'data' => 'data-uk-icon="icon: chevron-double-right"'],
+                ],
+            ]
+        ],
+
     ]
 ];

@@ -46,10 +46,10 @@ $statusList = Status::Project;
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Project</th>
-                <th>User</th>
                 <th>Name</th>
                 <th>Text</th>
+                <th>Project</th>
+                <th>User</th>
                 <th>Time</th>
                 <th>Status</th>
                 <th>CreatedAt</th>
@@ -61,10 +61,10 @@ $statusList = Status::Project;
                 <?php foreach ($data['taskList'] as $task) : ?>
                     <tr>
                         <td><?=$task['Id']?></td>
-                        <td><?=$task['projectName']?></td>
-                        <td><?=$task['userName']?></td>
                         <td><?=$task['name']?></td>
                         <td><?=$task['text']?></td>
+                        <td><?=$task['projectName']?></td>
+                        <td><?=$task['userName']?></td>
                         <td><?=$task['time']?></td>
                         <td><span class="uk-label uk-label-<?=$task['status']?>"> <?=Lookup::findIdName($statusList, $task['status'])?> </span></td>
 

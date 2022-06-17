@@ -38,34 +38,34 @@ class MessageRepository implements MessageRepositoryInterface
     }
 
     /**
-     * @param MessageEntity $roleEntity
+     * @param MessageEntity $messageEntity
      * @return MessageEntity
      */
-    public function create(MessageEntity $roleEntity): MessageEntity
+    public function create(MessageEntity $messageEntity): MessageEntity
     {
-        $mapper = $this->dataMapper->create($roleEntity);
+        $mapper = $this->dataMapper->create($messageEntity);
         $mapper->setFetchMode(PDO::FETCH_CLASS, MessageEntity::class);
         return $mapper->fetch();
     }
 
     /**
-     * @param MessageEntity $roleEntity
+     * @param MessageEntity $messageEntity
      * @param int $id
      * @return bool
      */
-    public function delete(MessageEntity $roleEntity, int $id): bool
+    public function delete(MessageEntity $messageEntity, int $id): bool
     {
-        return $this->dataMapper->delete($roleEntity, $id);
+        return $this->dataMapper->delete($messageEntity, $id);
     }
 
     /**
-     * @param MessageEntity $roleEntity
+     * @param MessageEntity $messageEntity
      * @param int $id
      * @return MessageEntity
      */
-    public function update(MessageEntity $roleEntity, int $id): MessageEntity
+    public function update(MessageEntity $messageEntity, int $id): MessageEntity
     {
-        $mapper = $this->dataMapper->update($roleEntity, $id);
+        $mapper = $this->dataMapper->update($messageEntity, $id);
         $mapper->setFetchMode(PDO::FETCH_CLASS, MessageEntity::class);
         return $mapper->fetch();
     }
