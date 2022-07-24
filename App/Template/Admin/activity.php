@@ -44,6 +44,7 @@ $statusList = Status::Project;
             <?php endforeach; ?>
         </select>
         <button id="button-filter" type="submit"  class="uk-button uk-button-primary uk-button-small">Search</button>
+        <a href="<?=$this->url('admin/activity/index/')?>" class="uk-button uk-button-danger uk-button-small">Clear</a>
     </div>
     <div class="uk-margin uk-right ">
         <a  id="print" class="uk-button uk-button-default uk-button-small" href="">Print</a>
@@ -52,7 +53,7 @@ $statusList = Status::Project;
         <a  href="#modal-csv" uk-toggle class="uk-button uk-button-default uk-button-small">CSV</a>
     </div>
     <hr>
-    <div class="uk-overflow-container">
+    <div class="table uk-overflow-auto">
         <table class="uk-table uk-table-hover uk-table-striped">
             <thead>
             <tr>

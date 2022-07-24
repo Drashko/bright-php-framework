@@ -17,7 +17,7 @@ $statusList = Status::User;
         <a  href="#modal-csv" uk-toggle class="uk-button uk-button-default uk-button-small">CSV</a>
     </div>
     <hr>
-    <div class="uk-overflow-container">
+    <div class="table uk-overflow-auto">
         <table class="uk-table uk-table-hover uk-table-striped">
             <thead>
             <tr>

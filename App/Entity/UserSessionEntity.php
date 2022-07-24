@@ -18,6 +18,7 @@ class UserSessionEntity extends Entity
     private ?int $user_id = null;
     private ?string $hash = null;
     private ?string $expires_at = null;
+    private ?string $created_at = null;
     /**
      * @return string
      */
@@ -43,6 +44,7 @@ class UserSessionEntity extends Entity
             'user_id'    => $this->getUserId(),
             'hash'       => $this->getHash(),
             'expires_at' => $this->getExpiresAt(),
+            'created_at' => $this->getCreatedAt(),
         ];
     }
 
@@ -97,6 +99,24 @@ class UserSessionEntity extends Entity
     public function setExpiresAt(?string $expires_at): UserSessionEntity
     {
         $this->expires_at = $expires_at;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string|null $created_at
+     * @return UserSessionEntity
+     */
+    public function setCreatedAt(?string $created_at): UserSessionEntity
+    {
+        $this->created_at = $created_at;
         return $this;
     }
 

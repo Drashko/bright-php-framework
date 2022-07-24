@@ -135,9 +135,9 @@ main {
 	box-shadow: 0 2px 12px rgba(50,50,50,0.1);
 }
 #content {
-	margin-top: 52px;
-	padding: 30px 0 0 0;
-	/*background-color: #f7f7f7;*/
+	/*margin-top: 52px;*/
+	/*padding: 30px 0 0 0;*/
+	/*!*background-color: #f7f7f7;*/
 	margin-left: 0;
 	z-index: 0;
 	transition: margin 0.2s cubic-bezier(.4,0,.2,1);
@@ -145,7 +145,7 @@ main {
 @media screen and (min-width: 960px){
 	#content {
 		/* equal to left-col width */
-		margin-left: 240px;
+		margin-left: 260px;
 	}
 	#top-head {
 		/* equal to left-col width */
@@ -229,7 +229,7 @@ main {
 
 .uk-pagination li.uk-active { background: #39f;}
 .uk-pagination li.uk-active a {color:white;}
-.uk-overflow-auto {overflow: auto;}
+.table.uk-overflow-auto {overflow: auto;width:100%;}
 .uk-label-10 {background-color: #faa05a;color: #fff;}
 .uk-label-20 {background-color: #32d296;color: #fff;}
 .uk-label-40 {background: #1e87f0}

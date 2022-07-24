@@ -13,20 +13,23 @@
 </head>
 <body>
 <?php include(ROOT_PATH . '/App/Template/Header/admin.header.php');?>
-<div id="content" class="uk-overflow-container" data-uk-height-viewport="expand: true" >
-    <div class="uk-container admin uk-container-expand">
-        <?php $messages = src\Flash\Flash::get();?>
-        <?php if(!empty($messages)){ ?>
-            <?php foreach($messages as $message){?>
-                <div class="uk-alert-<?=$message['type']?>" uk-alert style="">
-                    <a class="uk-alert-close" uk-close></a>
-                    <p><?=$message['message']?></p>
-                </div>
-            <?php } ?>
-        <?php } ?>
-        <?=$this->content('body')?>
-    </div>
-</div>
+<main class="uk-section-small">
+    <section class="uk-section uk-section-small">
+            <div id="content" class="uk-container admin uk-container-expand">
+                <?php $messages = src\Flash\Flash::get();?>
+                <?php if(!empty($messages)){ ?>
+                    <?php foreach($messages as $message){?>
+                        <div class="uk-alert-<?=$message['type']?>" uk-alert style="">
+                            <a class="uk-alert-close" uk-close></a>
+                            <p><?=$message['message']?></p>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+                <?=$this->content('body')?>
+            </div>
+
+    </section>
+</main>
 <?php include(ROOT_PATH . '/App/Template/Footer/admin.footer.php');?>
     <!-- UIkit JS -->
     <script src="../../../public/Js/uikit.js"></script>
